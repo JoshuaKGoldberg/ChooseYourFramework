@@ -32,7 +32,7 @@ function fixIndexContents(contents) {
     </script>`
     );
 
-    return lines.join("\n");
+    return lines.join("\n").replace(">FullScreenPokemon<", ">Choose Your JavaScript Framework<");
 }
 
 // 3. Copy required node_modules/* packages into lib/
