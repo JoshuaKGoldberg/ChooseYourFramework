@@ -15,7 +15,7 @@
         "battlemovr": "^0.8.1",
         "classcyclr": "^0.8.1",
         "devicelayr": "^0.8.1",
-        "eightbittr": "^0.9.0",
+        "eightbittr": "^0.8.1",
         "flagswappr": "^0.8.1",
         "fpsanalyzr": "^0.8.1",
         "frametickr": "^0.8.1",
@@ -36,7 +36,7 @@
         "stringfilr": "^0.8.1",
         "timehandlr": "^0.8.1",
         "touchpassr": "^0.8.1",
-        "userwrappr": "^0.9.0"
+        "userwrappr": "^0.8.1"
     },
     "description": "HTML5 remake of the original Pokemon, expanded for modern browsers.",
     "devDependencies": {
