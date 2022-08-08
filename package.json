@@ -57,6 +57,7 @@
         "concurrently": "^5.2.0",
         "eslint": "^7.3.0",
         "eslint-config-prettier": "^6.11.0",
+        "fs-extra": "^10.1.0",
         "glob": "^7.1.6",
         "husky": "^4.2.5",
         "lerna": "^3.22.1",
@@ -95,7 +96,8 @@
         "url": "ssh://git@github.com:FullScreenShenanigans/FullScreenPokemon.git"
     },
     "scripts": {
-        "build:vercel": "yarn hydrate; yarn compile;",
+        "build:vercel": "yarn hydrate; yarn compile; yarn build:vercel:fix",
+        "build:vercel:fix": "node ./fix-index-for-vercel.js",
         "clean": "rm -rf lib *.tsbuildinfo",
         "compile": "tsc",
         "dist": "webpack",
