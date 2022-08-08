@@ -35,6 +35,10 @@ function fixIndexContents(contents) {
     return lines
         .join("\n")
         .replaceAll("FullScreenPokemon,", "Choose Your JavaScript Framework,")
+        .replaceAll(
+            "FullScreenShenanigans/FullScreenPokemon",
+            "JoshuaKGoldberg/choose-your-javascript-framework"
+        )
         .replaceAll(">FullScreenPokemon<", ">Choose Your JavaScript Framework<");
 }
 
