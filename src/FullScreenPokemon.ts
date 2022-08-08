@@ -1,6 +1,5 @@
 import { AudioPlayr, AudioPlayrSettings } from "audioplayr";
 import { factory, member } from "babyioc";
-import { BattleMovr } from "battlemovr";
 import { ClassCyclr, ClassCyclrSettings } from "classcyclr";
 import {
     EightBittr,
@@ -12,32 +11,23 @@ import { FlagSwappr, FlagSwapprSettings } from "flagswappr";
 import { GroupHoldr } from "groupholdr";
 import { ItemsHoldr } from "itemsholdr";
 import { MenuGraphr } from "menugraphr";
-import { ModAttachrSettings, ModAttachr, ModsItemsHoldr } from "modattachr";
 import { NumberMakrSettings, NumberMakr } from "numbermakr";
 import { ScenePlayr } from "sceneplayr";
 import { StateHoldr, StateItemsHoldr } from "stateholdr";
 
 import { createAudioPlayer } from "./creators/createAudioPlayer";
-import { createBattleMover } from "./creators/createBattleMover";
 import { createClassCycler } from "./creators/createClassCycler";
 import { createFlagSwapper, Flags } from "./creators/createFlagSwapper";
 import { createMenuGrapher } from "./creators/createMenuGrapher";
-import { createModAttacher } from "./creators/createModAttacher";
 import { createNumberMaker } from "./creators/createNumberMaker";
 import { createScenePlayer } from "./creators/createScenePlayer";
 import { createStateHolder } from "./creators/createStateHolder";
 import { Actions } from "./sections/Actions";
 import { Animations } from "./sections/Animations";
 import { Audio } from "./sections/Audio";
-import { Battles } from "./sections/Battles";
 import { Collisions } from "./sections/Collisions";
 import { Constants } from "./sections/Constants";
 import { Cutscenes } from "./sections/Cutscenes";
-import { Cycling } from "./sections/Cycling";
-import { Equations } from "./sections/Equations";
-import { Evolution } from "./sections/Evolution";
-import { Experience } from "./sections/Experience";
-import { Fishing } from "./sections/Fishing";
 import { Frames } from "./sections/Frames";
 import { Gameplay } from "./sections/Gameplay";
 import { Graphics } from "./sections/Graphics";
@@ -47,8 +37,6 @@ import { Items } from "./sections/Items";
 import { Maintenance } from "./sections/Maintenance";
 import { MapScreenr, Maps } from "./sections/Maps";
 import { Menus } from "./sections/Menus";
-import { Mods } from "./sections/Mods";
-import { MoveAdder } from "./sections/MoveAdder";
 import { Objects } from "./sections/Objects";
 import { Physics } from "./sections/Physics";
 import { Quadrants } from "./sections/Quadrants";
@@ -58,6 +46,7 @@ import { StorageItems, Storage } from "./sections/Storage";
 import { Player, Actors } from "./sections/Actors";
 import { Timing } from "./sections/Timing";
 import { Utilities } from "./sections/Utilities";
+import { Equations } from "./sections/Equations";
 
 /**
  * Settings to initialize a new FullScreenPokemon.
@@ -77,11 +66,6 @@ export interface FullScreenPokemonComponentSettings extends ComponentSettings {
      * Setings overrides for the game's FlagSwappr.
      */
     flagSwapper?: Partial<FlagSwapprSettings<Flags>>;
-
-    /**
-     * Setings overrides for the game's ModAttachr.
-     */
-    modAttacher?: Partial<ModAttachrSettings>;
 
     /**
      * Setings overrides for the game's NumberMakr.
@@ -122,12 +106,6 @@ export class FullScreenPokemon extends EightBittr {
     public readonly audioPlayer: AudioPlayr;
 
     /**
-     * An in-game battle management system for RPG-like battles between actors.
-     */
-    @factory(createBattleMover)
-    public readonly battleMover: BattleMovr;
-
-    /**
      * Cycles through class names using TimeHandlr events.
      */
     @factory(createClassCycler)
@@ -147,7 +125,7 @@ export class FullScreenPokemon extends EightBittr {
     /**
      * Cache-based wrapper around localStorage.
      */
-    public readonly itemsHolder: ItemsHoldr<StorageItems> & ModsItemsHoldr & StateItemsHoldr;
+    public readonly itemsHolder: ItemsHoldr<StorageItems> & StateItemsHoldr;
 
     /**
      * A flexible container for map attributes and viewport.
@@ -159,12 +137,6 @@ export class FullScreenPokemon extends EightBittr {
      */
     @factory(createMenuGrapher)
     public readonly menuGrapher: MenuGraphr;
-
-    /**
-     * Hookups for extensible triggered mod events.
-     */
-    @factory(createModAttacher)
-    public readonly modAttacher: ModAttachr;
 
     /**
      * Configurable Mersenne Twister implementation.
@@ -203,12 +175,6 @@ export class FullScreenPokemon extends EightBittr {
     public readonly audio: Audio;
 
     /**
-     * BattleMovr hooks to run trainer battles.
-     */
-    @member(Battles)
-    public readonly battles: Battles;
-
-    /**
      * ActorHittr collision function generators.
      */
     @member(Collisions)
@@ -225,36 +191,6 @@ export class FullScreenPokemon extends EightBittr {
      */
     @member(Cutscenes)
     public readonly cutscenes: Cutscenes;
-
-    /**
-     * Starts and stop characters cycling.
-     */
-    @member(Cycling)
-    public readonly cycling: Cycling;
-
-    /**
-     * Common equations.
-     */
-    @member(Equations)
-    public readonly equations: Equations;
-
-    /**
-     * Logic for what Pokemon are able to evolve into.
-     */
-    @member(Evolution)
-    public readonly evolution: Evolution;
-
-    /**
-     * Calculates experience gains and level ups for Pokemon.
-     */
-    @member(Experience)
-    public readonly experience: Experience;
-
-    /**
-     * Runs the player trying to fish for Pokemon.
-     */
-    @member(Fishing)
-    public readonly fishing: Fishing;
 
     /**
      * How to advance each frame of the game.
@@ -279,6 +215,9 @@ export class FullScreenPokemon extends EightBittr {
      */
     @member(Groups)
     public readonly groups: Groups<this>;
+
+    @member(Equations)
+    public readonly equations: Equations;
 
     /**
      * User input filtering and handling.
@@ -309,18 +248,6 @@ export class FullScreenPokemon extends EightBittr {
      */
     @member(Menus)
     public readonly menus: Menus;
-
-    /**
-     * Creates ModAttachr from mod classes.
-     */
-    @member(Mods)
-    public readonly mods: Mods;
-
-    /**
-     * Creates MoveAdder to teach Pokemon new moves.
-     */
-    @member(MoveAdder)
-    public readonly moveAdder: MoveAdder;
 
     /**
      * Raw ObjectMakr factory settings.

@@ -3,7 +3,6 @@ import { Section } from "eightbittr";
 
 import { FullScreenPokemon } from "../FullScreenPokemon";
 
-import { Battles } from "./constants/Battles";
 import { Items } from "./constants/Items";
 import { Moves } from "./constants/Moves";
 import { Pokemon } from "./constants/Pokemon";
@@ -63,12 +62,6 @@ export class Constants extends Section<FullScreenPokemon> {
      * How many game pixels wide each map "block" is.
      */
     public readonly blockSize: number = 32;
-
-    /**
-     * Universal battle constants.
-     */
-    @member(Battles)
-    public readonly battles: Battles;
 
     /**
      * All known items, keyed by English name.

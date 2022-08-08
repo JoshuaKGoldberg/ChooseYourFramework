@@ -27,11 +27,11 @@ export const createMenuGrapher = (game: FullScreenPokemon): MenuGraphr =>
         },
         game: game,
         replacements: {
-            PLAYER: (): string[] => game.itemsHolder.getItem(game.storage.names.name),
-            RIVAL: (): string[] => game.itemsHolder.getItem(game.storage.names.nameRival),
+            PLAYER: (): string[] => "Blue".split(""),
+            RIVAL: (): string[] => "LOSERFACE".split(""),
             POKE: "POK�".split(""),
-            POKEMON: "POK�MON".split(""),
-            POKEDEX: "POK�DEX".split(""),
+            POKEMON: "JavaScript".split(""),
+            POKEDEX: "MDN".split(""),
             "POKEDEX.SEEN": (): string[] =>
                 game.utilities
                     .makeDigit(

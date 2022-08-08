@@ -9,7 +9,6 @@ import { Grass } from "./actions/Grass";
 import { Ledges } from "./actions/Ledges";
 import { Roaming } from "./actions/Roaming";
 import { Walking } from "./actions/Walking";
-import { Pokemon } from "./Battles";
 import { Direction } from "./Constants";
 import { HMMoveSchema } from "./constants/Moves";
 import { Area, Map } from "./Maps";
@@ -140,7 +139,6 @@ export class Actions extends Section<FullScreenPokemon> {
                     throw new Error("Pokeball must have a Pokemon for the cutscene action.");
                 }
 
-                this.game.menus.pokedex.openPokedexListing(other.pokemon);
                 break;
 
             case "dialog":
@@ -506,8 +504,6 @@ export class Actions extends Section<FullScreenPokemon> {
      * @param other   A Character that actor has finished talking to.
      */
     public animateCharacterDialogFinish(actor: Player, other: Character): void {
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onDialogFinish, other);
-
         actor.talking = false;
         other.talking = false;
 
@@ -567,10 +563,6 @@ export class Actions extends Section<FullScreenPokemon> {
                 other.sight = undefined;
                 this.game.stateHolder.addChange(other.id, "sight", undefined);
             }
-        }
-
-        if (!other.dialogOptions) {
-            this.game.saves.autoSaveIfEnabled();
         }
     }
 
@@ -889,7 +881,7 @@ export class Actions extends Section<FullScreenPokemon> {
         )) {
             for (const move of pokemon.moves) {
                 if (move.title === actor.moveName) {
-                    actor.moveCallback(player, pokemon);
+                    actor.moveCallback(player);
                     return;
                 }
             }
@@ -1034,11 +1026,11 @@ export class Actions extends Section<FullScreenPokemon> {
      * @todo Add context for what happens if player is not bordering the correct HMCharacter.
      * @todo Refactor to give borderedActor a .hmActivate property.
      */
-    public partyActivateCheckActor(player: Player, pokemon: Pokemon, move: HMMoveSchema): void {
+    public partyActivateCheckActor(player: Player, _: unknown, move: HMMoveSchema): void {
         const borderedActor: Actor | undefined = player.bordering[player.direction];
 
         if (borderedActor && borderedActor.title.indexOf(move.characterName!) !== -1) {
-            move.partyActivate!(player, pokemon);
+            move.partyActivate!(player);
         }
     }
 

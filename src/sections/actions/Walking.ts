@@ -1,12 +1,8 @@
-import { member } from "babyioc";
 import { Section } from "eightbittr";
 
 import { FullScreenPokemon } from "../../FullScreenPokemon";
 import { Direction } from "../Constants";
-import { WildPokemonSchema } from "../Maps";
 import { Character, Player } from "../Actors";
-
-import { Encounters } from "./walking/Encounters";
 
 /**
  * A single instruction on a walking path.
@@ -39,12 +35,6 @@ export type WalkingInstructions = (WalkingInstruction | WalkingInstructionGenera
  * Starts, continues, and stops characters walking.
  */
 export class Walking extends Section<FullScreenPokemon> {
-    /**
-     * Checks for and starts wild Pokemon encounters during walking.
-     */
-    @member(Encounters)
-    public readonly encounters: Encounters;
-
     /**
      * Starts a Character walking on a predetermined path.
      *
@@ -215,19 +205,10 @@ export class Walking extends Section<FullScreenPokemon> {
      * @param actor @
      * @returns Whether a wild Pokemon encounter was started.
      */
-    private tryStartWildPokemonEncounter(actor: Player): boolean {
+    private tryStartWildPokemonEncounter(_: Player): boolean {
         if (this.game.menuGrapher.getActiveMenu()) {
             return false;
         }
-
-        const wildPokemonOptions:
-            | WildPokemonSchema[]
-            | undefined = this.encounters.choices.getWildEncounterPokemonOptions(actor);
-        if (wildPokemonOptions === undefined || wildPokemonOptions.length === 0) {
-            return false;
-        }
-
-        this.encounters.starting.startWildEncounterBattle(actor, wildPokemonOptions);
 
         return true;
     }

@@ -1,5 +1,3 @@
-import { Cycling } from "../Cycling";
-import { Fishing } from "../Fishing";
 import { Actor } from "../Actors";
 
 export type OnBagActivate = (actor: Actor, itemSchema: ItemSchema) => void;
@@ -380,7 +378,6 @@ export class Items {
             effect: "Allows travel at double speed",
             category: "Key",
             error: "No cycling allowed here.",
-            bagActivate: Cycling.prototype.toggleCycling,
             name: "Bicycle".split(""),
         },
         "Bike Voucher": {
@@ -416,7 +413,6 @@ export class Items {
         "Good Rod": {
             effect: "Fish for medium-levelled water Pokemon",
             category: "Key",
-            bagActivate: Fishing.prototype.startFishing,
             title: "Good Rod",
             type: "good",
             name: "Good Rod".split(""),
@@ -449,7 +445,6 @@ export class Items {
         "Old Rod": {
             effect: "Fish for low-levelled water Pokemon",
             category: "Key",
-            bagActivate: Fishing.prototype.startFishing,
             title: "Old Rod",
             type: "old",
             name: "Old Rod".split(""),
@@ -482,7 +477,6 @@ export class Items {
         "Super Rod": {
             effect: "Fish for high-levelled water Pokemon",
             category: "Key",
-            bagActivate: Fishing.prototype.startFishing,
             title: "Super Rod",
             type: "super",
             name: "Super Rod".split(""),

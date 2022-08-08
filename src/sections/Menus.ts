@@ -9,10 +9,6 @@ import { Items } from "./menus/Items";
 import { Keyboards } from "./menus/Keyboards";
 import { Pause } from "./menus/Pause";
 import { Player } from "./menus/Player";
-import { Pokedex } from "./menus/Pokedex";
-import { Pokemon } from "./menus/Pokemon";
-import { Save } from "./menus/Save";
-import { TownMap } from "./menus/TownMap";
 import { Actor } from "./Actors";
 
 /**
@@ -158,30 +154,6 @@ export class Menus extends Section<FullScreenPokemon> {
      */
     @member(Player)
     public readonly player: Player;
-
-    /**
-     * Opens the Pokedex and its individual listings.
-     */
-    @member(Pokedex)
-    public readonly pokedex: Pokedex;
-
-    /**
-     * Manipulates Pokemon party and detail menus.
-     */
-    @member(Pokemon)
-    public readonly pokemon: Pokemon;
-
-    /**
-     * Opens the Save menu.
-     */
-    @member(Save)
-    public readonly save: Save;
-
-    /**
-     * Opens and animates displays on the Town Map menu.
-     */
-    @member(TownMap)
-    public readonly townMap: TownMap;
 
     /**
      * Displays message when a Player tries to use an item that cannot be used.

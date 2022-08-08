@@ -1,10 +1,7 @@
 import { Section } from "eightbittr";
 
 import { FullScreenPokemon } from "../../FullScreenPokemon";
-import { Pokemon } from "../Battles";
-import { Direction, PokedexListingStatus } from "../Constants";
-import { KeyboardResultsMenu } from "../menus/Keyboards";
-import { Character, Pokeball, Actor } from "../Actors";
+import { Pokeball } from "../Actors";
 
 /**
  * OakIntroPokemonChoice cutscene routines.
@@ -39,18 +36,7 @@ export class OakIntroPokemonChoiceCutscene extends Section<FullScreenPokemon> {
         const pokeball: Pokeball = settings.triggerer;
         settings.chosen = pokeball.pokemon;
 
-        this.game.menus.pokedex.openPokedexListing(
-            pokeball.pokemon!,
-            this.game.scenePlayer.bindRoutine("PlayerDecidesPokemon"),
-            {
-                position: {
-                    vertical: "center",
-                    offset: {
-                        left: 0,
-                    },
-                },
-            }
-        );
+        this.game.scenePlayer.playRoutine("PlayerDecidesPokemon");
     }
 
     /**
@@ -59,16 +45,15 @@ export class OakIntroPokemonChoiceCutscene extends Section<FullScreenPokemon> {
      * @param settings   Settings used for the cutscene.
      */
     public PlayerDecidesPokemon(settings: any): void {
+        console.log("Deciding on", { settings });
         this.game.menuGrapher.createMenu("GeneralText");
         this.game.menuGrapher.addMenuDialog(
             "GeneralText",
             [
                 [
                     "So! You want the " +
-                        settings.triggerer.description +
-                        " %%%%%%%POKEMON%%%%%%%, ",
-                    settings.chosen,
-                    "?",
+                        settings.triggerer.actor.replace("Library", "") +
+                        " framework?",
                 ],
             ],
             (): void => {
@@ -79,7 +64,9 @@ export class OakIntroPokemonChoiceCutscene extends Section<FullScreenPokemon> {
                     options: [
                         {
                             text: "YES",
-                            callback: this.game.scenePlayer.bindRoutine("PlayerTakesPokemon"),
+                            callback: () => {
+                                window.open(settings.triggerer.href);
+                            },
                         },
                         {
                             text: "NO",
@@ -88,194 +75,6 @@ export class OakIntroPokemonChoiceCutscene extends Section<FullScreenPokemon> {
                     ],
                 });
                 this.game.menuGrapher.setActiveMenu("Yes/No");
-            }
-        );
-        this.game.menuGrapher.setActiveMenu("GeneralText");
-    }
-
-    /**
-     * Cutscene for the player receiving his Pokemon.
-     *
-     * @param settings   Settings used for the cutscene.
-     */
-    public PlayerTakesPokemon(settings: any): void {
-        const oak = this.game.utilities.getExistingActorById<Character>("Oak");
-        const rival = this.game.utilities.getExistingActorById<Character>("Rival");
-        const dialogOak =
-            "Oak: f a wild %%%%%%%POKEMON%%%%%%% appears, your %%%%%%%POKEMON%%%%%%% can fight against it!";
-        const dialogRival = "%%%%%%%RIVAL%%%%%%%: My %%%%%%%POKEMON%%%%%%% looks a lot stronger.";
-
-        settings.oak = oak;
-        oak.dialog = dialogOak;
-        this.game.stateHolder.addChange(oak.id, "dialog", dialogOak);
-
-        settings.rival = rival;
-        rival.dialog = dialogRival;
-        this.game.stateHolder.addChange(rival.id, "dialog", dialogRival);
-
-        this.game.itemsHolder.setItem(this.game.storage.names.starter, settings.chosen.join(""));
-        settings.triggerer.hidden = true;
-        this.game.stateHolder.addChange(settings.triggerer.id, "hidden", true);
-        this.game.stateHolder.addChange(settings.triggerer.id, "nocollide", true);
-        this.game.death.kill(settings.triggerer);
-
-        this.game.menuGrapher.deleteMenu("Yes/No");
-        this.game.menuGrapher.createMenu("GeneralText");
-        this.game.menuGrapher.addMenuDialog(
-            "GeneralText",
-            [
-                ["%%%%%%%PLAYER%%%%%%% received a ", settings.chosen, "!"],
-                "This %%%%%%%POKEMON%%%%%%% is really energetic!",
-                ["Do you want to give a nickname to ", settings.chosen, "?"],
-            ],
-            this.game.scenePlayer.bindRoutine("PlayerChoosesNickname")
-        );
-        this.game.menuGrapher.setActiveMenu("GeneralText");
-
-        this.game.itemsHolder.setItem(this.game.storage.names.starter, settings.chosen);
-        this.game.itemsHolder.setItem(this.game.storage.names.pokemonInParty, [
-            this.game.equations.newPokemon({
-                level: 5,
-                title: settings.chosen,
-            }),
-        ]);
-        this.game.saves.addPokemonToPokedex(settings.chosen, PokedexListingStatus.Caught);
-    }
-
-    /**
-     * Cutscene for allowing the player to choose his Pokemon's nickname.
-     *
-     * @param settings   Settings used for the cutscene.
-     */
-    public PlayerChoosesNickname(settings: any): void {
-        this.game.menuGrapher.createMenu("Yes/No", {
-            ignoreB: true,
-            killOnB: ["GeneralText"],
-        });
-        this.game.menuGrapher.addMenuList("Yes/No", {
-            options: [
-                {
-                    text: "YES",
-                    callback: (): void =>
-                        this.game.menus.keyboards.openKeyboardMenu({
-                            title: settings.chosen,
-                            callback: this.game.scenePlayer.bindRoutine("PlayerSetsNickname"),
-                        }),
-                },
-                {
-                    text: "NO",
-                    callback: this.game.scenePlayer.bindRoutine("RivalWalksToPokemon"),
-                },
-            ],
-        });
-        this.game.menuGrapher.setActiveMenu("Yes/No");
-    }
-
-    /**
-     * Cutscene for the player finishing the naming process.
-     */
-    public PlayerSetsNickname(): void {
-        const party: Pokemon[] = this.game.itemsHolder.getItem(
-            this.game.storage.names.pokemonInParty
-        );
-        const menu: KeyboardResultsMenu = this.game.menuGrapher.getMenu(
-            "KeyboardResult"
-        ) as KeyboardResultsMenu;
-        const result: string[] = menu.completeValue;
-
-        party[0].nickname = result;
-
-        this.game.scenePlayer.playRoutine("RivalWalksToPokemon");
-    }
-
-    /**
-     * Cutscene for the rival selecting his Pokemon.
-     *
-     * @param settings   Settings used for the cutscene.
-     */
-    public RivalWalksToPokemon(settings: any): void {
-        const rival = this.game.utilities.getExistingActorById<Character>("Rival");
-        let starterRival: string[];
-        let steps: number;
-
-        this.game.menus.keyboards.closeKeyboardMenu();
-        this.game.menuGrapher.deleteMenu("GeneralText");
-        this.game.menuGrapher.deleteMenu("Yes/No");
-        this.game.mapScreener.blockInputs = true;
-
-        switch (settings.chosen.join("")) {
-            case "SQUIRTLE":
-                starterRival = "BULBASAUR".split("");
-                steps = 4;
-                break;
-            case "CHARMANDER":
-                starterRival = "SQUIRTLE".split("");
-                steps = 3;
-                break;
-            case "BULBASAUR":
-                starterRival = "CHARMANDER".split("");
-                steps = 2;
-                break;
-            default:
-                throw new Error("Unknown first Pokemon.");
-        }
-
-        settings.rivalPokemon = starterRival;
-        settings.rivalSteps = steps;
-        this.game.itemsHolder.setItem(this.game.storage.names.starterRival, starterRival);
-        this.game.saves.addPokemonToPokedex(starterRival, PokedexListingStatus.Caught);
-
-        const pokeball = this.game.utilities.getExistingActorById<Pokeball>(
-            "Pokeball" + starterRival.join("")
-        );
-        settings.rivalPokeball = pokeball;
-
-        this.game.actions.walking.startWalkingOnPath(rival, [
-            {
-                blocks: 2,
-                direction: Direction.Bottom,
-            },
-            {
-                blocks: steps,
-                direction: Direction.Right,
-            },
-            {
-                blocks: 1,
-                direction: Direction.Top,
-            },
-            this.game.scenePlayer.bindRoutine("RivalTakesPokemon"),
-        ]);
-    }
-
-    /**
-     * Cutscene for the rival receiving his Pokemon.
-     *
-     * @param settings   Settings used for the cutscene.
-     */
-    public RivalTakesPokemon(settings: any): void {
-        const oakblocker: Actor = this.game.utilities.getExistingActorById("OakBlocker");
-        const rivalblocker: Actor = this.game.utilities.getExistingActorById("RivalBlocker");
-
-        this.game.menuGrapher.deleteMenu("Yes/No");
-
-        oakblocker.nocollide = true;
-        this.game.stateHolder.addChange(oakblocker.id, "nocollide", true);
-
-        rivalblocker.nocollide = false;
-        this.game.stateHolder.addChange(rivalblocker.id, "nocollide", false);
-
-        this.game.menuGrapher.createMenu("GeneralText");
-        this.game.menuGrapher.addMenuDialog(
-            "GeneralText",
-            [
-                "%%%%%%%RIVAL%%%%%%%: 'll take this one, then!",
-                ["%%%%%%%RIVAL%%%%%%% received a ", settings.rivalPokemon, "!"],
-            ],
-            (): void => {
-                settings.rivalPokeball.hidden = true;
-                this.game.stateHolder.addChange(settings.rivalPokeball.id, "hidden", true);
-                this.game.menuGrapher.deleteActiveMenu();
-                this.game.mapScreener.blockInputs = false;
             }
         );
         this.game.menuGrapher.setActiveMenu("GeneralText");

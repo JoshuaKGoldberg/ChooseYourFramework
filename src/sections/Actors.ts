@@ -7,7 +7,6 @@ import * as timehandlr from "timehandlr";
 import { FullScreenPokemon } from "../FullScreenPokemon";
 
 import { WalkingInstructions } from "./actions/Walking";
-import { Pokemon } from "./Battles";
 import { Direction } from "./Constants";
 import { WildPokemonSchema } from "./Maps";
 import { Dialog, MenuSchema } from "./Menus";
@@ -562,7 +561,7 @@ export interface HMCharacter extends Character {
     /**
      * The partyActivate Function used to interact with this HMCharacter.
      */
-    moveCallback(player: Player, pokemon: Pokemon): void;
+    moveCallback(player: Player): void;
 
     /**
      * The badge needed to activate this HMCharacter.

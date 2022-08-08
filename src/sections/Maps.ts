@@ -13,13 +13,6 @@ import {
 import { MapScreenr as EightBittrMapScreenr } from "mapscreenr";
 
 import { PalletTown } from "../creators/mapsLibrary/PalletTown";
-import { PewterCity } from "../creators/mapsLibrary/PewterCity";
-import { Route1 } from "../creators/mapsLibrary/Route1";
-import { Route2 } from "../creators/mapsLibrary/Route2";
-import { Route21 } from "../creators/mapsLibrary/Route21";
-import { Route22 } from "../creators/mapsLibrary/Route22";
-import { ViridianCity } from "../creators/mapsLibrary/ViridianCity";
-import { ViridianForest } from "../creators/mapsLibrary/ViridianForest";
 import { FullScreenPokemon } from "../FullScreenPokemon";
 
 import { Direction } from "./Constants";
@@ -559,13 +552,6 @@ export class Maps<Game extends FullScreenPokemon> extends EightBittrMaps<Game> {
             },
         },
         "Pallet Town": PalletTown,
-        "Pewter City": PewterCity,
-        "Route 1": Route1,
-        "Route 2": Route2,
-        "Route 21": Route21,
-        "Route 22": Route22,
-        "Viridian City": ViridianCity,
-        "Viridian Forest": ViridianForest,
     };
 
     /**
@@ -640,8 +626,6 @@ export class Maps<Game extends FullScreenPokemon> extends EightBittrMaps<Game> {
                 }
             });
         }
-
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onAddPreActor, preactor);
     };
 
     /**
@@ -661,7 +645,6 @@ export class Maps<Game extends FullScreenPokemon> extends EightBittrMaps<Game> {
 
         this.game.players[0] = player;
         this.game.actors.add(player, left || 0, top || 0, useSavedInfo);
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onAddPlayer, player);
 
         return player;
     }
@@ -683,9 +666,7 @@ export class Maps<Game extends FullScreenPokemon> extends EightBittrMaps<Game> {
 
         const map: Map = this.game.areaSpawner.setMap(name) as Map;
 
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onPreSetMap, map);
         this.game.numberMaker.resetFromSeed(map.seed);
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onSetMap, map);
 
         return this.setLocation(location || map.locationDefault || "Blank", noEntrance);
     }
@@ -717,7 +698,6 @@ export class Maps<Game extends FullScreenPokemon> extends EightBittrMaps<Game> {
         };
 
         this.game.mapScreener.activeArea = location.area;
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onPreSetLocation, location);
         this.game.pixelDrawer.setBackground((this.game.areaSpawner.getArea() as Area).background);
 
         if (location.area.map.name !== "Blank") {
@@ -743,8 +723,6 @@ export class Maps<Game extends FullScreenPokemon> extends EightBittrMaps<Game> {
             location.entry.call(this, location);
         }
 
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onSetLocation, location);
-
         this.game.frameTicker.play();
 
         this.game.animations.fading.animateFadeFromColor({
@@ -757,7 +735,6 @@ export class Maps<Game extends FullScreenPokemon> extends EightBittrMaps<Game> {
                     blocks: 1,
                     direction: this.game.players[0].direction,
                 },
-                (): void => this.game.saves.autoSaveIfEnabled(),
             ]);
         }
 

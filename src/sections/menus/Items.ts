@@ -1,6 +1,5 @@
 import { Section } from "eightbittr";
 
-import { Pokemon } from "../../sections/Battles";
 import { FullScreenPokemon } from "../../FullScreenPokemon";
 import { MenuSchema } from "../Menus";
 
@@ -92,8 +91,6 @@ export class Items extends Section<FullScreenPokemon> {
             callback: () => this.game.menuGrapher.registerB(),
         });
 
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onOpenItemsMenu, listings);
-
         this.game.menuGrapher.createMenu("Items", settings);
         this.game.menuGrapher.addMenuList("Items", { options });
         this.game.menuGrapher.setActiveMenu("Items");
@@ -128,23 +125,6 @@ export class Items extends Section<FullScreenPokemon> {
                 text: "TOSS",
             },
         ];
-
-        if (this.game.flagSwapper.flags.heldItems) {
-            options.push({
-                callback: (): void => {
-                    const partyPokemon: Pokemon[] = this.game.itemsHolder.getItem(
-                        this.game.storage.names.pokemonInParty
-                    );
-                    const chosenPokemon = partyPokemon[0];
-                    chosenPokemon.item = listing.item.split("");
-                    listing.amount = listing.amount - 1;
-                    console.log("Someactor visual should happen when an item is given...");
-                },
-                text: "GIVE",
-            });
-        }
-
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onOpenItemMenu, listing);
 
         this.game.menuGrapher.createMenu("Item", settings);
         this.game.menuGrapher.addMenuList("Item", { options });

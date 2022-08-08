@@ -135,8 +135,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
             (): void => this.keyDownDirectionReal(actor as Player, Direction.Top),
             this.inputTimeTolerance
         );
-
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyDownUp);
     }
 
     /**
@@ -183,8 +181,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
             (): void => this.keyDownDirectionReal(actor as Player, Direction.Bottom),
             this.inputTimeTolerance
         );
-
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyDownDown);
     }
 
     /**
@@ -208,8 +204,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
             (): void => this.keyDownDirectionReal(actor as Player, Direction.Left),
             this.inputTimeTolerance
         );
-
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyDownLeft);
     }
 
     /**
@@ -240,8 +234,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
                 (actor as Player).keys.a = true;
             }
         }
-
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyDownA);
     }
 
     /**
@@ -262,8 +254,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
         } else if ((actor as Player).keys) {
             (actor as Player).keys.b = true;
         }
-
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyDownB);
     }
 
     /**
@@ -276,7 +266,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
     public keyDownPause(_actor: Character, event?: Event): void {
         this.preventEventDefault(event);
         this.game.menus.pause.toggle();
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyDownPause);
     }
 
     /**
@@ -289,7 +278,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
     public async keyDownMute(_actor: Character, event?: Event): Promise<void> {
         this.preventEventDefault(event);
         await this.game.audioPlayer.setMuted(this.game.audioPlayer.getMuted());
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyDownMute);
     }
 
     /**
@@ -304,8 +292,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
         if (this.game.menuGrapher.getActiveMenu() || actor.walking) {
             return;
         }
-
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyDownSelect);
 
         const selectItem = this.game.itemsHolder.getItem(this.game.storage.names.selectItem);
         if (!selectItem) {
@@ -328,7 +314,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      */
     public keyUpLeft(actor: Character, event?: Event): void {
         this.preventEventDefault(event);
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyUpLeft);
 
         if (actor.player) {
             (actor as Player).keys[Direction.Left] = false;
@@ -350,7 +335,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      */
     public keyUpRight(actor: Character, event?: Event): void {
         this.preventEventDefault(event);
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyUpRight);
 
         if (actor.player) {
             (actor as Player).keys[Direction.Right] = false;
@@ -372,7 +356,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      */
     public keyUpUp(actor: Character, event?: Event): void {
         this.preventEventDefault(event);
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyUpUp);
 
         if (actor.player) {
             (actor as Player).keys[0] = false;
@@ -394,7 +377,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      */
     public keyUpDown(actor: Character, event?: Event): void {
         this.preventEventDefault(event);
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyUpDown);
 
         if (actor.player) {
             (actor as Player).keys[2] = false;
@@ -416,7 +398,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      */
     public keyUpA(actor: Character, event?: Event): void {
         this.preventEventDefault(event);
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyUpA);
 
         if (actor.player) {
             (actor as Player).keys.a = false;
@@ -431,7 +412,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      */
     public keyUpB(actor: Character, event?: Event): void {
         this.preventEventDefault(event);
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyUpB);
 
         if (actor.player) {
             (actor as Player).keys.b = false;
@@ -446,7 +426,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      */
     public keyUpPause(_actor: Character, event?: Event): void {
         this.preventEventDefault(event);
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onKeyUpPause);
     }
 
     /**
@@ -459,7 +438,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
     public mouseDownRight(_actor: Character, event?: Event): void {
         this.preventEventDefault(event);
         this.game.menus.pause.toggle();
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onMouseDownRight);
     }
 
     /**
@@ -486,11 +464,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
         if (!actor.walking) {
             this.game.actions.animateCharacterSetDirection(actor, direction);
         }
-
-        this.game.modAttacher.fireEvent(
-            this.game.mods.eventNames.onKeyDownDirectionReal,
-            direction
-        );
     }
 
     /**

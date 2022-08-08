@@ -10,53 +10,18 @@ export class Pause extends Section<FullScreenPokemon> {
      * Opens the Pause menu.
      */
     public readonly open = (): void => {
-        const options: any[] = [
+        const options = [
             {
                 callback: (): void => {
-                    this.game.menus.items.open({
-                        backMenu: "Pause",
-                    });
+                    window.open("https://joshuakgoldberg.com", "_blank");
                 },
-                text: "ITEM",
-            },
-            {
-                callback: (): void => {
-                    this.game.menus.player.open({
-                        backMenu: "Pause",
-                    });
-                },
-                text: "%%%%%%%PLAYER%%%%%%%",
-            },
-            {
-                callback: this.game.menus.save.open,
-                text: "SAVE",
-            },
-            {
-                text: "OPTION",
+                text: "Josh",
             },
             {
                 callback: this.close,
                 text: "Exit",
             },
         ];
-
-        if (this.game.itemsHolder.getItem(this.game.storage.names.hasPokedex)) {
-            options.unshift({
-                text: "%%%%%%%POKEDEX%%%%%%%",
-                callback: this.open,
-            });
-        }
-
-        if (this.game.itemsHolder.getItem(this.game.storage.names.pokemonInParty).length !== 0) {
-            options.unshift({
-                text: "%%%%%%%POKEMON%%%%%%%",
-                callback: (): void => {
-                    this.game.menus.pokemon.openPartyMenu({
-                        onSwitch: (): void => console.log("Should switch..."),
-                    });
-                },
-            });
-        }
 
         this.game.menuGrapher.createMenu("Pause", {
             size: {

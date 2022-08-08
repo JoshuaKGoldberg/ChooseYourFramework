@@ -1,7 +1,6 @@
 import { EffectTarget, MoveEffect } from "battlemovr";
 
 import { Actions } from "../../sections/Actions";
-import { Pokemon } from "../../sections/Battles";
 import { Player } from "../../sections/Actors";
 
 /**
@@ -46,7 +45,7 @@ export interface HMMoveSchema extends MoveSchema {
     /**
      * Activates a Function to perform an HM move outside of battle.
      */
-    partyActivate?(player: Player, pokemon: Pokemon): void;
+    partyActivate?(player: Player): void;
 
     /**
      * The HMCharacter that the move affects.

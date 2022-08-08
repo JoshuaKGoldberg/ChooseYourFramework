@@ -3,7 +3,6 @@ import { Section } from "eightbittr";
 
 import { FullScreenPokemon } from "../FullScreenPokemon";
 
-import { Pokemon } from "./Battles";
 import { Pokedex } from "./constants/Pokemon";
 import { InventoryListing } from "./menus/Items";
 import { ItemNames } from "./storage/ItemNames";
@@ -33,8 +32,6 @@ export interface StorageItems {
     nameRival: string[];
     oldLocalStorage?: StorageItems;
     pokedex: Pokedex;
-    pokemonInParty: Pokemon[];
-    pokemonInPC: Pokemon[];
     selectItem: string[] | undefined;
     stateCollectionKeys: string[];
     starter: string[];

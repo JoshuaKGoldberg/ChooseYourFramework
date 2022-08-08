@@ -2,10 +2,6 @@ import { Section } from "eightbittr";
 
 import { FullScreenPokemon } from "../FullScreenPokemon";
 
-interface DataMouseEvent extends MouseEvent {
-    dataTransfer: DataTransfer;
-}
-
 /**
  * Event hooks for major gameplay state changes.
  */
@@ -14,32 +10,7 @@ export class Gameplay extends Section<FullScreenPokemon> {
      * Sets the map to Blank and displays the StartOptions menu.
      */
     public startOptions(): void {
-        const options = [
-            {
-                text: "NEW GAME",
-                callback: (): void => this.startIntro(),
-            },
-            {
-                text: "LOAD FILE",
-                callback: (): void => this.loadFile(),
-            },
-        ];
-
-        this.game.saves.checkForOldStorageData();
-
-        if (this.game.itemsHolder.getItem(this.game.storage.names.gameStarted)) {
-            options.unshift({
-                text: "CONTINUE",
-                callback: (): void => this.startPlay(),
-            });
-        }
-
-        this.game.maps.setMap("Blank");
-        this.game.menuGrapher.createMenu("StartOptions");
-        this.game.menuGrapher.addMenuList("StartOptions", { options });
-        this.game.menuGrapher.setActiveMenu("StartOptions");
-
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onGameStartOptions);
+        this.game.maps.setMap("Pallet Town", "Oak's Lab Floor 1 Door");
     }
 
     /**
@@ -53,55 +24,15 @@ export class Gameplay extends Section<FullScreenPokemon> {
             true
         );
         this.game.maps.entranceAnimations.resume();
-
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onGameStartPlay);
     }
 
     /**
      * Starts the game's intro, and fires the onGameStartIntro mod trigger.
      */
     public startIntro(): void {
-        this.game.saves.clearSavedData();
         this.game.scenePlayer.startCutscene("Intro", {
             disablePauseMenu: true,
         });
-
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onGameStartIntro);
-    }
-
-    /**
-     * Loads a file using a dummy HTMLInputElement, then starts the game with it as
-     * game state. The onGameStartIntro mod event is triggered.
-     */
-    public loadFile(): void {
-        const dummy: HTMLInputElement = this.game.utilities.createElement("input", {
-            type: "file",
-            onchange: (event: DataMouseEvent): void => {
-                event.preventDefault();
-                event.stopPropagation();
-
-                const file: File = (dummy.files || event.dataTransfer.files)[0];
-                if (!file) {
-                    return;
-                }
-
-                const reader: FileReader = new FileReader();
-                reader.onloadend = (loadEvent): void => {
-                    const currentTarget = loadEvent.currentTarget as FileReader | null;
-                    if (!currentTarget || typeof currentTarget.result !== "string") {
-                        return;
-                    }
-
-                    this.game.saves.loadRawData(currentTarget.result);
-                    delete (reader as any).onloadend;
-                };
-                reader.readAsText(file);
-            },
-        });
-
-        dummy.click();
-
-        this.game.modAttacher.fireEvent(this.game.mods.eventNames.onGameStartIntro);
     }
 
     /**
@@ -135,7 +66,6 @@ export class Gameplay extends Section<FullScreenPokemon> {
      * Closes the game.
      */
     public onGameClose(): void {
-        this.game.saves.autoSaveIfEnabled();
         console.log("Closed.");
     }
 }
