@@ -52,6 +52,9 @@ const nodeModulesToCopy = [
 for (const packageName of nodeModulesToCopy) {
     fs.copySync(
         path.join(__dirname, "node_modules", packageName),
-        path.join(libDir, packageName)
+        path.join(libDir, packageName),
+        {
+            filter: (src) => !src.includes(".bin"),
+        }
     );
 }
