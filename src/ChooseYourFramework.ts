@@ -84,7 +84,7 @@ export interface ChooseYourFrameworkSettings extends EightBittrSettings {
 }
 
 /**
- * A fun little experiment by Josh Goldberg (@JoshuaKGoldberg) based on some very old code.
+ * Choosing a modern JavaScript UI framework, Pokemon-style.
  */
 export class ChooseYourFramework extends EightBittr {
     /**

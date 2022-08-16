@@ -36,7 +36,7 @@
         "touchpassr": "^0.8.3",
         "userwrappr": "^0.8.3"
     },
-    "description": "A fun little experiment by Josh Goldberg (@JoshuaKGoldberg) based on some very old code.",
+    "description": "Choosing a modern JavaScript UI framework, Pokemon-style.",
     "devDependencies": {
         "@babel/core": "^7.18.10",
         "@babel/plugin-proposal-class-properties": "^7.18.6",
