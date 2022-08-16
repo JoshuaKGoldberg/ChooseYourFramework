@@ -1,53 +1,53 @@
 import { Section } from "eightbittr";
 
-import { FullScreenPokemon } from "../../FullScreenPokemon";
+import { ChooseYourFramework } from "../../ChooseYourFramework";
 import { Actor } from "../Actors";
 
 /**
  * Visually flips Actors.
  */
-export class Flipping extends Section<FullScreenPokemon> {
+export class Flipping extends Section<ChooseYourFramework> {
     /**
-     * Marks An Actor as being flipped horizontally by setting its .flipHoriz
-     * attribute to true and giving it a "flipped" class.
+     * Marks An Actor as being flip-horizontal horizontally by setting its .flipHorizontal
+     * attribute to true and giving it a "flip-horizontal" class.
      *
      * @param actor
      */
-    public flipHoriz(actor: Actor): void {
-        actor.flipHoriz = true;
-        this.game.graphics.classes.addClass(actor, "flipped");
+    public flipHorizontal(actor: Actor): void {
+        actor.flipHorizontal = true;
+        this.game.graphics.classes.addClass(actor, "flip-horizontal");
     }
 
     /**
-     * Marks An Actor as being flipped vertically by setting its .flipVert
-     * attribute to true and giving it a "flipped" class.
+     * Marks An Actor as being flip-horizontal vertically by setting its .flipVertical
+     * attribute to true and giving it a "flip-horizontal" class.
      *
      * @param actor
      */
-    public flipVert(actor: Actor): void {
-        actor.flipVert = true;
-        this.game.graphics.classes.addClass(actor, "flip-vert");
+    public flipVertical(actor: Actor): void {
+        actor.flipVertical = true;
+        this.game.graphics.classes.addClass(actor, "flip-vertical");
     }
 
     /**
-     * Marks An Actor as not being flipped horizontally by setting its .flipHoriz
-     * attribute to false and giving it a "flipped" class.
+     * Marks An Actor as not being flip-horizontal horizontally by setting its .flipHorizontal
+     * attribute to false and giving it a "flip-horizontal" class.
      *
      * @param actor
      */
-    public unflipHoriz(actor: Actor): void {
-        actor.flipHoriz = false;
-        this.game.graphics.classes.removeClass(actor, "flipped");
+    public unflipHorizontal(actor: Actor): void {
+        actor.flipHorizontal = false;
+        this.game.graphics.classes.removeClass(actor, "flip-horizontal");
     }
 
     /**
-     * Marks An Actor as not being flipped vertically by setting its .flipVert
-     * attribute to true and giving it a "flipped" class.
+     * Marks An Actor as not being flip-horizontal vertically by setting its .flipVertical
+     * attribute to true and giving it a "flip-horizontal" class.
      *
      * @param actor
      */
-    public unflipVert(actor: Actor): void {
-        actor.flipVert = false;
-        this.game.graphics.classes.removeClass(actor, "flip-vert");
+    public unflipVertical(actor: Actor): void {
+        actor.flipVertical = false;
+        this.game.graphics.classes.removeClass(actor, "flip-vertical");
     }
 }

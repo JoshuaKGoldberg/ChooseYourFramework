@@ -1,16 +1,14 @@
-import { member } from "babyioc";
+import { member } from "autofieldr";
 import { TimeCycles, Actor as ClassCyclrActor } from "classcyclr";
 import { Actor as EightBittrActor, Actors as EightBittrActors } from "eightbittr";
 import * as menugraphr from "menugraphr";
 import * as timehandlr from "timehandlr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 import { WalkingInstructions } from "./actions/Walking";
 import { Direction } from "./Constants";
-import { WildPokemonSchema } from "./Maps";
 import { Dialog, MenuSchema } from "./Menus";
-import { StateSaveable } from "./Saves";
 import { ActorNames } from "./actors/ActorNames";
 
 /**
@@ -23,14 +21,11 @@ export interface ActorsById {
 /**
  * An in-game Actor with size, velocity, position, and other information.
  */
-export interface Actor
-    extends EightBittrActor,
-        Omit<ClassCyclrActor, "onActorAdded">,
-        StateSaveable {
+export interface Actor extends EightBittrActor, Omit<ClassCyclrActor, "onActorAdded"> {
     spriteCycleSynched: any;
     spriteCycle: any;
-    flipHoriz?: boolean;
-    flipVert?: boolean;
+    flipHorizontal?: boolean;
+    flipVertical?: boolean;
 
     /**
      * What to do when a Character, commonly a Player, activates this Actor.
@@ -204,26 +199,6 @@ export interface Character extends Actor {
     distance: number;
 
     /**
-     * A Character walking directly behind this as a follower.
-     */
-    follower?: Character;
-
-    /**
-     * A Character this is walking directly behind as a follower.
-     */
-    following?: Character;
-
-    /**
-     * An item to give after a dialog is first initiated.
-     */
-    gift?: string;
-
-    /**
-     * A grass Scenery partially covering this while walking through a grass area.
-     */
-    grass?: Grass;
-
-    /**
      * A scratch variable for height, such as when behind grass.
      */
     heightOld?: number;
@@ -232,11 +207,6 @@ export interface Character extends Actor {
      * Whether this is currently moving, generally from walking.
      */
     isMoving: boolean;
-
-    /**
-     * A ledge this is hopping over.
-     */
-    ledge?: Actor;
 
     /**
      * A direction to turn to when the current walking step is done.
@@ -269,11 +239,6 @@ export interface Character extends Actor {
     sight?: number;
 
     /**
-     * The Detector stretching in front of this Actor as its sight.
-     */
-    sightDetector?: SightDetector;
-
-    /**
      * A shadow Actor for when this is hopping a ledge.
      */
     shadow?: Actor;
@@ -302,16 +267,6 @@ export interface Character extends Actor {
      * Whether this is currently engaging in its activated dialog.
      */
     talking?: boolean;
-
-    /**
-     * Whether this is a Pokemon trainer, to start a battle after its dialog.
-     */
-    trainer?: boolean;
-
-    /**
-     * Whether this should transport an activating Character.
-     */
-    transport?: string | TransportSchema;
 
     /**
      * Where this will turn to when its current walking step is complete.
@@ -355,71 +310,6 @@ export interface RoamingCharacter extends Character {
         horizontal: number;
         vertical: number;
     };
-}
-
-/**
- * An Enemy Actor such as a trainer or wild Pokemon.
- */
-export interface Enemy extends Character {
-    /**
-     * Actors this trainer will use in battle.
-     */
-    actors: WildPokemonSchema[];
-
-    /**
-     * Whether this trainer has already battled and shouldn't again.
-     */
-    alreadyBattled?: boolean;
-
-    /**
-     * A badge to gift when this Enemy is defeated.
-     */
-    badge?: string;
-
-    /**
-     * The name this will have in battle.
-     */
-    battleName?: string;
-
-    /**
-     * The sprite this will display as in battle, if not its battleName.
-     */
-    battleSprite?: string;
-
-    /**
-     * A gift to give after defeated in battle.
-     */
-    giftAfterBattle?: string;
-
-    /**
-     * A cutscene to trigger after defeated in battle.
-     */
-    nextCutscene?: string;
-
-    /**
-     * The title of the trainer before enabling the Joey's Rattata mod.
-     */
-    previousTitle?: string;
-
-    /**
-     * A monetary reward to give after defeated in battle.
-     */
-    reward: number;
-
-    /**
-     * Dialog to display after defeated in battle.
-     */
-    textDefeat?: menugraphr.MenuDialogRaw;
-
-    /**
-     * Dialog to display after the battle is over.
-     */
-    textAfterBattle?: menugraphr.MenuDialogRaw;
-
-    /**
-     * Text display upon victory.
-     */
-    textVictory?: menugraphr.MenuDialogRaw;
 }
 
 /**
@@ -485,17 +375,6 @@ export interface PlayerKeys {
 }
 
 /**
- * A Grass Actor.
- */
-export interface Grass extends Actor {
-    /**
-     * How likely this is to trigger a grass encounter in the doesGrassEncounterHappen
-     * equation, as a Number in [0, 187.5].
-     */
-    rarity: number;
-}
-
-/**
  * A Detector Actor. These are typically Solids.
  */
 export interface Detector extends Actor {
@@ -550,36 +429,6 @@ export interface Detector extends Actor {
 }
 
 /**
- * A Solid with a partyActivate callback Function.
- */
-export interface HMCharacter extends Character {
-    /**
-     * The name of the move needed to interact with this HMCharacter.
-     */
-    moveName: string;
-
-    /**
-     * The partyActivate Function used to interact with this HMCharacter.
-     */
-    moveCallback(player: Player): void;
-
-    /**
-     * The badge needed to activate this HMCharacter.
-     */
-    requiredBadge: string;
-}
-
-/**
- * A WaterEdge object.
- */
-export interface WaterEdge extends HMCharacter {
-    /**
-     * The direction the Player must go to leave the water.
-     */
-    exitDirection: number;
-}
-
-/**
  * A Detector that adds an Area into the game.
  */
 export interface AreaSpawner extends Detector {
@@ -592,36 +441,6 @@ export interface AreaSpawner extends Detector {
      * The name of the Map to retrieve the Area within.
      */
     map: string;
-}
-
-/**
- * A Detector that marks a player as spawning in a different Area.
- */
-export interface AreaGate extends Detector {
-    /**
-     * The Area to now spawn within.
-     */
-    area: string;
-
-    /**
-     * The Map to now spawn within.
-     */
-    map: string;
-}
-
-/**
- * A gym statue.
- */
-export interface GymDetector extends Detector {
-    /**
-     * The name of the gym.
-     */
-    gym: string;
-
-    /**
-     * The name of the gym's leader.
-     */
-    leader: string;
 }
 
 /**
@@ -652,38 +471,6 @@ export interface SightDetector extends Detector {
      * The Character using this Detector as its sight.
      */
     viewer: Character;
-}
-
-/**
- * A Detector to play an audio theme.
- */
-export interface ThemeDetector extends Detector {
-    /**
-     * The audio theme to play.
-     */
-    theme: string;
-}
-
-/**
- * A detector to transport to a new area.
- */
-export interface Transporter extends Detector {
-    transport: string | TransportSchema;
-}
-
-/**
- * A description of where to transport.
- */
-export interface TransportSchema {
-    /**
-     * The name of the Map to transport to.
-     */
-    map: string;
-
-    /**
-     * The name of the Location to transport to.
-     */
-    location: string;
 }
 
 /**
@@ -724,7 +511,7 @@ export interface Pokeball extends Detector {
 /**
  * Adds and processes new Actors into the game.
  */
-export class Actors<Game extends FullScreenPokemon> extends EightBittrActors<Game> {
+export class Actors<Game extends ChooseYourFramework> extends EightBittrActors<Game> {
     /**
      * Stores known names of Actors.
      */
@@ -814,7 +601,7 @@ export class Actors<Game extends FullScreenPokemon> extends EightBittrActors<Gam
     }
 
     /**
-     * Applies An Actor's stored xloc and yloc to its position.
+     * Applies An Actor's stored xLocation and yLocation to its position.
      *
      * @param actor   An Actor being placed in the game.
      */
@@ -824,11 +611,11 @@ export class Actors<Game extends FullScreenPokemon> extends EightBittrActors<Gam
             return;
         }
 
-        if (savedInfo.xloc) {
-            this.game.physics.setLeft(actor, this.game.mapScreener.left + savedInfo.xloc);
+        if (savedInfo.xLocation) {
+            this.game.physics.setLeft(actor, this.game.mapScreener.left + savedInfo.xLocation);
         }
-        if (savedInfo.yloc) {
-            this.game.physics.setTop(actor, this.game.mapScreener.top + savedInfo.yloc);
+        if (savedInfo.yLocation) {
+            this.game.physics.setTop(actor, this.game.mapScreener.top + savedInfo.yLocation);
         }
     }
 }

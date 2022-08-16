@@ -1,6 +1,6 @@
 import { ActorMaintainer, Maintenance as EightBittrMaintenance } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 import { Scrollability } from "./Scrolling";
 import { Character, Player } from "./Actors";
@@ -8,14 +8,14 @@ import { Character, Player } from "./Actors";
 /**
  * Maintains Actors during FrameTickr frames.
  */
-export class Maintenance<Game extends FullScreenPokemon> extends EightBittrMaintenance<Game> {
+export class Maintenance<Game extends ChooseYourFramework> extends EightBittrMaintenance<Game> {
     /**
      * Maintenance for all active Characters. Walking, grass maintenance, alive
      * checking, and quadrant maintenance are performed.
      *
      * @param characters   The Characters group of Actors.
      */
-    public readonly maintainCharacter = (character: Character): void => {
+    public readonly maintainCharacter = (character: Character) => {
         this.game.physics.shiftCharacter(character);
 
         if (
@@ -31,13 +31,11 @@ export class Maintenance<Game extends FullScreenPokemon> extends EightBittrMaint
             );
         }
 
-        if (character.grass) {
-            this.game.actions.grass.maintainGrassVisuals(character, character.grass);
-        }
-
         for (let j = 0; j < 4; j += 1) {
             character.bordering[j] = undefined;
         }
+
+        return undefined;
     };
 
     /**
@@ -46,7 +44,7 @@ export class Maintenance<Game extends FullScreenPokemon> extends EightBittrMaint
      *
      * @param player   An in-game Player Actor.
      */
-    public readonly maintainPlayer = (player: Player): void => {
+    public readonly maintainPlayer = (player: Player) => {
         if (!player || player.removed) {
             return;
         }

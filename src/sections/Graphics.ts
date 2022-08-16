@@ -1,8 +1,8 @@
-import { member } from "babyioc";
+import { member } from "autofieldr";
 import { Graphics as EightBittrGraphics } from "eightbittr";
 import { Palette } from "pixelrendr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 import { Collections } from "./graphics/Collections";
 import { Flipping } from "./graphics/Flipping";
@@ -11,16 +11,16 @@ import { graphicsLibrary } from "./graphics/GraphicsLibrary";
 /**
  * Changes the visual appearance of Actors.
  */
-export class Graphics<Game extends FullScreenPokemon> extends EightBittrGraphics<Game> {
+export class Graphics<Game extends ChooseYourFramework> extends EightBittrGraphics<Game> {
     /**
-     * What class name should indicate An Actor is to be flipped verticallu.
+     * What class name should indicate an Actor is to be flipped horizontally.
      */
-    public readonly flipHoriz = "flipped";
+    public readonly flipHorizontal = "flip-horizontal";
 
     /**
-     * What class name should indicate An Actor is to be flipped horizontally.
+     * What class name should indicate an Actor is to be flipped verticall.
      */
-    public readonly flipVert = "flip-vert";
+    public readonly flipVertical = "flip-vertical";
 
     /**
      * A nested library of sprites to process.
@@ -70,12 +70,12 @@ export class Graphics<Game extends FullScreenPokemon> extends EightBittrGraphics
     /**
      * What key in attributions should contain sprite heights.
      */
-    public readonly spriteHeight = "spriteheight";
+    public readonly spriteHeight = "spriteHeight";
 
     /**
      * What key in attributions should contain sprite widths.
      */
-    public readonly spriteWidth = "spritewidth";
+    public readonly spriteWidth = "spriteWidth";
 
     /**
      * Maximum size of a SpriteMultiple to pre-render.

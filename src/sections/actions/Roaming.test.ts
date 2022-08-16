@@ -1,12 +1,12 @@
 import { expect } from "chai";
 
 import { stubBlankGame } from "../../fakes.test";
-import { FullScreenPokemon } from "../../FullScreenPokemon";
+import { ChooseYourFramework } from "../../ChooseYourFramework";
 import { Direction } from "../Constants";
 
 import { randomRoamingMaximumFrequency, randomRoamingMinimumTicks } from "./Roaming";
 
-const getTicksForSteps = (fsp: FullScreenPokemon, minimumSteps: number) =>
+const getTicksForSteps = (fsp: ChooseYourFramework, minimumSteps: number) =>
     (randomRoamingMaximumFrequency + randomRoamingMinimumTicks) *
     fsp.frameTicker.getInterval() *
     minimumSteps;
@@ -73,7 +73,7 @@ describe("Roaming", () => {
                         : Math.abs(fsp.physics.getMidY(player) - fsp.physics.getMidY(npc));
 
                 // NPCs seems to travel an extra 3-4 game pixels each in-between step
-                // See https://github.com/FullScreenShenanigans/FullScreenPokemon/issues/410
+                // See https://github.com/FullScreenShenanigans/ChooseYourFramework/issues/410
                 expect(distance).to.be.approximately(npc.width * 3 + 7, 1);
             });
         }

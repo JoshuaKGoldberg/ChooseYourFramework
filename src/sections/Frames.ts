@@ -1,6 +1,6 @@
 import { Frames as EightBittrFrames } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 import { Character, Actor } from "./Actors";
 
 export interface ActorGroups {
@@ -15,7 +15,7 @@ export interface ActorGroups {
 /**
  * Collection settings for Actor group names.
  */
-export class Frames<Game extends FullScreenPokemon> extends EightBittrFrames<Game> {
+export class Frames<Game extends ChooseYourFramework> extends EightBittrFrames<Game> {
     // 2. Groups are updated for velocities and pruned.
     public maintain() {
         super.maintain();

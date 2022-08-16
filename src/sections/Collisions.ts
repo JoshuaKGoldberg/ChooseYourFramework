@@ -1,21 +1,20 @@
-import { member } from "babyioc";
+import { member } from "autofieldr";
 import { Collisions as EightBittrCollisions } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 import { Detectors } from "./collisions/Detectors";
-import { Obstacles } from "./collisions/Obstacles";
 import { Direction } from "./Constants";
 import { Character, Actor } from "./Actors";
 
 /**
  * ActorHittr collision function generators.
  */
-export class Collisions<Game extends FullScreenPokemon> extends EightBittrCollisions<Game> {
+export class Collisions<Game extends ChooseYourFramework> extends EightBittrCollisions<Game> {
     /**
      * Names of groups that should be checked for collisions.
      */
-    public readonly collidingGroupNames: string[] = ["Character"];
+    public readonly collidingGroupNames = ["Character"];
 
     /**
      * Function generator for the generic isCharacterTouchingCharacter checker.
@@ -37,8 +36,6 @@ export class Collisions<Game extends FullScreenPokemon> extends EightBittrCollis
         return (actor: Character, other: Character): boolean =>
             !actor.nocollide &&
             !other.nocollide &&
-            actor.following !== other &&
-            other.following !== actor &&
             actor.right >= other.left + other.tolLeft &&
             actor.left <= other.right - other.tolRight &&
             actor.bottom >= other.top + other.tolTop &&
@@ -206,10 +203,4 @@ export class Collisions<Game extends FullScreenPokemon> extends EightBittrCollis
      */
     @member(Detectors)
     public readonly detectors: Detectors;
-
-    /**
-     * Handlers for collisions with obstacle-like Actors.
-     */
-    @member(Obstacles)
-    public readonly obstacles: Obstacles;
 }

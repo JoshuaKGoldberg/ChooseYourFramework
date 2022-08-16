@@ -1,14 +1,14 @@
-import { member } from "babyioc";
+import { member } from "autofieldr";
 import { Section } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 import { OakIntroPokemonChoiceCutscene } from "./cutscenes/OakIntroPokemonChoiceCutscene";
 
 /**
  * ScenePlayr cutscenes, keyed by name.
  */
-export class Cutscenes extends Section<FullScreenPokemon> {
+export class Cutscenes extends Section<ChooseYourFramework> {
     /**
      * OakIntroPokemonChoice cutscene routines.
      */

@@ -3,7 +3,7 @@ import * as sinon from "sinon";
 import { AbsoluteSizeSchema, SelectSchema, UserWrapprSettings, UserWrappr } from "userwrappr";
 
 import { stubBlankGame } from "../fakes.test";
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 import { createUserWrapprSettings } from "./InterfaceSettings";
 
@@ -12,7 +12,7 @@ const createStubGameWindow = () => ({
     document: {
         addEventListener: sinon.spy(),
     },
-    FSP: undefined! as FullScreenPokemon,
+    FSP: undefined! as ChooseYourFramework,
     removeEventListener: sinon.spy(),
 });
 
@@ -23,12 +23,11 @@ const createGame = (size: AbsoluteSizeSchema) =>
     }).fsp;
 
 const saveValueAs = (wrapperSettings: UserWrapprSettings, value: string) =>
-    (wrapperSettings
-        .menus!.find((menu) => menu.title === "Options")!
-        .options.find((options) => options.title === "Speed")! as SelectSchema).saveValue(
-        value,
-        "1x"
-    );
+    (
+        wrapperSettings
+            .menus!.find((menu) => menu.title === "Options")!
+            .options.find((options) => options.title === "Speed")! as SelectSchema
+    ).saveValue(value, "1x");
 
 describe("InterfaceSettings", () => {
     describe("Speed", () => {

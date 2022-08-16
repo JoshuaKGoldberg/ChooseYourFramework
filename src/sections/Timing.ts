@@ -1,11 +1,11 @@
 import { Timing as EightBittrTiming } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 /**
  * Timing constants for delayed events.
  */
-export class Timing<Game extends FullScreenPokemon> extends EightBittrTiming<Game> {
+export class Timing<Game extends ChooseYourFramework> extends EightBittrTiming<Game> {
     /**
      * Default time separation between repeated events.
      */

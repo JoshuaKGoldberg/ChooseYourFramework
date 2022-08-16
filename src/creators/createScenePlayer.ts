@@ -1,13 +1,13 @@
 import { ScenePlayrSettings, ScenePlayr } from "sceneplayr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 /**
- * @param fsp   A generating FullScreenPokemon instance.
- * @returns Scene settings for the FullScreenPokemon instance.
+ * @param fsp   A generating ChooseYourFramework instance.
+ * @returns Scene settings for the ChooseYourFramework instance.
  */
-export const createScenePlayer = (fsp: FullScreenPokemon): ScenePlayr =>
-    new ScenePlayr(({
+export const createScenePlayer = (fsp: ChooseYourFramework): ScenePlayr =>
+    new ScenePlayr({
         cutscenes: {
             OakIntroPokemonChoice: {
                 firstRoutine: "PlayerChecksPokeball",
@@ -15,4 +15,4 @@ export const createScenePlayer = (fsp: FullScreenPokemon): ScenePlayr =>
             },
         },
         scope: fsp.cutscenes,
-    } as any) as ScenePlayrSettings);
+    } as any as ScenePlayrSettings);

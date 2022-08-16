@@ -1,4 +1,4 @@
-import { member } from "babyioc";
+import { member } from "autofieldr";
 import { Maps as EightBittrMaps } from "eightbittr";
 import {
     Area as MapsCreatrArea,
@@ -8,18 +8,15 @@ import {
     Map as MapsCreatrMap,
     MapRaw as MapsCreatrMapRaw,
     PreActorLike as MapsCreatrPreActorLike,
-    PreActorsContainers,
 } from "mapscreatr";
 import { MapScreenr as EightBittrMapScreenr } from "mapscreenr";
 
 import { PalletTown } from "../creators/mapsLibrary/PalletTown";
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 import { Direction } from "./Constants";
 import { EntranceAnimations } from "./maps/EntranceAnimations";
-import { MapMacros } from "./maps/MapMacros";
-import { StateSaveable } from "./Saves";
-import { AreaGate, AreaSpawner, Player, Actor } from "./Actors";
+import { Player, Actor } from "./Actors";
 
 /**
  * A flexible container for map attributes and viewport.
@@ -31,16 +28,6 @@ export interface MapScreenr extends EightBittrMapScreenr {
      * @todo Consider moving this into EightBittr core.
      */
     activeArea: Area;
-
-    /**
-     * Whether user inputs should be ignored.
-     */
-    blockInputs: boolean;
-
-    /**
-     * The currently playing cutscene, if any.
-     */
-    cutscene?: string;
 
     /**
      * What theme is currently playing.
@@ -107,7 +94,7 @@ export interface MapRaw extends MapsCreatrMapRaw {
 /**
  * A Map parsed from its raw JSON-friendly description.
  */
-export interface Map extends StateSaveable, MapsCreatrMap {
+export interface Map extends MapsCreatrMap {
     /**
      * A listing of areas in the Map, keyed by name.
      */
@@ -179,17 +166,12 @@ export interface AreaRaw extends MapsCreatrAreaRaw {
      * @todo It's not clear if this is different from boundaries.width.
      */
     width?: number;
-
-    /**
-     * Wild Pokemon that may appear in this Area.
-     */
-    wildPokemon?: AreaWildPokemonOptionGroups;
 }
 
 /**
  * An Area parsed from a raw JSON-friendly Area description.
  */
-export interface Area extends AreaRaw, StateSaveable, MapsCreatrArea {
+export interface Area extends AreaRaw, MapsCreatrArea {
     /**
      * Whether the Area allows bicycling.
      */
@@ -219,16 +201,6 @@ export interface Area extends AreaRaw, StateSaveable, MapsCreatrArea {
      * Which Map spawned this Area and when.
      */
     spawnedBy: AreaSpawnedBy;
-
-    /**
-     * Whether the Player has encountered a Pokemon in this area's grass.
-     */
-    pokemonEncountered?: boolean;
-
-    /**
-     * Wild Pokemon that may appear in this Area.
-     */
-    wildPokemon?: AreaWildPokemonOptionGroups;
 }
 
 /**
@@ -282,73 +254,6 @@ export interface AreaSpawnedBy {
 }
 
 /**
- * Types of Pokemon that may appear in an Area, keyed by terrain type, such as "grass".
- */
-export interface AreaWildPokemonOptionGroups {
-    /**
-     * Types of Pokemon that may appear in grass.
-     */
-    grass?: WildPokemonSchema[];
-
-    /**
-     * Types of Pokemon that may appear while fishing.
-     */
-    fishing?: WildFishingPokemon;
-
-    /**
-     * Types of Pokemon that may appear while surfing.
-     */
-    surfing?: WildPokemonSchema[];
-
-    /**
-     * Types of Pokemon that may appear while walking.
-     */
-    walking?: WildPokemonSchema[];
-}
-
-/**
- * A description of a type of Pokemon that may appear in an Area.
- */
-export interface WildPokemonSchemaBase {
-    /**
-     * The type of Pokemon.
-     */
-    title: string[];
-
-    /**
-     * Concatenated names of moves the Pokemon should have.
-     */
-    moves?: string[];
-
-    /**
-     * The rate of appearance for this type of Pokemon, in [0, 1].
-     */
-    rate?: number;
-}
-
-/**
- * A wild Pokemon description with only one possible level.
- */
-export interface WildPokemonSchemaWithLevel extends WildPokemonSchemaBase {
-    /**
-     * What level the Pokemon may be.
-     */
-    level: number;
-}
-
-/**
- * A wild Pokemon description with multiple possible levels.
- */
-export interface WildPokemonSchemaWithLevels extends WildPokemonSchemaBase {
-    /**
-     * What levels the Pokemon may be.
-     */
-    levels: number[];
-}
-
-export type WildPokemonSchema = WildPokemonSchemaWithLevel | WildPokemonSchemaWithLevels;
-
-/**
  * A raw JSON-friendly description of a location.
  */
 export interface LocationRaw extends MapsCreatrLocationRaw {
@@ -380,18 +285,18 @@ export interface LocationRaw extends MapsCreatrLocationRaw {
     /**
      * The x-location in the parent Area.
      */
-    xloc?: number;
+    xLocation?: number;
 
     /**
      * The y-location in the parent Area.
      */
-    yloc?: number;
+    yLocation?: number;
 }
 
 /**
  * A Location parsed from a raw JSON-friendly Map description.
  */
-export interface Location extends StateSaveable, MapsCreatrLocation {
+export interface Location extends MapsCreatrLocation {
     /**
      * The Area this Location is a part of.
      */
@@ -425,32 +330,12 @@ export interface Location extends StateSaveable, MapsCreatrLocation {
     /**
      * The x-location in the parent Area.
      */
-    xloc?: number;
+    xLocation?: number;
 
     /**
      * The y-location in the parent Area.
      */
-    yloc?: number;
-}
-
-/**
- * The types of Pokemon that can be caught with different rods.
- */
-export interface WildFishingPokemon {
-    /**
-     * The Pokemon that can be caught using an Old Rod.
-     */
-    old?: WildPokemonSchema[];
-
-    /**
-     * The Pokemon that can be caught using a Good Rod.
-     */
-    good?: WildPokemonSchema[];
-
-    /**
-     * The Pokemon that can be caught using a Super Rod.
-     */
-    super?: WildPokemonSchema[];
+    yLocation?: number;
 }
 
 /**
@@ -491,7 +376,7 @@ export interface PreActorLike extends MapsCreatrPreActorLike {
 /**
  * Enters and spawns map areas.
  */
-export class Maps<Game extends FullScreenPokemon> extends EightBittrMaps<Game> {
+export class Maps<Game extends ChooseYourFramework> extends EightBittrMaps<Game> {
     /**
      * Map entrance animations.
      */
@@ -499,58 +384,13 @@ export class Maps<Game extends FullScreenPokemon> extends EightBittrMaps<Game> {
     public readonly entranceAnimations!: EntranceAnimations;
 
     /**
-     * Map creation macros.
-     */
-    @member(MapMacros)
-    public readonly mapMacros!: MapMacros;
-
-    /**
      * Entrance Functions that may be used as the openings for Locations.
      */
     public readonly entrances = {
-        Blank: this.entranceAnimations.blank,
         Normal: this.entranceAnimations.normal,
     };
 
-    /**
-     * Macros that can be used to automate common operations.
-     */
-    public readonly macros = {
-        Checkered: this.mapMacros.macroCheckered,
-        Water: this.mapMacros.macroWater,
-        House: this.mapMacros.macroHouse,
-        HouseLarge: this.mapMacros.macroHouseLarge,
-        Building: this.mapMacros.macroBuilding,
-        Gym: this.mapMacros.macroGym,
-        Mountain: this.mapMacros.macroMountain,
-        PokeCenter: this.mapMacros.macroPokeCenter,
-        PokeMart: this.mapMacros.macroPokeMart,
-    };
-
     public readonly maps = {
-        Blank: {
-            name: "Blank",
-            locationDefault: "Black",
-            locations: {
-                Black: {
-                    area: "Black",
-                    entry: "Blank",
-                },
-                White: {
-                    area: "White",
-                    entry: "Blank",
-                },
-            },
-            areas: {
-                Black: {
-                    creation: [],
-                },
-                White: {
-                    background: "white",
-                    creation: [],
-                },
-            },
-        },
         "Pallet Town": PalletTown,
     };
 
@@ -691,7 +531,7 @@ export class Maps<Game extends FullScreenPokemon> extends EightBittrMaps<Game> {
         this.game.areaSpawner.setLocation(name);
         this.game.mapScreener.setVariables();
 
-        const location: Location = this.game.areaSpawner.getLocation(name) as Location;
+        const location = this.game.areaSpawner.getLocation(name) as Location;
         location.area.spawnedBy = {
             name,
             timestamp: new Date().getTime(),
@@ -709,25 +549,15 @@ export class Maps<Game extends FullScreenPokemon> extends EightBittrMaps<Game> {
 
         this.game.quadsKeeper.resetQuadrants();
 
-        const theme: string = location.theme || location.area.theme || location.area.map.theme;
+        const theme = location.theme || location.area.theme || location.area.map.theme;
 
         this.game.mapScreener.theme = theme;
-        if (theme && !this.game.audioPlayer.hasSound(this.game.audio.aliases.theme, theme)) {
-            this.game.audioPlayer.play(theme, {
-                alias: this.game.audio.aliases.theme,
-                loop: true,
-            });
-        }
 
         if (!noEntrance && location.entry) {
             location.entry.call(this, location);
         }
 
         this.game.frameTicker.play();
-
-        this.game.animations.fading.animateFadeFromColor({
-            color: "Black",
-        });
 
         if (location.push) {
             this.game.actions.walking.startWalkingOnPath(this.game.players[0], [
@@ -789,134 +619,6 @@ export class Maps<Game extends FullScreenPokemon> extends EightBittrMaps<Game> {
 
         this.game.mapsCreator.analyzePreSwitch(preactor, preactors, area, map);
     };
-
-    /**
-     * Runs an areaSpawner to place its Area's Actors in the map.
-     *
-     * @param actor   An in-game areaSpawner.
-     * @param area   The Area associated with actor.
-     */
-    public activateAreaSpawner(actor: AreaSpawner, area: Area): void {
-        const direction: Direction = actor.direction;
-        const areaCurrent: Area = this.game.areaSpawner.getArea() as Area;
-        const mapCurrent: Map = this.game.areaSpawner.getMap() as Map;
-        const preactorsCurrent: PreActorsContainers = this.game.areaSpawner.getPreActors();
-        let left: number = actor.left + this.game.mapScreener.left;
-        let top: number = actor.top + this.game.mapScreener.top;
-
-        switch (direction) {
-            case Direction.Top:
-                top -= area.height!;
-                break;
-
-            case Direction.Right:
-                left += actor.width;
-                break;
-
-            case Direction.Bottom:
-                top += actor.height;
-                break;
-
-            case Direction.Left:
-                left -= area.width!;
-                break;
-
-            default:
-                throw new Error(`Unknown direction: '${direction}'.`);
-        }
-
-        const x: number = left + (actor.offsetX || 0);
-        const y: number = top + (actor.offsetY || 0);
-
-        this.game.scrolling.expandMapBoundariesForArea(area, x, y);
-
-        for (const creation of area.creation) {
-            // A copy of the command must be used, so as to not modify the original
-            const command: any = this.game.utilities.proliferate(
-                {
-                    noBoundaryStretch: true,
-                    areaName: area.name,
-                    mapName: area.map.name,
-                },
-                creation
-            );
-
-            command.x = (command.x || 0) + x;
-            command.y = (command.y || 0) + y;
-
-            // Having an entrance might conflict with previously set Locations
-            if ("entrance" in command) {
-                delete command.entrance;
-            }
-
-            this.game.mapsCreator.analyzePreSwitch(
-                command,
-                preactorsCurrent,
-                areaCurrent,
-                mapCurrent
-            );
-        }
-
-        this.game.areaSpawner.spawnArea(
-            this.game.constants.directionSpawns[direction],
-            this.game.quadsKeeper.top,
-            this.game.quadsKeeper.right,
-            this.game.quadsKeeper.bottom,
-            this.game.quadsKeeper.left
-        );
-        this.game.maps.addAreaGate(actor, area, x, y);
-
-        area.spawned = true;
-        this.game.death.kill(actor);
-    }
-
-    /**
-     * Adds an AreaGate on top of an areaSpawner.
-     *
-     * @param actor   An areaSpawner that should have a gate.
-     * @param area   The Area to spawn into.
-     * @param offsetX   Horizontal spawning offset for the Area.
-     * @param offsetY   Vertical spawning offset for the Area.
-     * @returns The added AreaGate.
-     */
-    public addAreaGate(actor: AreaGate, area: Area, offsetX: number, offsetY: number): AreaGate {
-        const properties: any = {
-            area: actor.area,
-            areaOffsetX: offsetX,
-            areaOffsetY: offsetY,
-            direction: actor.direction,
-            height: 8,
-            map: actor.map,
-            width: 8,
-        };
-        let left: number = actor.left;
-        let top: number = actor.top;
-
-        switch (actor.direction) {
-            case Direction.Top:
-                top -= this.game.constants.blockSize;
-                properties.width = area.width;
-                break;
-
-            case Direction.Right:
-                properties.height = area.height;
-                break;
-
-            case Direction.Bottom:
-                properties.width = area.width;
-                break;
-
-            case Direction.Left:
-                left -= this.game.constants.blockSize;
-                properties.height = area.height;
-                break;
-
-            default:
-                throw new Error(`Unknown direction: '${actor.direction}'.`);
-        }
-
-        return this.game.actors.add([this.game.actors.names.areaGate, properties], left, top);
-    }
 
     /**
      * Sets the current StateHoldr collection to an area.

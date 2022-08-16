@@ -1,16 +1,9 @@
-import { member } from "babyioc";
+import { member } from "autofieldr";
 import { Section } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
-import { Pokedex } from "./constants/Pokemon";
-import { InventoryListing } from "./menus/Items";
 import { ItemNames } from "./storage/ItemNames";
-
-export interface LastPokecenter {
-    location: string | undefined;
-    map: string;
-}
 
 /**
  * Items to be held in storage.
@@ -18,31 +11,19 @@ export interface LastPokecenter {
 export interface StorageItems {
     area: string;
     autoSave: boolean;
-    badges: {
-        [i: string]: boolean;
-    };
     gameStarted: boolean;
-    hasPokedex: boolean;
-    items: InventoryListing[];
-    lastPokecenter: LastPokecenter;
     location: string | undefined;
     map: string;
-    money: number;
     name: string[];
-    nameRival: string[];
     oldLocalStorage?: StorageItems;
-    pokedex: Pokedex;
-    selectItem: string[] | undefined;
     stateCollectionKeys: string[];
-    starter: string[];
-    starterRival: string[];
     time: number;
 }
 
 /**
  * Settings for storing items in ItemsHoldrs.
  */
-export class Storage extends Section<FullScreenPokemon> {
+export class Storage extends Section<ChooseYourFramework> {
     /**
      * Keys for ItemsHoldr items.
      */

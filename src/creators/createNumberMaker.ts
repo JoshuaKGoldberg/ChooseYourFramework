@@ -1,6 +1,6 @@
 import { NumberMakr } from "numbermakr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
-export const createNumberMaker = (game: FullScreenPokemon) =>
+export const createNumberMaker = (game: ChooseYourFramework) =>
     new NumberMakr(game.settings.components.numberMaker);

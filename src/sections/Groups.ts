@@ -1,6 +1,6 @@
 import { Groups as EightBittrGroups } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 import { Character, Actor } from "./Actors";
 
@@ -16,7 +16,7 @@ export interface ActorGroups {
 /**
  * Collection settings for Actor group names.
  */
-export class Groups<Game extends FullScreenPokemon> extends EightBittrGroups<Game> {
+export class Groups<Game extends ChooseYourFramework> extends EightBittrGroups<Game> {
     /**
      * Names of known Actor groups, in drawing order.
      */

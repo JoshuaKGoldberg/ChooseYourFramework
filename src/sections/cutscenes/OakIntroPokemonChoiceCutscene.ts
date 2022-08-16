@@ -1,12 +1,11 @@
 import { Section } from "eightbittr";
 
-import { FullScreenPokemon } from "../../FullScreenPokemon";
-import { Pokeball } from "../Actors";
+import { ChooseYourFramework } from "../../ChooseYourFramework";
 
 /**
  * OakIntroPokemonChoice cutscene routines.
  */
-export class OakIntroPokemonChoiceCutscene extends Section<FullScreenPokemon> {
+export class OakIntroPokemonChoiceCutscene extends Section<ChooseYourFramework> {
     /**
      * Cutscene for the player checking a Pokeball.
      *
@@ -33,7 +32,7 @@ export class OakIntroPokemonChoiceCutscene extends Section<FullScreenPokemon> {
             return;
         }
 
-        const pokeball: Pokeball = settings.triggerer;
+        const pokeball = settings.triggerer;
         settings.chosen = pokeball.pokemon;
 
         this.game.scenePlayer.playRoutine("PlayerDecidesPokemon");
@@ -45,7 +44,6 @@ export class OakIntroPokemonChoiceCutscene extends Section<FullScreenPokemon> {
      * @param settings   Settings used for the cutscene.
      */
     public PlayerDecidesPokemon(settings: any): void {
-        console.log("Deciding on", { settings });
         this.game.menuGrapher.createMenu("GeneralText");
         this.game.menuGrapher.addMenuDialog(
             "GeneralText",

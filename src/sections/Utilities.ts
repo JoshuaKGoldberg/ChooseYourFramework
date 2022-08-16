@@ -1,13 +1,13 @@
 import { Utilities as EightBittrUtilities } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 import { Actor } from "./Actors";
 
 /**
  * Miscellaneous utility functions.
  */
-export class Utilities<Game extends FullScreenPokemon> extends EightBittrUtilities<Game> {
+export class Utilities<Game extends ChooseYourFramework> extends EightBittrUtilities<Game> {
     /**
      * Creates a new String equivalent to an old String repeated any number of
      * times. If times is 0, a blank String is returned.

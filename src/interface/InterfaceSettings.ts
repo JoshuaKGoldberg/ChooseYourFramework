@@ -1,13 +1,13 @@
 import { GameWindow } from "eightbittr";
 import {
     AbsoluteSizeSchema,
-    MultSelectSchema,
+    MultiSelectSchema,
     RelativeSizeSchema,
     UserWrapprSettings,
     OptionType,
 } from "userwrappr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 /**
  * Global scope around a game, such as a DOM window.
@@ -16,11 +16,11 @@ export interface WrappingGameWindow extends GameWindow {
     /**
      * Game instance, once this has created it.
      */
-    FSP?: FullScreenPokemon;
+    FSP?: ChooseYourFramework;
 }
 
 export interface InterfaceSettingOverrides {
-    createGame?(size: AbsoluteSizeSchema): FullScreenPokemon;
+    createGame?(size: AbsoluteSizeSchema): ChooseYourFramework;
     gameWindow?: WrappingGameWindow;
 }
 
@@ -89,18 +89,18 @@ const keys: string[] = [
 ];
 
 /**
- * Creates settings for an IUserWrappr that will create and wrap a FullScreenPokemon instance.
+ * Creates settings for an IUserWrappr that will create and wrap a ChooseYourFramework instance.
  *
  * @param gameWindow   Global scope around the game interface, if not the global window.
  */
 export const createUserWrapprSettings = ({
-    createGame = (size: AbsoluteSizeSchema) => new FullScreenPokemon(size),
+    createGame = (size: AbsoluteSizeSchema) => new ChooseYourFramework(size),
     gameWindow = window,
 }: InterfaceSettingOverrides = {}): UserWrapprSettings => {
     /**
      * Game instance, once this has created it.
      */
-    let game: FullScreenPokemon;
+    let game: ChooseYourFramework;
 
     return {
         createContents: (size: AbsoluteSizeSchema) => {
@@ -114,9 +114,9 @@ export const createUserWrapprSettings = ({
         defaultSize: sizes[defaultSize],
         menus: [
             {
-                options: ((controls: string[]): MultSelectSchema[] =>
+                options: ((controls: string[]): MultiSelectSchema[] =>
                     controls.map(
-                        (control: string): MultSelectSchema => ({
+                        (control: string): MultiSelectSchema => ({
                             getInitialValue: (): string[] =>
                                 game.inputWriter.aliasConverter
                                     .getAliasAsKeyStrings(control)
@@ -129,7 +129,7 @@ export const createUserWrapprSettings = ({
                             title: control,
                             type: OptionType.MultiSelect,
                         })
-                    ))(["a", "b", "left", "right", "up", "down", "pause"]),
+                    ))(["a", "b", "left", "right", "up", "down"]),
                 title: "Controls",
             },
         ],
@@ -190,6 +190,19 @@ export const createUserWrapprSettings = ({
                 transition: "700ms color",
             },
             menusInnerAreaFake: {
+                color: "grey",
+            },
+            menuTitleButton: {
+                alignItems: "center",
+                background: "none",
+                border: "none",
+                color: "white",
+                display: "flex",
+                fontFamily: "Press Start",
+                fontSize: "16px",
+                justifyContent: "center",
+            },
+            menuTitleButtonFake: {
                 color: "grey",
             },
         },

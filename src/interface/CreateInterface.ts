@@ -8,5 +8,5 @@ import { createUserWrapprSettings } from "./InterfaceSettings";
  * @param container   HTML element to create within.
  * @returns A Promise for creating the game interface.
  */
-export const createFspInterface = async (container: HTMLElement): Promise<void> =>
+export const createCypInterface = async (container: HTMLElement): Promise<void> =>
     new UserWrappr(createUserWrapprSettings()).createDisplay(container);

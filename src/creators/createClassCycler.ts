@@ -1,9 +1,9 @@
 import { ClassCyclr } from "classcyclr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 import { Actor } from "../sections/Actors";
 
-export const createClassCycler = (game: FullScreenPokemon) =>
+export const createClassCycler = (game: ChooseYourFramework) =>
     new ClassCyclr({
         classAdd: (actor: Actor, className: string) => {
             game.graphics.classes.addClass(actor, className);

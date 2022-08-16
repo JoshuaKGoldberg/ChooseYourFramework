@@ -1,12 +1,12 @@
 import { Section } from "eightbittr";
 
-import { FullScreenPokemon } from "../../FullScreenPokemon";
+import { ChooseYourFramework } from "../../ChooseYourFramework";
 import { Actor } from "../Actors";
 
 /**
  * Collects Actors to change visuals en masse.
  */
-export class Collections extends Section<FullScreenPokemon> {
+export class Collections extends Section<ChooseYourFramework> {
     /**
      * Collects all unique Actors that should be kept on top of battle intro animations.
      *

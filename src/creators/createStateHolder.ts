@@ -1,8 +1,8 @@
 import { StateHoldr } from "stateholdr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
-export const createStateHolder = (fsp: FullScreenPokemon): StateHoldr =>
+export const createStateHolder = (fsp: ChooseYourFramework): StateHoldr =>
     new StateHoldr({
         itemsHolder: fsp.itemsHolder,
         prefix: "StateHolder::",

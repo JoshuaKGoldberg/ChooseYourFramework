@@ -5,14 +5,11 @@
         "declarationMap": true,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
-        "lib": ["dom", "es2015"],
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact",
         "module": "amd",
         "moduleResolution": "node",
         "noFallthroughCasesInSwitch": true,
-        "noImplicitAny": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "outDir": "./lib",
@@ -23,7 +20,7 @@
         "strict": true,
         "strictFunctionTypes": false,
         "strictPropertyInitialization": false,
-        "target": "es2015"
+        "target": "ES2021"
     },
     "exclude": ["**/*.d.ts", "**/lib"],
     "include": ["./src/**/*.ts", "./src/**/*.tsx"]

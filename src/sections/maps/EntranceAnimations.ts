@@ -1,29 +1,20 @@
 import { Section } from "eightbittr";
 
-import { FullScreenPokemon } from "../../FullScreenPokemon";
+import { ChooseYourFramework } from "../../ChooseYourFramework";
 import { Direction } from "../Constants";
 import { Location } from "../Maps";
 
 /**
  * Map entrance animations.
  */
-export class EntranceAnimations extends Section<FullScreenPokemon> {
-    /**
-     * A blank Map entrance Function where no Character is placed.
-     */
-    public readonly blank = (): void => {
-        this.game.maps.addPlayer(0, 0);
-
-        this.game.players[0].hidden = true;
-    };
-
+export class EntranceAnimations extends Section<ChooseYourFramework> {
     /**
      * Standard Map entrance Function. Character is placed based on specified Location.
      *
      * @param location   Location within the Map being entered.
      */
     public readonly normal = (location: Location): void => {
-        this.game.maps.addPlayer(location.xloc || 0, location.yloc || 0);
+        this.game.maps.addPlayer(location.xLocation || 0, location.yLocation || 0);
 
         this.game.actions.animateCharacterSetDirection(
             this.game.players[0],
@@ -41,20 +32,5 @@ export class EntranceAnimations extends Section<FullScreenPokemon> {
         if (location.routine && this.game.scenePlayer.getCutsceneName()) {
             this.game.scenePlayer.playRoutine(location.routine);
         }
-    };
-
-    /**
-     * Map entrace Function used when player is added to the Map at the beginning
-     * of play. Retrieves Character position from the previous save state.
-     */
-    public readonly resume = (): void => {
-        const savedInfo: any = this.game.stateHolder.getChanges("player") || {};
-
-        this.game.maps.addPlayer(savedInfo.xloc || 0, savedInfo.yloc || 0, true);
-        this.game.actions.animateCharacterSetDirection(
-            this.game.players[0],
-            savedInfo.direction || Direction.Top
-        );
-        this.game.scrolling.centerMapScreen();
     };
 }

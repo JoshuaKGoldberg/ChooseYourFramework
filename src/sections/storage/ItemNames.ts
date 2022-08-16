@@ -1,11 +1,11 @@
 import { Section } from "eightbittr";
 
-import { FullScreenPokemon } from "../../FullScreenPokemon";
+import { ChooseYourFramework } from "../../ChooseYourFramework";
 
 /**
  * Keys for ItemsHoldr items.
  */
-export class ItemNames extends Section<FullScreenPokemon> {
+export class ItemNames extends Section<ChooseYourFramework> {
     /**
      * Whether game data should be saved on frequent important events.
      */
@@ -15,11 +15,6 @@ export class ItemNames extends Section<FullScreenPokemon> {
      * Which area the the player most recently entered.
      */
     public readonly area = "area";
-
-    /**
-     * Which gym leader badges the player has earned.
-     */
-    public readonly badges = "badges";
 
     /**
      * Whether a game has been started.
@@ -35,11 +30,6 @@ export class ItemNames extends Section<FullScreenPokemon> {
      * Items owned by the player.
      */
     public readonly items = "items";
-
-    /**
-     * Map and location of the last Pokecenter equivalent visited by the player.
-     */
-    public readonly lastPokecenter = "lastPokecenter";
 
     /**
      * Which location the the player most recently entered.
@@ -60,11 +50,6 @@ export class ItemNames extends Section<FullScreenPokemon> {
      * Chosen name of the player.
      */
     public readonly name = "name";
-
-    /**
-     * Chosen name of the rival.
-     */
-    public readonly nameRival = "nameRival";
 
     /**
      * Restore point for a previous save while a new game is played.
@@ -100,11 +85,6 @@ export class ItemNames extends Section<FullScreenPokemon> {
      * Starter Pokemon chosen by the player.
      */
     public readonly starter = "starter";
-
-    /**
-     * Starter Pokemon chosen by the rival.
-     */
-    public readonly starterRival = "starterRival";
 
     /**
      * How much time had passed at most recent save.

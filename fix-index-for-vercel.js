@@ -1,8 +1,8 @@
 const fs = require("fs-extra");
 const path = require("path");
 
-const libDir = path.join(__dirname, "lib");
-const indexPath = path.join(libDir, "index.html");
+const distDir = path.join(__dirname, "dist");
+const indexPath = path.join(distDir, "index.html");
 
 // 1. Replace "../node_modules/"" paths with "./" in index.html
 fs.writeFileSync(
@@ -10,7 +10,7 @@ fs.writeFileSync(
     fs.readFileSync(indexPath).toString().replaceAll("../node_modules", "./")
 );
 
-// 2. Mess with lib/index.html's message
+// 2. Mess with dist/index.html's message
 fs.writeFileSync(indexPath, fixIndexContents(fs.readFileSync(indexPath).toString()));
 
 /** @param {string} contents */
@@ -24,25 +24,18 @@ function fixIndexContents(contents) {
         A fun little experiment by
     <a class="link-github" href="http://joshuakgoldberg.com">Josh Goldberg</a>
     (<a class="link-github" href="https://twitter.com/joshuakgoldberg">@JoshuaKGoldberg</a>) based on some
-    <a class="link-github" href="https://github.com/FullScreenShenanigans/FullScreenPokemon">very old code</a
+    <a class="link-github" href="https://github.com/JoshuaKGoldberg/ChooseYourFramework">very old code</a
     >. 💖
-    </section>
-    <script>
-        console.log("Yes, performance is really bad. This is basically a dev build. I never got around to implementing production EightBittr builds...")
-    </script>`
+    </section>`
     );
 
     return lines
         .join("\n")
-        .replaceAll("FullScreenPokemon,", "Choose Your JavaScript Framework,")
-        .replaceAll(
-            "FullScreenShenanigans/FullScreenPokemon",
-            "JoshuaKGoldberg/choose-your-javascript-framework"
-        )
-        .replaceAll(">FullScreenPokemon<", ">Choose Your JavaScript Framework<");
+        .replaceAll("ChooseYourFramework,", "Choose Your Framework,")
+        .replaceAll(">ChooseYourFramework<", ">Choose Your Framework<");
 }
 
-// 3. Copy required node_modules/* packages into lib/
+// 3. Copy required node_modules/* packages into dist/
 const nodeModulesToCopy = [
     // Scaffolding
     "requirejs",
@@ -50,7 +43,7 @@ const nodeModulesToCopy = [
     "actorhittr",
     "areaspawnr",
     "audioplayr",
-    "babyioc",
+    "autofieldr",
     "battlemovr",
     "classcyclr",
     "devicelayr",
@@ -86,7 +79,7 @@ const nodeModulesToCopy = [
 for (const packageName of nodeModulesToCopy) {
     fs.copySync(
         path.join(__dirname, "node_modules", packageName),
-        path.join(libDir, packageName),
+        path.join(distDir, packageName),
         {
             filter: (src) => !src.includes(".bin"),
         }

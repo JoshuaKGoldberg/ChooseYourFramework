@@ -7,4 +7,3 @@ dist/
 lib/
 node_modules/
 test/
-!fix-index-for-vercel.js

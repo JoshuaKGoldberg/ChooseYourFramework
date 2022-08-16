@@ -1,2 +1,2 @@
-export * from "./FullScreenPokemon";
-export { createFspInterface } from "./interface/CreateInterface";
+export * from "./ChooseYourFramework";
+export { createCypInterface } from "./interface/CreateInterface";

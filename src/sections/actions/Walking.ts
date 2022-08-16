@@ -1,8 +1,8 @@
 import { Section } from "eightbittr";
 
-import { FullScreenPokemon } from "../../FullScreenPokemon";
+import { ChooseYourFramework } from "../../ChooseYourFramework";
 import { Direction } from "../Constants";
-import { Character, Player } from "../Actors";
+import { Character } from "../Actors";
 
 /**
  * A single instruction on a walking path.
@@ -34,7 +34,7 @@ export type WalkingInstructions = (WalkingInstruction | WalkingInstructionGenera
 /**
  * Starts, continues, and stops characters walking.
  */
-export class Walking extends Section<FullScreenPokemon> {
+export class Walking extends Section<ChooseYourFramework> {
     /**
      * Starts a Character walking on a predetermined path.
      *
@@ -101,13 +101,6 @@ export class Walking extends Section<FullScreenPokemon> {
         this.setWalkingAttributes(actor, direction);
         this.setWalkingGraphics(actor);
 
-        if (actor.follower) {
-            this.startWalking(
-                actor.follower,
-                this.game.physics.getDirectionBetween(actor.follower, actor)
-            );
-        }
-
         this.game.timeHandler.addEvent(
             (): void => this.continueWalking(actor, ticksPerBlock, onContinueWalking),
             ticksPerBlock + 1
@@ -130,23 +123,13 @@ export class Walking extends Section<FullScreenPokemon> {
             onContinueWalking();
         }
 
-        if (
-            !actor.wantsToWalk ||
-            (actor.player && this.tryStartWildPokemonEncounter(actor as Player))
-        ) {
+        if (!actor.wantsToWalk) {
             this.stopWalking(actor);
             return;
         }
 
         if (actor.nextDirection !== undefined) {
             this.setWalkingAttributes(actor, actor.nextDirection);
-        }
-
-        if (actor.follower) {
-            this.game.actions.following.continueFollowing(
-                actor.follower,
-                this.game.physics.getDirectionBetween(actor.follower, actor)
-            );
         }
 
         this.game.physics.snapToGrid(actor);
@@ -163,8 +146,8 @@ export class Walking extends Section<FullScreenPokemon> {
      * @param actor   A Character to start walking.
      */
     public stopWalking(actor: Character): void {
-        actor.xvel = 0;
-        actor.yvel = 0;
+        actor.xVelocity = 0;
+        actor.yVelocity = 0;
         actor.walking = false;
 
         this.game.graphics.classes.removeClasses(actor, "walking", "standing");
@@ -174,43 +157,6 @@ export class Walking extends Section<FullScreenPokemon> {
             this.game.timeHandler.cancelEvent(actor.walkingFlipping);
             actor.walkingFlipping = undefined;
         }
-
-        if (actor.follower) {
-            this.game.actions.following.pauseFollowing(actor.follower);
-        }
-
-        if (actor.sightDetector) {
-            this.game.actions.animatePositionSightDetector(actor);
-            actor.sightDetector.nocollide = false;
-        }
-    }
-
-    /**
-     * Animates a Character to no longer be able to walk.
-     *
-     * @param actor   A Character that shouldn't be able to walk.
-     */
-    public animateCharacterPreventWalking(actor: Character): void {
-        actor.xvel = actor.yvel = 0;
-        actor.wantsToWalk = false;
-
-        if (actor.player) {
-            (actor as Player).keys = (actor as Player).getKeys();
-            this.game.mapScreener.blockInputs = true;
-        }
-    }
-
-    /**
-     *
-     * @param actor @
-     * @returns Whether a wild Pokemon encounter was started.
-     */
-    private tryStartWildPokemonEncounter(_: Player): boolean {
-        if (this.game.menuGrapher.getActiveMenu()) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -224,29 +170,25 @@ export class Walking extends Section<FullScreenPokemon> {
 
         this.game.actions.animateCharacterSetDirection(actor, direction);
 
-        if (actor.sightDetector) {
-            actor.sightDetector.nocollide = true;
-        }
-
         switch (direction) {
             case 0:
-                actor.xvel = 0;
-                actor.yvel = -actor.speed;
+                actor.xVelocity = 0;
+                actor.yVelocity = -actor.speed;
                 break;
 
             case 1:
-                actor.xvel = actor.speed;
-                actor.yvel = 0;
+                actor.xVelocity = actor.speed;
+                actor.yVelocity = 0;
                 break;
 
             case 2:
-                actor.xvel = 0;
-                actor.yvel = actor.speed;
+                actor.xVelocity = 0;
+                actor.yVelocity = actor.speed;
                 break;
 
             case 3:
-                actor.xvel = -actor.speed;
-                actor.yvel = 0;
+                actor.xVelocity = -actor.speed;
+                actor.yVelocity = 0;
                 break;
 
             default:
@@ -274,10 +216,10 @@ export class Walking extends Section<FullScreenPokemon> {
             actor.walkingFlipping = this.game.timeHandler.addEventInterval(
                 (): void => {
                     if (actor.direction % 2 === 0) {
-                        if (actor.flipHoriz) {
-                            this.game.graphics.flipping.unflipHoriz(actor);
+                        if (actor.flipHorizontal) {
+                            this.game.graphics.flipping.unflipHorizontal(actor);
                         } else {
-                            this.game.graphics.flipping.flipHoriz(actor);
+                            this.game.graphics.flipping.flipHorizontal(actor);
                         }
                     }
                 },

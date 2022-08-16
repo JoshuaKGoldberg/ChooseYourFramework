@@ -1,16 +1,15 @@
 import { GameWindow, Inputs as EightBittrInputs } from "eightbittr";
 import { Aliases, TriggerContainer } from "inputwritr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 import { Direction } from "./Constants";
-import { ItemSchema } from "./constants/Items";
 import { Character, Player } from "./Actors";
 
 /**
  * User input filtering and handling.
  */
-export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Game> {
+export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<Game> {
     /**
      * Known, allowed aliases for input event triggers.
      */
@@ -22,7 +21,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
         down: [83, 40], // s, down
         a: [90, 13], // z, enter
         b: [88, 8], // x, backspace
-        pause: [80, 27], // p, escape
         select: [17, 16], // ctrl, shift
         // Mouse aliases
         rightclick: [3],
@@ -33,29 +31,20 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      */
     public readonly triggers: TriggerContainer = {
         onkeydown: {
-            left: (event: Event): void => this.keyDownLeft(this.game.players[0], event),
-            right: (event: Event): void => this.keyDownRight(this.game.players[0], event),
-            up: (event: Event): void => this.keyDownUp(this.game.players[0], event),
-            down: (event: Event): void => this.keyDownDown(this.game.players[0], event),
-            a: (event: Event): void => this.keyDownA(this.game.players[0], event),
-            b: (event: Event): void => this.keyDownB(this.game.players[0], event),
-            pause: (event: Event): void => this.keyDownPause(this.game.players[0], event),
-            mute: (event: Event): void => {
-                this.keyDownMute(this.game.players[0], event);
-            },
-            select: (event: Event): void => this.keyDownSelect(this.game.players[0], event),
+            left: (event) => this.keyDownLeft(this.game.players[0], event),
+            right: (event) => this.keyDownRight(this.game.players[0], event),
+            up: (event) => this.keyDownUp(this.game.players[0], event),
+            down: (event) => this.keyDownDown(this.game.players[0], event),
+            a: (event) => this.keyDownA(this.game.players[0], event),
+            b: (event) => this.keyDownB(this.game.players[0], event),
         },
         onkeyup: {
-            left: (event: Event): void => this.keyUpLeft(this.game.players[0], event),
-            right: (event: Event): void => this.keyUpRight(this.game.players[0], event),
-            up: (event: Event): void => this.keyUpUp(this.game.players[0], event),
-            down: (event: Event): void => this.keyUpDown(this.game.players[0], event),
-            a: (event: Event): void => this.keyUpA(this.game.players[0], event),
-            b: (event: Event): void => this.keyUpB(this.game.players[0], event),
-            pause: (event: Event): void => this.keyUpPause(this.game.players[0], event),
-        },
-        onmousedown: {
-            rightclick: (event: Event): void => this.mouseDownRight(this.game.players[0], event),
+            left: (event) => this.keyUpLeft(this.game.players[0], event),
+            right: (event) => this.keyUpRight(this.game.players[0], event),
+            up: (event) => this.keyUpUp(this.game.players[0], event),
+            down: (event) => this.keyUpDown(this.game.players[0], event),
+            a: (event) => this.keyUpA(this.game.players[0], event),
+            b: (event) => this.keyUpB(this.game.players[0], event),
         },
         oncontextmenu: {},
     };
@@ -82,11 +71,6 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
         );
 
         gameWindow.addEventListener(
-            "mousedown",
-            this.game.inputWriter.makePipe("onmousedown", "which")
-        );
-
-        gameWindow.addEventListener(
             "contextmenu",
             this.game.inputWriter.makePipe("oncontextmenu", "", true)
         );
@@ -98,11 +82,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param actor   A Character that wants to move.
      * @returns Whether direction keys may trigger.
      */
-    public canDirectionsTrigger(actor: Character): boolean {
-        if (actor.following || actor.ledge) {
-            return false;
-        }
-
+    public canDirectionsTrigger(): boolean {
         if (this.game.frameTicker.getPaused()) {
             return false;
         }
@@ -111,7 +91,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
             return true;
         }
 
-        return !this.game.mapScreener.blockInputs;
+        return true;
     }
 
     /**
@@ -121,9 +101,9 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    public keyDownUp(actor: Character, event?: Event): void {
+    public keyDownUp(actor: Character, event?: Event) {
         this.preventEventDefault(event);
-        if (!this.canDirectionsTrigger(actor)) {
+        if (!this.canDirectionsTrigger()) {
             return;
         }
 
@@ -132,7 +112,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
         }
 
         this.game.timeHandler.addEvent(
-            (): void => this.keyDownDirectionReal(actor as Player, Direction.Top),
+            () => this.keyDownDirectionReal(actor as Player, Direction.Top),
             this.inputTimeTolerance
         );
     }
@@ -144,9 +124,9 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    public keyDownRight(actor: Character, event?: Event): void {
+    public keyDownRight(actor: Character, event?: Event) {
         this.preventEventDefault(event);
-        if (!this.canDirectionsTrigger(actor)) {
+        if (!this.canDirectionsTrigger()) {
             return;
         }
 
@@ -155,7 +135,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
         }
 
         this.game.timeHandler.addEvent(
-            (): void => this.keyDownDirectionReal(actor as Player, Direction.Right),
+            () => this.keyDownDirectionReal(actor as Player, Direction.Right),
             this.inputTimeTolerance
         );
     }
@@ -167,9 +147,9 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    public keyDownDown(actor: Character, event?: Event): void {
+    public keyDownDown(actor: Character, event?: Event) {
         this.preventEventDefault(event);
-        if (!this.canDirectionsTrigger(actor)) {
+        if (!this.canDirectionsTrigger()) {
             return;
         }
 
@@ -178,7 +158,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
         }
 
         this.game.timeHandler.addEvent(
-            (): void => this.keyDownDirectionReal(actor as Player, Direction.Bottom),
+            () => this.keyDownDirectionReal(actor as Player, Direction.Bottom),
             this.inputTimeTolerance
         );
     }
@@ -190,9 +170,9 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    public keyDownLeft(actor: Character, event?: Event): void {
+    public keyDownLeft(actor: Character, event?: Event) {
         this.preventEventDefault(event);
-        if (!this.canDirectionsTrigger(actor)) {
+        if (!this.canDirectionsTrigger()) {
             return;
         }
 
@@ -201,7 +181,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
         }
 
         this.game.timeHandler.addEvent(
-            (): void => this.keyDownDirectionReal(actor as Player, Direction.Left),
+            () => this.keyDownDirectionReal(actor as Player, Direction.Left),
             this.inputTimeTolerance
         );
     }
@@ -213,7 +193,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    public keyDownA(actor: Character, event?: Event): void {
+    public keyDownA(actor: Character, event?: Event) {
         this.preventEventDefault(event);
         if (this.game.frameTicker.getPaused()) {
             return;
@@ -243,7 +223,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    public keyDownB(actor: Character, event?: Event): void {
+    public keyDownB(actor: Character, event?: Event) {
         this.preventEventDefault(event);
         if (this.game.frameTicker.getPaused()) {
             return;
@@ -257,62 +237,12 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
     }
 
     /**
-     * Reacts to the pause key being pressed. The game is paused if it isn't
-     * already. The onKeyDownPause mod event is fired.
-     *
-     * @param _actor   The triggering Character.
-     * @param event   The original user-caused Event.
-     */
-    public keyDownPause(_actor: Character, event?: Event): void {
-        this.preventEventDefault(event);
-        this.game.menus.pause.toggle();
-    }
-
-    /**
-     * Reacts to the mute key being pressed. The game has mute toggled, and the
-     * onKeyDownMute mod event is fired.
-     *
-     * @param _actor   The triggering Character.
-     * @param event   The original user-caused Event.
-     */
-    public async keyDownMute(_actor: Character, event?: Event): Promise<void> {
-        this.preventEventDefault(event);
-        await this.game.audioPlayer.setMuted(this.game.audioPlayer.getMuted());
-    }
-
-    /**
-     * Reacts to the select key being pressed. Toggles the use of the registered item.
-     *
-     * @param actor   The triggering Player.
-     * @param event   The original user-caused Event.
-     * @todo Extend the use for any registered item, not just the bicycle.
-     */
-    public keyDownSelect(actor: Player, event?: Event): void {
-        this.preventEventDefault(event);
-        if (this.game.menuGrapher.getActiveMenu() || actor.walking) {
-            return;
-        }
-
-        const selectItem = this.game.itemsHolder.getItem(this.game.storage.names.selectItem);
-        if (!selectItem) {
-            return;
-        }
-
-        const itemSchema: ItemSchema = this.game.constants.items.byName[selectItem.join("")];
-        if (!itemSchema.bagActivate) {
-            throw new Error("Currently selected item does not have a .bagActivate.");
-        }
-
-        itemSchema.bagActivate.call(this, actor, itemSchema);
-    }
-
-    /**
      * Reacts to the left key being lifted. The onKeyUpLeft mod event is fired.
      *
      * @param actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    public keyUpLeft(actor: Character, event?: Event): void {
+    public keyUpLeft(actor: Character, event?: Event) {
         this.preventEventDefault(event);
 
         if (actor.player) {
@@ -333,7 +263,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    public keyUpRight(actor: Character, event?: Event): void {
+    public keyUpRight(actor: Character, event?: Event) {
         this.preventEventDefault(event);
 
         if (actor.player) {
@@ -354,7 +284,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    public keyUpUp(actor: Character, event?: Event): void {
+    public keyUpUp(actor: Character, event?: Event) {
         this.preventEventDefault(event);
 
         if (actor.player) {
@@ -375,7 +305,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    public keyUpDown(actor: Character, event?: Event): void {
+    public keyUpDown(actor: Character, event?: Event) {
         this.preventEventDefault(event);
 
         if (actor.player) {
@@ -396,7 +326,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    public keyUpA(actor: Character, event?: Event): void {
+    public keyUpA(actor: Character, event?: Event) {
         this.preventEventDefault(event);
 
         if (actor.player) {
@@ -410,7 +340,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    public keyUpB(actor: Character, event?: Event): void {
+    public keyUpB(actor: Character, event?: Event) {
         this.preventEventDefault(event);
 
         if (actor.player) {
@@ -424,20 +354,8 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param _actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    public keyUpPause(_actor: Character, event?: Event): void {
+    public keyUpPause(_actor: Character, event?: Event) {
         this.preventEventDefault(event);
-    }
-
-    /**
-     * Reacts to the context menu being activated. The pause menu is opened,
-     * and the onMouseDownRight mod event is fired.
-     *
-     * @param _actor   The triggering Character.
-     * @param event   The original user-caused Event.
-     */
-    public mouseDownRight(_actor: Character, event?: Event): void {
-        this.preventEventDefault(event);
-        this.game.menus.pause.toggle();
     }
 
     /**
@@ -448,7 +366,7 @@ export class Inputs<Game extends FullScreenPokemon> extends EightBittrInputs<Gam
      * @param actor   The triggering Character.
      * @param event   The original user-caused Event.
      */
-    private keyDownDirectionReal(actor: Player, direction: Direction): void {
+    private keyDownDirectionReal(actor: Player, direction: Direction) {
         if (!actor.keys[direction]) {
             return;
         }

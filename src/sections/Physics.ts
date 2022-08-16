@@ -1,14 +1,14 @@
 import { Physics as EightBittrPhysics } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 import { Direction } from "./Constants";
-import { Character, Grass, Actor } from "./Actors";
+import { Character, Actor } from "./Actors";
 
 /**
  * Physics functions to move Actors around.
  */
-export class Physics<Game extends FullScreenPokemon> extends EightBittrPhysics<Game> {
+export class Physics<Game extends ChooseYourFramework> extends EightBittrPhysics<Game> {
     /**
      * Determines the bordering direction from one Actor to another.
      *
@@ -73,55 +73,28 @@ export class Physics<Game extends FullScreenPokemon> extends EightBittrPhysics<G
     }
 
     /**
-     * Determines whether a Character is visually within grass.
-     *
-     * @param actor   An in-game Character.
-     * @param other   Grass that actor might be in.
-     * @returns Whether actor is visually within other.
-     */
-    public isActorWActorrass(actor: Character, other: Grass): boolean {
-        if (actor.right <= other.left) {
-            return false;
-        }
-
-        if (actor.left >= other.right) {
-            return false;
-        }
-
-        if (other.top > actor.top + actor.height / 2) {
-            return false;
-        }
-
-        if (other.bottom < actor.top + actor.height / 2) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Shifts a Character according to its xvel and yvel.
+     * Shifts a Character according to its xVelocity and yVelocity.
      *
      * @param actor   A Character to shift.
      */
     public shiftCharacter(actor: Character): void {
-        if (actor.bordering[Direction.Top] && actor.yvel < 0) {
-            actor.yvel = 0;
+        if (actor.bordering[Direction.Top] && actor.yVelocity < 0) {
+            actor.yVelocity = 0;
         }
 
-        if (actor.bordering[Direction.Right] && actor.xvel > 0) {
-            actor.xvel = 0;
+        if (actor.bordering[Direction.Right] && actor.xVelocity > 0) {
+            actor.xVelocity = 0;
         }
 
-        if (actor.bordering[Direction.Bottom] && actor.yvel > 0) {
-            actor.yvel = 0;
+        if (actor.bordering[Direction.Bottom] && actor.yVelocity > 0) {
+            actor.yVelocity = 0;
         }
 
-        if (actor.bordering[Direction.Left] && actor.xvel < 0) {
-            actor.xvel = 0;
+        if (actor.bordering[Direction.Left] && actor.xVelocity < 0) {
+            actor.xVelocity = 0;
         }
 
-        this.shiftBoth(actor, actor.xvel, actor.yvel);
+        this.shiftBoth(actor, actor.xVelocity, actor.yVelocity);
     }
 
     /**

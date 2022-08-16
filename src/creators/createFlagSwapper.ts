@@ -1,6 +1,6 @@
 import { FlagSwappr } from "flagswappr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 /**
  * Generation-specific flags.
@@ -17,7 +17,7 @@ export interface Flags {
     readonly heldItems: boolean;
 }
 
-export const createFlagSwapper = (fsp: FullScreenPokemon): FlagSwappr<Flags> =>
+export const createFlagSwapper = (fsp: ChooseYourFramework): FlagSwappr<Flags> =>
     new FlagSwappr({
         generation: "I",
         generations: {

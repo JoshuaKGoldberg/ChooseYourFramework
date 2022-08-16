@@ -1,6 +1,6 @@
 import { Section } from "eightbittr";
 
-import { FullScreenPokemon } from "../../FullScreenPokemon";
+import { ChooseYourFramework } from "../../ChooseYourFramework";
 import { Direction } from "../Constants";
 import { RoamingCharacter } from "../Actors";
 
@@ -11,7 +11,7 @@ export const randomRoamingMinimumTicks = 70;
 /**
  * Idle characters turning and walking in random directions.
  */
-export class Roaming extends Section<FullScreenPokemon> {
+export class Roaming extends Section<ChooseYourFramework> {
     /**
      * Starts a Character roaming in random directions.
      *

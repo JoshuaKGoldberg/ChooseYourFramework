@@ -1,14 +1,12 @@
 import { createClock } from "@sinonjs/fake-timers";
-import { AudioElementSound } from "audioplayr";
 import { EightBittrConstructorSettings } from "eightbittr";
 import { createStorage } from "itemsholdr";
-import * as sinon from "sinon";
 
 import { Menu } from "./sections/Menus";
 import { Player } from "./sections/Actors";
-import { FullScreenPokemon } from "./FullScreenPokemon";
+import { ChooseYourFramework } from "./ChooseYourFramework";
 
-export interface StubFullScreenPokemonSettings extends Partial<EightBittrConstructorSettings> {
+export interface StubChooseYourFrameworkSettings extends Partial<EightBittrConstructorSettings> {
     /**
      * Whether to enable MenuGraphr's finishAutomatically and finishLinesAutomatically.
      */
@@ -16,12 +14,12 @@ export interface StubFullScreenPokemonSettings extends Partial<EightBittrConstru
 }
 
 /**
- * Creates a stubbed instance of the FullScreenPokemon class.
+ * Creates a stubbed instance of the ChooseYourFramework class.
  *
  * @param settings   Size settings, if not a default small window size.
- * @returns A new instance of the FullScreenPokemon class.
+ * @returns A new instance of the ChooseYourFramework class.
  */
-export const stubFullScreenPokemon = (settings: StubFullScreenPokemonSettings = {}) => {
+export const stubChooseYourFramework = (settings: StubChooseYourFrameworkSettings = {}) => {
     settings = {
         width: 256,
         height: 256,
@@ -31,12 +29,9 @@ export const stubFullScreenPokemon = (settings: StubFullScreenPokemonSettings = 
     const clock = createClock();
     const prefix = `${new Date().getTime()}`;
     const storage = createStorage();
-    const fsp = new FullScreenPokemon({
+    const fsp = new ChooseYourFramework({
         height: settings.height || 256,
         components: {
-            audioPlayer: {
-                createSound: () => sinon.createStubInstance(AudioElementSound),
-            },
             frameTicker: {
                 timing: {
                     cancelFrame: clock.clearTimeout,
@@ -68,13 +63,13 @@ export const stubFullScreenPokemon = (settings: StubFullScreenPokemonSettings = 
 };
 
 /**
- * Creates a new instance of the FullScreenPokemon class in the Blank map.
+ * Creates a new instance of the ChooseYourFramework class in the Blank map.
  *
  * @param settings   Size settings, if not a default small window size.
- * @returns A new instance of the FullScreenPokemon class with an in-progress game.
+ * @returns A new instance of the ChooseYourFramework class with an in-progress game.
  */
-export const stubBlankGame = (settings?: StubFullScreenPokemonSettings) => {
-    const { fsp, ...options } = stubFullScreenPokemon(settings);
+export const stubBlankGame = (settings?: StubChooseYourFrameworkSettings) => {
+    const { fsp, ...options } = stubChooseYourFramework(settings);
 
     fsp.itemsHolder.setItem(fsp.storage.names.name, "Test".split(""));
 
@@ -86,4 +81,4 @@ export const stubBlankGame = (settings?: StubFullScreenPokemonSettings) => {
     return { fsp, player, ...options };
 };
 
-export const stubGameForMapsTest = () => stubFullScreenPokemon().fsp;
+export const stubGameForMapsTest = () => stubChooseYourFramework().fsp;

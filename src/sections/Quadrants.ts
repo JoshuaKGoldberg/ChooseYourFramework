@@ -1,11 +1,11 @@
 import { Quadrants as EightBittrQuadrants } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 /**
  * Arranges game physics quadrants.
  */
-export class Quadrants<Game extends FullScreenPokemon> extends EightBittrQuadrants<Game> {
+export class Quadrants<Game extends ChooseYourFramework> extends EightBittrQuadrants<Game> {
     /**
      * Groups that should have their quadrants updated.
      */

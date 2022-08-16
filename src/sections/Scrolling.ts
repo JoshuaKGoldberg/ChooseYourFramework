@@ -1,6 +1,6 @@
 import { Scrolling as EightBittrScrolling } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 import { Area, AreaBoundaries } from "./Maps";
 
 /**
@@ -31,7 +31,7 @@ export enum Scrollability {
 /**
  * Moves the screen and Actors in it.
  */
-export class Scrolling<Game extends FullScreenPokemon> extends EightBittrScrolling<Game> {
+export class Scrolling<Game extends ChooseYourFramework> extends EightBittrScrolling<Game> {
     /**
      * Centers the current view of the Map based on scrollability.
      */
@@ -171,38 +171,38 @@ export class Scrolling<Game extends FullScreenPokemon> extends EightBittrScrolli
 
     /**
      * Determines how much to scroll horizontally during upkeep based
-     * on player xvel and horizontal bordering.
+     * on player xVelocity and horizontal bordering.
      *
      * @returns How far to scroll horizontally.
      */
     public getHorizontalScrollAmount(): number {
-        if (!this.game.players[0].xvel) {
+        if (!this.game.players[0].xVelocity) {
             return 0;
         }
 
-        if (this.game.players[0].xvel > 0) {
-            return this.game.players[0].bordering[1] ? 0 : this.game.players[0].xvel;
+        if (this.game.players[0].xVelocity > 0) {
+            return this.game.players[0].bordering[1] ? 0 : this.game.players[0].xVelocity;
         }
 
-        return this.game.players[0].bordering[3] ? 0 : this.game.players[0].xvel;
+        return this.game.players[0].bordering[3] ? 0 : this.game.players[0].xVelocity;
     }
 
     /**
      * Determines how much to scroll vertically during upkeep based
-     * on player yvel and vertical bordering.
+     * on player yVelocity and vertical bordering.
      *
      * @returns How far to scroll vertically.
      */
     public getVerticalScrollAmount(): number {
-        if (!this.game.players[0].yvel) {
+        if (!this.game.players[0].yVelocity) {
             return 0;
         }
 
-        if (this.game.players[0].yvel > 0) {
-            return this.game.players[0].bordering[2] ? 0 : this.game.players[0].yvel;
+        if (this.game.players[0].yVelocity > 0) {
+            return this.game.players[0].bordering[2] ? 0 : this.game.players[0].yVelocity;
         }
 
-        return this.game.players[0].bordering[0] ? 0 : this.game.players[0].yvel;
+        return this.game.players[0].bordering[0] ? 0 : this.game.players[0].yVelocity;
     }
 
     /**

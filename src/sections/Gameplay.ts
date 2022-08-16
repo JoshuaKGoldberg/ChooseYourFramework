@@ -1,11 +1,11 @@
 import { Section } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 /**
  * Event hooks for major gameplay state changes.
  */
-export class Gameplay extends Section<FullScreenPokemon> {
+export class Gameplay extends Section<ChooseYourFramework> {
     /**
      * Sets the map to Blank and displays the StartOptions menu.
      */
@@ -23,7 +23,6 @@ export class Gameplay extends Section<FullScreenPokemon> {
             this.game.itemsHolder.getItem(this.game.storage.names.location),
             true
         );
-        this.game.maps.entranceAnimations.resume();
     }
 
     /**

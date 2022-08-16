@@ -1,21 +1,13 @@
-import { member } from "babyioc";
 import { Section } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
-import { Moves } from "./equations/Moves";
 import { Character } from "./Actors";
 
 /**
  * Common equations.
  */
-export class Equations extends Section<FullScreenPokemon> {
-    /**
-     * Equations for battle moves.
-     */
-    @member(Moves)
-    public readonly moves: Moves;
-
+export class Equations extends Section<ChooseYourFramework> {
     /**
      * Calculates how many game ticks it will take for a Character to traverse a block.
      *

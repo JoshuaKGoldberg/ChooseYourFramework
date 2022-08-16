@@ -1,13 +1,6 @@
-import { member } from "babyioc";
 import { Section } from "eightbittr";
 
-import { FullScreenPokemon } from "../FullScreenPokemon";
-
-import { Items } from "./constants/Items";
-import { Moves } from "./constants/Moves";
-import { Pokemon } from "./constants/Pokemon";
-import { Statuses } from "./constants/Statuses";
-import { Types } from "./constants/Types";
+import { ChooseYourFramework } from "../ChooseYourFramework";
 
 /**
  * Directions mapped to their String aliases.
@@ -52,7 +45,7 @@ export enum PokedexListingStatus {
 /**
  * Universal game constants.
  */
-export class Constants extends Section<FullScreenPokemon> {
+export class Constants extends Section<ChooseYourFramework> {
     /**
      * Static scale of 2, to expand to two pixels per one game pixel.
      */
@@ -62,36 +55,6 @@ export class Constants extends Section<FullScreenPokemon> {
      * How many game pixels wide each map "block" is.
      */
     public readonly blockSize: number = 32;
-
-    /**
-     * All known items, keyed by English name.
-     */
-    @member(Items)
-    public readonly items: Items;
-
-    /**
-     * All known Pokemon moves, keyed by concatenated name.
-     */
-    @member(Moves)
-    public readonly moves: Moves;
-
-    /**
-     * All known Pokemon, keyed by concatenated name.
-     */
-    @member(Pokemon)
-    public readonly pokemon: Pokemon;
-
-    /**
-     * Information on Pokemon status effects.
-     */
-    @member(Statuses)
-    public readonly statuses: Statuses;
-
-    /**
-     * Information on move types.
-     */
-    @member(Types)
-    public readonly types: Types;
 
     /**
      * The allowed uppercase keys to be shown in a keyboard.

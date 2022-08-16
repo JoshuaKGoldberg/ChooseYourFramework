@@ -1,13 +1,13 @@
 import { Section } from "eightbittr";
 import { MenuDialogRaw } from "menugraphr";
 
-import { FullScreenPokemon } from "../../FullScreenPokemon";
+import { ChooseYourFramework } from "../../ChooseYourFramework";
 import { Character, Detector, Player } from "../Actors";
 
 /**
  * Handlers for collisions with Detector Actors.
  */
-export class Detectors extends Section<FullScreenPokemon> {
+export class Detectors extends Section<ChooseYourFramework> {
     /**
      * Collision callback for a Player and a dialog-containing Character. The
      * dialog is started if it exists, as with a cutscene from other.
