@@ -13,7 +13,7 @@
         "battlemovr": "^0.8.3",
         "classcyclr": "^0.8.3",
         "devicelayr": "^0.8.3",
-        "eightbittr": "^0.8.3",
+        "eightbittr": "^0.8.2",
         "flagswappr": "^0.8.3",
         "fpsanalyzr": "^0.8.3",
         "frametickr": "^0.8.3",
@@ -34,7 +34,7 @@
         "stringfilr": "^0.8.3",
         "timehandlr": "^0.8.3",
         "touchpassr": "^0.8.3",
-        "userwrappr": "^0.8.3"
+        "userwrappr": "^0.8.2"
     },
     "description": "Choosing a modern JavaScript UI framework, Pokemon-style.",
     "devDependencies": {
@@ -70,7 +70,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "requirejs": "^2.3.6",
-        "shenanigans-manager": "^0.8.3",
+        "shenanigans-manager": "^0.8.1",
         "sinon": "^14.0.0",
         "sinon-chai": "^3.7.0",
         "ts-loader": "^9.3.1",
@@ -96,7 +96,7 @@
         "url": "ssh://git@github.com:FullScreenShenanigans/ChooseYourFramework.git"
     },
     "scripts": {
-        "build:vercel": "yarn hydrate; yarn compile; yarn build:vercel:fix",
+        "build:vercel": "ls -rl node_modules/shenanigans-manager; yarn compile; yarn build:vercel:fix",
         "build:vercel:fix": "node ./fix-index-for-vercel.js",
         "clean": "rm -rf lib *.tsbuildinfo",
         "compile": "tsc",
