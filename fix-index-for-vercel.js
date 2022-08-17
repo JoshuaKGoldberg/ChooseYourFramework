@@ -10,20 +10,7 @@ fs.writeFileSync(
     fs.readFileSync(indexPath).toString().replaceAll("../node_modules", "./")
 );
 
-// 2. Mess with dist/index.html's message
-fs.writeFileSync(indexPath, fixIndexContents(fs.readFileSync(indexPath).toString()));
-
-/** @param {string} contents */
-function fixIndexContents(contents) {
-    const lines = contents.split("\n");
-
-    return lines
-        .join("\n")
-        .replaceAll("ChooseYourFramework,", "Choose Your Framework,")
-        .replaceAll(">ChooseYourFramework<", ">Choose Your Framework<");
-}
-
-// 3. Copy required node_modules/* packages into dist/
+// 2. Copy required node_modules/* packages into dist/
 const nodeModulesToCopy = [
     // Scaffolding
     "requirejs",
