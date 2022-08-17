@@ -64,6 +64,7 @@ export class OakIntroPokemonChoiceCutscene extends Section<ChooseYourFramework> 
                             text: "YES",
                             callback: () => {
                                 window.open(settings.triggerer.href);
+                                this.game.menuGrapher.registerB();
                             },
                         },
                         {
