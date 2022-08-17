@@ -10,39 +10,13 @@ fs.writeFileSync(
     fs.readFileSync(indexPath).toString().replaceAll("../node_modules", "./")
 );
 
-// 2. Mess with dist/index.html's message
-fs.writeFileSync(indexPath, fixIndexContents(fs.readFileSync(indexPath).toString()));
-
-/** @param {string} contents */
-function fixIndexContents(contents) {
-    const lines = contents.split("\n");
-
-    lines.splice(
-        25,
-        9,
-        `<section id="social" class="section-text">
-        A fun little experiment by
-    <a class="link-github" href="http://joshuakgoldberg.com">Josh Goldberg</a>
-    (<a class="link-github" href="https://twitter.com/joshuakgoldberg">@JoshuaKGoldberg</a>) based on some
-    <a class="link-github" href="https://github.com/JoshuaKGoldberg/ChooseYourFramework">very old code</a
-    >. 💖
-    </section>`
-    );
-
-    return lines
-        .join("\n")
-        .replaceAll("ChooseYourFramework,", "Choose Your Framework,")
-        .replaceAll(">ChooseYourFramework<", ">Choose Your Framework<");
-}
-
-// 3. Copy required node_modules/* packages into dist/
+// 2. Copy required node_modules/* packages into dist/
 const nodeModulesToCopy = [
     // Scaffolding
     "requirejs",
     // EightBittr modules
     "actorhittr",
     "areaspawnr",
-    "audioplayr",
     "autofieldr",
     "battlemovr",
     "classcyclr",
@@ -70,18 +44,15 @@ const nodeModulesToCopy = [
     "touchpassr",
     "userwrappr",
     // UI
-    "mobx",
-    "mobx-react",
-    "react",
-    "react-dom",
+    "preact",
 ];
 
 for (const packageName of nodeModulesToCopy) {
-    fs.copySync(
-        path.join(__dirname, "node_modules", packageName),
-        path.join(distDir, packageName),
-        {
-            filter: (src) => !src.includes(".bin"),
-        }
-    );
+    const source = path.join(__dirname, "node_modules", packageName);
+    const destination = path.join(distDir, packageName);
+    console.log("Will attempt to copy", source, "to", destination);
+
+    fs.copySync(source, destination, {
+        filter: (src) => !src.includes(".bin"),
+    });
 }
