@@ -10,7 +10,28 @@ fs.writeFileSync(
     fs.readFileSync(indexPath).toString().replaceAll("../node_modules", "./")
 );
 
-// 2. Copy required node_modules/* packages into dist/
+// 2. Mess with dist/index.html's message
+fs.writeFileSync(indexPath, fixIndexContents(fs.readFileSync(indexPath).toString()));
+
+/** @param {string} contents */
+function fixIndexContents(contents) {
+    return contents
+        .replace(
+            `<section id="explanation" class="section-text"></section>`,
+            `<section id="explanation" class="section-text">
+    Have you ever felt choosing a modern JavaScript UI framework was a lot like picking a starter Pokemon?
+    <br />
+    They all have their strengths and weaknesses.
+    Most of us don't deeply understand how they compare.
+    We just pick one at the beginning and spend the next few years convinced it was the best choice.
+</section>
+`
+        )
+        .replaceAll("ChooseYourFramework,", "Choose Your Framework,")
+        .replaceAll(">ChooseYourFramework<", ">Choose Your Framework<");
+}
+
+// 3. Copy required node_modules/* packages into dist/
 const nodeModulesToCopy = [
     // Scaffolding
     "requirejs",
