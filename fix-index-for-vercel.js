@@ -17,18 +17,6 @@ fs.writeFileSync(indexPath, fixIndexContents(fs.readFileSync(indexPath).toString
 function fixIndexContents(contents) {
     const lines = contents.split("\n");
 
-    lines.splice(
-        25,
-        9,
-        `<section id="social" class="section-text">
-        A fun little experiment by
-    <a class="link-github" href="http://joshuakgoldberg.com">Josh Goldberg</a>
-    (<a class="link-github" href="https://twitter.com/joshuakgoldberg">@JoshuaKGoldberg</a>) based on some
-    <a class="link-github" href="https://github.com/JoshuaKGoldberg/ChooseYourFramework">very old code</a
-    >. 💖
-    </section>`
-    );
-
     return lines
         .join("\n")
         .replaceAll("ChooseYourFramework,", "Choose Your Framework,")
@@ -42,7 +30,6 @@ const nodeModulesToCopy = [
     // EightBittr modules
     "actorhittr",
     "areaspawnr",
-    "audioplayr",
     "autofieldr",
     "battlemovr",
     "classcyclr",
