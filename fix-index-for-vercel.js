@@ -57,18 +57,15 @@ const nodeModulesToCopy = [
     "touchpassr",
     "userwrappr",
     // UI
-    "mobx",
-    "mobx-react",
-    "react",
-    "react-dom",
+    "preact",
 ];
 
 for (const packageName of nodeModulesToCopy) {
-    fs.copySync(
-        path.join(__dirname, "node_modules", packageName),
-        path.join(distDir, packageName),
-        {
-            filter: (src) => !src.includes(".bin"),
-        }
-    );
+    const source = path.join(__dirname, "node_modules", packageName);
+    const destination = path.join(distDir, packageName);
+    console.log("Will attempt to copy", source, "to", destination);
+
+    fs.copySync(source, destination, {
+        filter: (src) => !src.includes(".bin"),
+    });
 }
