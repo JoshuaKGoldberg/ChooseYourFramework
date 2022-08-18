@@ -67,7 +67,7 @@ fs.writeFileSync(
 );
 
 // 4. Copy required node_modules/* packages into dist/
-const nodeModulesToCopy = ["requirejs", "preact"];
+const nodeModulesToCopy = ["requirejs", "preact", "userwrappr"];
 
 for (const packageName of nodeModulesToCopy) {
     const source = path.join(__dirname, "node_modules", packageName);
