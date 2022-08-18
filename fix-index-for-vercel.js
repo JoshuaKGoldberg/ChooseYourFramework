@@ -37,7 +37,7 @@ fs.writeFileSync(
 // 3. Mess with dist/index.css...
 fs.writeFileSync(
     indexCssPath,
-    minifyCss(fs.readFileSync(indexCss).toString())
+    minifyCss(fs.readFileSync(indexCssPath).toString())
         // Fix game height, pending shenanigans-manager settings
         .replace(`210px`, `515px`)
 );
