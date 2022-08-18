@@ -52,7 +52,6 @@ const nodeModulesToCopy = [
     "classcyclr",
     "devicelayr",
     "eightbittr",
-    "flagswappr",
     "fpsanalyzr",
     "frametickr",
     "groupholdr",
