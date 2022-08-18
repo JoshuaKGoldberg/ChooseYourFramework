@@ -61,7 +61,6 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
             },
             Text: {
                 Exclamation: {},
-                HalfArrowHorizontal: {},
                 Square: {
                     BlackSquare: {},
                     DarkGraySquare: {},
@@ -126,18 +125,6 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
                         Chary: {},
                     },
                 },
-                CharacterShadow: {
-                    Char0Shadow: {},
-                    Char1Shadow: {},
-                    Char2Shadow: {},
-                    Char3Shadow: {},
-                    Char4Shadow: {},
-                    Char5Shadow: {},
-                    Char6Shadow: {},
-                    Char7Shadow: {},
-                    Char8Shadow: {},
-                    Char9Shadow: {},
-                },
                 Number: {
                     Char0: {},
                     Char1: {},
@@ -159,17 +146,12 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
                     CharSemicolon: {},
                     CharLeftSquareBracket: {},
                     CharRightSquareBracket: {},
-                    CharPoke: {},
-                    CharMon: {},
                     CharNo: {},
                     CharID: {},
                     CharHyphen: {},
-                    CharMDash: {},
                     CharUnderscore: {},
                     CharQuestionMark: {},
                     CharExclamationMark: {},
-                    CharMaleSymbol: {},
-                    CharFemaleSymbol: {},
                     CharSlash: {},
                     CharPeriod: {},
                     CharComma: {},
@@ -178,10 +160,6 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
                     CharFeet: {},
                     CharInches: {},
                     ChareFancy: {},
-                    CharBall: {},
-                    CharBallEmpty: {},
-                    CharBallFaint: {},
-                    CharBallStatus: {},
                     CharCircle: {},
                     CharHP: {},
                     CharPP: {},
@@ -190,14 +168,7 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
                     Char$: {},
                 },
                 CharArrow: {
-                    CharArrowUp: {},
                     CharArrowRight: {},
-                    CharArrowDown: {},
-                    CharArrowLeft: {},
-                },
-                HalfArrow: {
-                    HalfArrowLeft: {},
-                    HalfArrowRight: {},
                 },
                 Line: {
                     LineDecoratorHorizontal: {
@@ -430,15 +401,12 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
             height: 16,
             paddingX: 0,
             paddingY: 32,
-            noshiftx: true,
-            noshifty: true,
         },
         Exclamation: {
             width: 28,
             height: 28,
             offsetY: -8,
         },
-        HalfArrowHorizontal: [16, 8],
         Square: {
             width: 4,
             height: 4,
@@ -446,20 +414,6 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
         },
         CharacterDropped: {
             offsetY: 3,
-        },
-        CharacterShadow: [14, 14],
-        CharMDash: {
-            attributes: {
-                blinking: {
-                    onActorAdded: (): void => console.log("HA"),
-                },
-            },
-        },
-        CharPoke: {
-            offsetx: 2,
-        },
-        CharMon: {
-            offsetx: 2,
         },
         CharNo: {
             width: 16,
@@ -483,10 +437,6 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
         CharApostrophe: [4, 8],
         CharFeet: [8, 6],
         CharInches: [14, 8],
-        CharBall: [14, 14],
-        CharBallEmpty: [14, 14],
-        CharBallFaint: [14, 14],
-        CharBallStatus: [14, 14],
         CharCircle: [10, 10],
         CharHP: [22, 8],
         CharPP: [30, 14],
@@ -499,11 +449,7 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
             offsetX: 8,
             offsetx: 2,
         },
-        CharArrowUp: [14, 10],
         CharArrowRight: [10, 14],
-        CharArrowDown: [14, 10],
-        CharArrowLeft: [10, 14],
-        HalfArrow: [16, 8],
         Line: {
             width: 4,
             height: 4,
@@ -519,16 +465,11 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
             width: 32,
             height: 32,
             repeat: true,
-            noshiftx: true,
-            noshifty: true,
             arrowXOffset: 5,
             arrowYOffset: 4,
             textXOffset: 16,
             textYOffset: 30,
             textSpeed: 1,
-            attributes: {
-                plain: {},
-            },
         },
     };
 

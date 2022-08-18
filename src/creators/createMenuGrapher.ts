@@ -14,7 +14,6 @@ export const createMenuGrapher = (game: ChooseYourFramework): MenuGraphr =>
             "[": "LeftSquareBracket",
             "]": "RightSquareBracket",
             "-": "Hyphen",
-            MDash: "MDash",
             _: "Underscore",
             "?": "QuestionMark",
             "!": "ExclamationMark",

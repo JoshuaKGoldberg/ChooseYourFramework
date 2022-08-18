@@ -21,9 +21,8 @@ fs.writeFileSync(
             `<section id="explanation" class="section-text">
     Have you ever felt choosing a modern JavaScript UI framework was a lot like picking a starter Pokemon?
     <br />
-    They all have their strengths and weaknesses.
     Most of us don't deeply understand how they compare.
-    We just pick one at the beginning and spend the next few years convinced it was the best choice.
+    We pick one and spend the next few years convinced it was the best choice.
 </section>
 `
         )

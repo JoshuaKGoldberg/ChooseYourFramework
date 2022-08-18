@@ -38,16 +38,6 @@ export interface DialogOptions {
 }
 
 /**
- * General attributes for all menus.
- */
-export interface MenuBase extends menugraphr.MenuBase {
-    /**
-     * Whether this has the plain white visual background.
-     */
-    plain?: boolean;
-}
-
-/**
  * A schema to specify creating a menu.
  */
 export interface MenuSchema extends menugraphr.MenuSchema {
@@ -60,7 +50,7 @@ export interface MenuSchema extends menugraphr.MenuSchema {
 /**
  * A Menu Actor.
  */
-export interface Menu extends MenuBase, Actor {
+export interface Menu extends menugraphr.MenuBase, Actor {
     /**
      * Children Actors attached to the Menu.
      */
