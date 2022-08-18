@@ -12,7 +12,6 @@ fs.writeFileSync(
     indexHtmlPath,
     minifyHtml(fs.readFileSync(indexHtmlPath).toString(), {
         collapseWhitespace: true,
-        removeAttributeQuotes: true,
     })
         // Replace "../node_modules/"" paths with "./" in index.html
         .replaceAll("../node_modules", "./")
