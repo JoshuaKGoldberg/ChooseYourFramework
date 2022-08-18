@@ -1,3 +1,10 @@
+// This file is a collection of annoying hacks to get the deployed site working.
+// Eventually this will all be handled by shenanigans-manager:
+// https://github.com/FullScreenShenanigans/EightBittr/tree/main/packages/shenanigans-manager
+//
+// Most importantly, it fixes up node_modules import paths.
+// It also minifies CSS+HTML and tweaks some visuals.
+
 const minifyCss = require("cssmin");
 const fs = require("fs-extra");
 const { minify: minifyHtml } = require("html-minifier");
@@ -38,43 +45,29 @@ fs.writeFileSync(
 // 3. Mess with dist/index.css...
 fs.writeFileSync(
     indexCssPath,
-    minifyCss(fs.readFileSync(indexCssPath).toString())
-        // Fix game height, pending shenanigans-manager settings
-        .replace(`210px`, `515px`)
+    minifyCss(
+        fs
+            .readFileSync(indexCssPath)
+            .toString()
+            // Fix game height, pending shenanigans-manager settings
+            .replace(`210px`, `515px`) +
+            // Fix responsive header height, pending shenanigans-manager settings
+            `
+        header {
+            height: 3.5rem;
+        }
+        
+        @media (min-width: 688px) {
+            header {
+                height: 1.5rem;
+            }
+        }
+        `
+    )
 );
 
 // 4. Copy required node_modules/* packages into dist/
-const nodeModulesToCopy = [
-    // Scaffolding
-    "requirejs",
-    // EightBittr modules
-    "actorhittr",
-    "areaspawnr",
-    "autofieldr",
-    "classcyclr",
-    "devicelayr",
-    "eightbittr",
-    "fpsanalyzr",
-    "frametickr",
-    "groupholdr",
-    "inputwritr",
-    "itemsholdr",
-    "mapscreatr",
-    "mapscreenr",
-    "menugraphr",
-    "numbermakr",
-    "objectmakr",
-    "pixeldrawr",
-    "pixelrendr",
-    "quadskeepr",
-    "sceneplayr",
-    "stringfilr",
-    "timehandlr",
-    "touchpassr",
-    "userwrappr",
-    // UI
-    "preact",
-];
+const nodeModulesToCopy = ["requirejs", "preact"];
 
 for (const packageName of nodeModulesToCopy) {
     const source = path.join(__dirname, "node_modules", packageName);
