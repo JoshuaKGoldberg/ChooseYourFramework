@@ -10,7 +10,7 @@ export const createScenePlayer = (cyp: ChooseYourFramework): ScenePlayr =>
     new ScenePlayr({
         cutscenes: {
             OakIntroPokemonChoice: {
-                firstRoutine: "PlayerChecksPokeball",
+                firstRoutine: "PlayerChecksLibrary",
                 routines: cyp.cutscenes.oakIntroPokemonChoice,
             },
         },

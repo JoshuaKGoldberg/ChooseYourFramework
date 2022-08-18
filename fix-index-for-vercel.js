@@ -1,22 +1,22 @@
+const minifyCss = require("cssmin");
 const fs = require("fs-extra");
+const { minify: minifyHtml } = require("html-minifier");
 const path = require("path");
 
 const distDir = path.join(__dirname, "dist");
 const indexCssPath = path.join(distDir, "index.css");
 const indexHtmlPath = path.join(distDir, "index.html");
 
-// 1. Mess with dist/index.html: replace "../node_modules/"" paths with "./" in index.html
+// 1. Mess with dist/index.html...
 fs.writeFileSync(
     indexHtmlPath,
-    fs.readFileSync(indexHtmlPath).toString().replaceAll("../node_modules", "./")
-);
-
-// 2. Mess with dist/index.html: improve the messaging a bit
-fs.writeFileSync(
-    indexHtmlPath,
-    fs
-        .readFileSync(indexHtmlPath)
-        .toString()
+    minifyHtml(fs.readFileSync(indexHtmlPath).toString(), {
+        collapseWhitespace: true,
+        removeAttributeQuotes: true,
+    })
+        // Replace "../node_modules/"" paths with "./" in index.html
+        .replaceAll("../node_modules", "./")
+        // Mess with dist/index.html: improve the messaging a bit
         .replace(
             `<section id="explanation" class="section-text"></section>`,
             `<section id="explanation" class="section-text">
@@ -30,10 +30,17 @@ fs.writeFileSync(
         )
         .replaceAll("ChooseYourFramework,", "Choose Your Framework,")
         .replaceAll(">ChooseYourFramework<", ">Choose Your Framework<")
+        // Use the minified require.js, pending shenanigans-manager adding that
+        .replaceAll("requirejs/require.js", "requirejs/require.min.js")
 );
 
-// 3. Mess with dist/index.css: fix game height, pending shenanigans-manager settings
-fs.writeFileSync(indexCss, fs.readFileSync(indexCss).toString().replace(`210px`, `515px`));
+// 3. Mess with dist/index.css...
+fs.writeFileSync(
+    indexCssPath,
+    minifyCss(fs.readFileSync(indexCss).toString())
+        // Fix game height, pending shenanigans-manager settings
+        .replace(`210px`, `515px`)
+);
 
 // 4. Copy required node_modules/* packages into dist/
 const nodeModulesToCopy = [

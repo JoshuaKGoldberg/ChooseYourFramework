@@ -44,7 +44,6 @@ export class Scrolling<Game extends ChooseYourFramework> extends EightBittrScrol
 
             case Scrollability.Vertical:
                 this.centerMapScreenHorizontally();
-                this.centerMapScreenVerticallyOnPlayer();
                 return;
 
             case Scrollability.Horizontal:
@@ -54,7 +53,6 @@ export class Scrolling<Game extends ChooseYourFramework> extends EightBittrScrol
 
             case Scrollability.Both:
                 this.centerMapScreenHorizontallyOnPlayer();
-                this.centerMapScreenVerticallyOnPlayer();
                 return;
 
             default:
@@ -95,18 +93,6 @@ export class Scrolling<Game extends ChooseYourFramework> extends EightBittrScrol
 
         if (Math.abs(difference) > 0) {
             this.scrollWindow(difference);
-        }
-    }
-
-    /**
-     * Scrolls the game window vertically until the Map is centered on the player.
-     */
-    public centerMapScreenVerticallyOnPlayer(): void {
-        const difference: number =
-            (this.game.physics.getMidY(this.game.players[0]) - this.game.mapScreener.middleY) | 0;
-
-        if (Math.abs(difference) > 0) {
-            this.scrollWindow(0, difference);
         }
     }
 

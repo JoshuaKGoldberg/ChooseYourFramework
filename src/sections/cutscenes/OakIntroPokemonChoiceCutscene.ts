@@ -7,38 +7,11 @@ import { ChooseYourFramework } from "../../ChooseYourFramework";
  */
 export class OakIntroPokemonChoiceCutscene extends Section<ChooseYourFramework> {
     /**
-     * Cutscene for the player checking a Pokeball.
+     * Cutscene for the player checking a library.
      *
      * @param settings   Settings used for the cutscene.
      */
-    public PlayerChecksPokeball(settings: any): void {
-        // If Oak is hidden, this cutscene shouldn't be starting (too early)
-        if (this.game.utilities.getExistingActorById("Oak").hidden) {
-            this.game.scenePlayer.stopCutscene();
-
-            this.game.menuGrapher.createMenu("GeneralText", {
-                deleteOnFinish: true,
-            });
-            this.game.menuGrapher.addMenuDialog("GeneralText", [
-                "Those are %%%%%%%POKE%%%%%%% Balls. They contain %%%%%%%POKEMON%%%%%%%!",
-            ]);
-            this.game.menuGrapher.setActiveMenu("GeneralText");
-
-            return;
-        }
-
-        const pokeball = settings.triggerer;
-        settings.chosen = pokeball.pokemon;
-
-        this.game.scenePlayer.playRoutine("PlayerDecidesPokemon");
-    }
-
-    /**
-     * Cutscene for confirming the player wants to keep the chosen Pokemon.
-     *
-     * @param settings   Settings used for the cutscene.
-     */
-    public PlayerDecidesPokemon(settings: any): void {
+    public PlayerChecksLibrary(settings: any): void {
         this.game.menuGrapher.createMenu("GeneralText");
         this.game.menuGrapher.addMenuDialog(
             "GeneralText",

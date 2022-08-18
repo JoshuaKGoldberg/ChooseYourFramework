@@ -1,14 +1,9 @@
 import { factory, member } from "autofieldr";
-import { ClassCyclr, ClassCyclrSettings } from "classcyclr";
-import {
-    EightBittr,
-    ComponentSettings,
-    EightBittrConstructorSettings,
-    EightBittrSettings,
-} from "eightbittr";
+import { ClassCyclr } from "classcyclr";
+import { EightBittr, EightBittrSettings } from "eightbittr";
 import { GroupHoldr } from "groupholdr";
 import { MenuGraphr } from "menugraphr";
-import { NumberMakrSettings, NumberMakr } from "numbermakr";
+import { NumberMakr } from "numbermakr";
 import { ScenePlayr } from "sceneplayr";
 
 import { createClassCycler } from "./creators/createClassCycler";
@@ -32,46 +27,7 @@ import { Quadrants } from "./sections/Quadrants";
 import { Scrolling } from "./sections/Scrolling";
 import { Player, Actors } from "./sections/Actors";
 import { Timing } from "./sections/Timing";
-import { Utilities } from "./sections/Utilities";
 import { Equations } from "./sections/Equations";
-
-/**
- * Settings to initialize a new ChooseYourFramework.
- */
-export interface ChooseYourFrameworkComponentSettings extends ComponentSettings {
-    /**
-     * Settings overrides for the game's ClassCyclr.
-     */
-    classCycler?: Partial<ClassCyclrSettings>;
-
-    /**
-     */
-
-    /**
-     * Settings overrides for the game's NumberMakr.
-     */
-    numberMaker?: Partial<NumberMakrSettings>;
-}
-
-/**
- * Filled-out settings to initialize a new ChooseYourFramework.
- */
-export interface ChooseYourFrameworkConstructorSettings extends EightBittrConstructorSettings {
-    /**
-     * Component settings overrides.
-     */
-    components?: Partial<ChooseYourFrameworkComponentSettings>;
-}
-
-/**
- * Settings to initialize a new ChooseYourFramework.
- */
-export interface ChooseYourFrameworkSettings extends EightBittrSettings {
-    /**
-     * Component settings overrides.
-     */
-    components: Partial<ChooseYourFrameworkComponentSettings>;
-}
 
 /**
  * Choosing a modern JavaScript UI framework, Pokemon-style.
@@ -80,7 +36,7 @@ export class ChooseYourFramework extends EightBittr {
     /**
      * Screen and component reset settings.
      */
-    public readonly settings: ChooseYourFrameworkSettings;
+    public readonly settings: EightBittrSettings;
 
     /**
      * Cycles through class names using TimeHandlr events.
@@ -224,12 +180,6 @@ export class ChooseYourFramework extends EightBittr {
      */
     @member(Timing)
     public readonly timing: Timing<this>;
-
-    /**
-     * Miscellaneous utility functions.
-     */
-    @member(Utilities)
-    public readonly utilities: Utilities<this>;
 
     /**
      * The game's single player.

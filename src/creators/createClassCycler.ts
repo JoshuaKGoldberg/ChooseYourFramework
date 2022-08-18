@@ -12,5 +12,4 @@ export const createClassCycler = (game: ChooseYourFramework) =>
             game.graphics.classes.removeClass(actor, className);
         },
         timeHandler: game.timeHandler,
-        ...game.settings.components.classCycler,
     });
