@@ -34,15 +34,6 @@ export enum Direction {
 }
 
 /**
- * Whether a Pokemon is unknown, has been caught, or has been seen.
- */
-export enum PokedexListingStatus {
-    Unknown = 0,
-    Caught = 1,
-    Seen = 2,
-}
-
-/**
  * Universal game constants.
  */
 export class Constants extends Section<ChooseYourFramework> {

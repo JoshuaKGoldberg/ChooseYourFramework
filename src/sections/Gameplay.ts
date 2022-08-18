@@ -7,31 +7,10 @@ import { ChooseYourFramework } from "../ChooseYourFramework";
  */
 export class Gameplay extends Section<ChooseYourFramework> {
     /**
-     * Sets the map to Blank and displays the StartOptions menu.
+     * Sets the map to Oak's lab.
      */
     public startOptions(): void {
         this.game.maps.setMap("Pallet Town", "Oak's Lab Floor 1 Door");
-    }
-
-    /**
-     * Starts the game in the saved map and location from itemsHolder, and fires the
-     * onGameStartPlay mod trigger.
-     */
-    public startPlay(): void {
-        this.game.maps.setMap(
-            this.game.itemsHolder.getItem(this.game.storage.names.map) || "Blank",
-            this.game.itemsHolder.getItem(this.game.storage.names.location),
-            true
-        );
-    }
-
-    /**
-     * Starts the game's intro, and fires the onGameStartIntro mod trigger.
-     */
-    public startIntro(): void {
-        this.game.scenePlayer.startCutscene("Intro", {
-            disablePauseMenu: true,
-        });
     }
 
     /**

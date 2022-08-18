@@ -188,34 +188,6 @@ export class Scrolling<Game extends ChooseYourFramework> extends EightBittrScrol
     }
 
     /**
-     * Determines how much to scroll vertically during upkeep based
-     * on player yVelocity and vertical bordering.
-     *
-     * @returns How far to scroll vertically.
-     */
-    public getVerticalScrollAmount(): number {
-        if (!this.game.players[0].yVelocity) {
-            return 0;
-        }
-
-        if (this.game.players[0].yVelocity > 0) {
-            return this.game.players[0].bordering[2] ? 0 : this.game.players[0].yVelocity;
-        }
-
-        return this.game.players[0].bordering[0] ? 0 : this.game.players[0].yVelocity;
-    }
-
-    /**
-     * Expands the MapScreener boundaries for a newly added Area.
-     *
-     * @todo For now, this assumes any Area with an added Area is outdoors (which
-     *       hasn't been shown to be incorrect yet).
-     */
-    public expandMapBoundariesForArea(_area: Area, _dx: number, _dy: number): void {
-        this.game.mapScreener.variables.scrollability = Scrollability.Both;
-    }
-
-    /**
      * A mapping of functions to generate member variables that should be
      * recomputed on screen change, keyed by variable name.
      */

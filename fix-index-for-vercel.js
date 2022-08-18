@@ -2,20 +2,21 @@ const fs = require("fs-extra");
 const path = require("path");
 
 const distDir = path.join(__dirname, "dist");
-const indexPath = path.join(distDir, "index.html");
+const indexCssPath = path.join(distDir, "index.css");
+const indexHtmlPath = path.join(distDir, "index.html");
 
-// 1. Replace "../node_modules/"" paths with "./" in index.html
+// 1. Mess with dist/index.html: replace "../node_modules/"" paths with "./" in index.html
 fs.writeFileSync(
-    indexPath,
-    fs.readFileSync(indexPath).toString().replaceAll("../node_modules", "./")
+    indexHtmlPath,
+    fs.readFileSync(indexHtmlPath).toString().replaceAll("../node_modules", "./")
 );
 
-// 2. Mess with dist/index.html's message
-fs.writeFileSync(indexPath, fixIndexContents(fs.readFileSync(indexPath).toString()));
-
-/** @param {string} contents */
-function fixIndexContents(contents) {
-    return contents
+// 2. Mess with dist/index.html: improve the messaging a bit
+fs.writeFileSync(
+    indexHtmlPath,
+    fs
+        .readFileSync(indexHtmlPath)
+        .toString()
         .replace(
             `<section id="explanation" class="section-text"></section>`,
             `<section id="explanation" class="section-text">
@@ -28,10 +29,13 @@ function fixIndexContents(contents) {
 `
         )
         .replaceAll("ChooseYourFramework,", "Choose Your Framework,")
-        .replaceAll(">ChooseYourFramework<", ">Choose Your Framework<");
-}
+        .replaceAll(">ChooseYourFramework<", ">Choose Your Framework<")
+);
 
-// 3. Copy required node_modules/* packages into dist/
+// 3. Mess with dist/index.css: fix game height, pending shenanigans-manager settings
+fs.writeFileSync(indexCss, fs.readFileSync(indexCss).toString().replace(`210px`, `515px`));
+
+// 4. Copy required node_modules/* packages into dist/
 const nodeModulesToCopy = [
     // Scaffolding
     "requirejs",

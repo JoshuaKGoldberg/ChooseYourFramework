@@ -53,20 +53,6 @@ export class Maintenance<Game extends ChooseYourFramework> extends EightBittrMai
             case Scrollability.Horizontal:
                 this.game.scrolling.scrollWindow(this.game.scrolling.getHorizontalScrollAmount());
                 return;
-
-            case Scrollability.Vertical:
-                this.game.scrolling.scrollWindow(
-                    0,
-                    this.game.scrolling.getVerticalScrollAmount()
-                );
-                return;
-
-            case Scrollability.Both:
-                this.game.scrolling.scrollWindow(
-                    this.game.scrolling.getHorizontalScrollAmount(),
-                    this.game.scrolling.getVerticalScrollAmount()
-                );
-                return;
         }
     };
 

@@ -1,7 +1,4 @@
-import { Section } from "eightbittr";
 import * as menugraphr from "menugraphr";
-
-import { ChooseYourFramework } from "../ChooseYourFramework";
 
 import { Actor } from "./Actors";
 
@@ -94,21 +91,3 @@ export interface Menu extends MenuBase, Actor {
  * A ListMenu Actor.
  */
 export interface ListMenu extends Menu, menugraphr.ListMenuBase {}
-
-/**
- * Manipulates MenuGraphr menus.
- */
-export class Menus extends Section<ChooseYourFramework> {
-    /**
-     * Displays a message to the user.
-     *
-     * @param message   The message to be displayed.
-     */
-    public displayMessage(message: string): void {
-        this.game.menuGrapher.createMenu("GeneralText", {
-            deleteOnFinish: true,
-        });
-        this.game.menuGrapher.addMenuDialog("GeneralText", [message]);
-        this.game.menuGrapher.setActiveMenu("GeneralText");
-    }
-}

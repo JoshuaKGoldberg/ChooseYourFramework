@@ -10,18 +10,18 @@ describe("Inputs", () => {
     describe("keyDownA", () => {
         it("activates an activatable solid when it's bordering the player", (): void => {
             // Arrange
-            const { fsp } = stubBlankGame();
-            const player = fsp.actors.add<Player>("Player");
-            const solid = fsp.actors.add("FenceWide");
+            const { cyp } = stubBlankGame();
+            const player = cyp.actors.add<Player>("Player");
+            const solid = cyp.actors.add("FenceWide");
             const activate = (solid.activate = sinon.spy());
 
-            fsp.actions.animateCharacterSetDirection(player, Direction.Top);
-            fsp.physics.setMidXObj(player, solid);
-            fsp.physics.setTop(player, solid.bottom);
+            cyp.actions.animateCharacterSetDirection(player, Direction.Top);
+            cyp.physics.setMidXObj(player, solid);
+            cyp.physics.setTop(player, solid.bottom);
             player.bordering[player.direction] = solid;
 
             // Act
-            fsp.inputs.keyDownA(player);
+            cyp.inputs.keyDownA(player);
 
             // Assert
             expect(activate).to.have.been.calledWithExactly(player, solid);
@@ -29,17 +29,17 @@ describe("Inputs", () => {
 
         it("does not activate an activatable solid when it's not bordering the player", (): void => {
             // Arrange
-            const { fsp } = stubBlankGame();
-            const player = fsp.actors.add<Player>("Player");
-            const solid = fsp.actors.add("FenceWide");
+            const { cyp } = stubBlankGame();
+            const player = cyp.actors.add<Player>("Player");
+            const solid = cyp.actors.add("FenceWide");
             const activate = (solid.activate = sinon.spy());
 
-            fsp.actions.animateCharacterSetDirection(player, Direction.Top);
-            fsp.physics.setMidXObj(player, solid);
-            fsp.physics.setTop(player, solid.bottom + player.height);
+            cyp.actions.animateCharacterSetDirection(player, Direction.Top);
+            cyp.physics.setMidXObj(player, solid);
+            cyp.physics.setTop(player, solid.bottom + player.height);
 
             // Act
-            fsp.inputs.keyDownA(player);
+            cyp.inputs.keyDownA(player);
 
             // Assert
             expect(activate.callCount).to.be.equal(0);

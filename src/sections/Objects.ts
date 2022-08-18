@@ -38,10 +38,6 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
             Solid: {
                 Book: {},
                 Bookshelf: {},
-                CollisionDetector: {
-                    CutsceneTriggerer: {},
-                    MenuTriggerer: {},
-                },
                 InvisibleWall: {},
                 LabComputer: {},
                 Stump: {},
@@ -328,31 +324,7 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
             dialogDirections: true,
             dialog: ["", "", "Crammed full of %%%%%%%POKEMON%%%%%%% books!", ""],
         },
-        BuildingBase: [16, 16],
-        BuildingTopBase: {
-            height: 64,
-            spriteHeight: 16,
-        },
-        BuildingMiddleBase: {
-            height: 32,
-            spriteHeight: 16,
-        },
-        BuildingBottom: {
-            height: 16,
-        },
         Cabinet: [32, 64],
-        CollisionDetector: {
-            collide: this.game.collisions.detectors.collideCollisionDetector,
-            active: false,
-            hidden: true,
-        },
-        CutsceneTriggerer: {
-            activate: this.game.actions.activateCutsceneTriggerer,
-            requireOverlap: true,
-        },
-        MenuTriggerer: {
-            activate: this.game.actions.activateMenuTriggerer,
-        },
         Computer: {
             width: 32,
             height: 48,
@@ -362,9 +334,6 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
         ConsoleController: [32, 20],
         DialogResponder: {
             hidden: true,
-        },
-        CutsceneResponder: {
-            activate: this.game.actions.activateCutsceneResponder,
         },
         FenceVertical: [16, 32],
         FloorDiamondsDark: {

@@ -27,11 +27,6 @@ export class OakIntroPokemonChoiceCutscene extends Section<ChooseYourFramework> 
             return;
         }
 
-        // If there's already a starter, ignore this sad last ball...
-        if (this.game.itemsHolder.getItem(this.game.storage.names.starter)) {
-            return;
-        }
-
         const pokeball = settings.triggerer;
         settings.chosen = pokeball.pokemon;
 

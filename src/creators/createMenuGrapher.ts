@@ -29,7 +29,6 @@ export const createMenuGrapher = (game: ChooseYourFramework): MenuGraphr =>
             PLAYER: (): string[] => "Blue".split(""),
             POKE: "POK�".split(""),
             POKEMON: "JavaScript".split(""),
-            POKEDEX: "MDN".split(""),
         },
         schemas: {
             GeneralText: {

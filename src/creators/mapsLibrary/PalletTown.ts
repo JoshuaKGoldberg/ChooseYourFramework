@@ -2,7 +2,6 @@ import { MapRaw } from "../../sections/Maps";
 
 export const PalletTown: MapRaw = {
     name: "Pallet Town",
-    theme: "Pallet Town",
     locationDefault: "Player's House Door",
     locations: {
         "Oak's Lab Floor 1 Door": {
@@ -12,8 +11,6 @@ export const PalletTown: MapRaw = {
     },
     areas: {
         "Oak's Lab": {
-            allowCycling: false,
-            theme: "Oak Research Lab",
             invisibleWallBorders: true,
             creation: [
                 { actor: "WallIndoorLightWithDarkBottom", width: 256 },
@@ -70,13 +67,14 @@ export const PalletTown: MapRaw = {
                     {
                         actor: "SvelteLibrary",
                         href: "https://svelte.dev",
+                        offset: 2,
                     },
                     {
                         actor: "VueLibrary",
                         href: "https://vuejs.org",
                     },
                 ].map((framework, i) => ({
-                    x: i * 64,
+                    x: i * 64 + (framework.offset ?? 0),
                     y: 96,
                     id: "PokeballCHARMANDER",
                     action: "cutscene",

@@ -12,7 +12,7 @@ const createStubGameWindow = () => ({
     document: {
         addEventListener: sinon.spy(),
     },
-    FSP: undefined! as ChooseYourFramework,
+    CYF: undefined! as ChooseYourFramework,
     removeEventListener: sinon.spy(),
 });
 
@@ -20,7 +20,7 @@ const createGame = (size: AbsoluteSizeSchema) =>
     stubBlankGame({
         height: size.height,
         width: size.width,
-    }).fsp;
+    }).cyp;
 
 const saveValueAs = (wrapperSettings: UserWrapprSettings, value: string) =>
     (
@@ -46,7 +46,7 @@ describe("InterfaceSettings", () => {
             saveValueAs(wrapperSettings, "5x");
 
             // Assert
-            expect(gameWindow.FSP.frameTicker.getInterval()).to.be.approximately(3.33, 0.1);
+            expect(gameWindow.CYF.frameTicker.getInterval()).to.be.approximately(3.33, 0.1);
         });
 
         it("sets the frameTicker to a 66 2/3 game interval when the 0.25x speed is selected", async () => {
@@ -64,7 +64,7 @@ describe("InterfaceSettings", () => {
             saveValueAs(wrapperSettings, "0.25x");
 
             // Assert
-            expect(gameWindow.FSP.frameTicker.getInterval()).to.be.approximately(66.67, 0.1);
+            expect(gameWindow.CYF.frameTicker.getInterval()).to.be.approximately(66.67, 0.1);
         });
     });
 });

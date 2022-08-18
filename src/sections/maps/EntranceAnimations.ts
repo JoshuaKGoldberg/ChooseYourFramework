@@ -22,15 +22,5 @@ export class EntranceAnimations extends Section<ChooseYourFramework> {
         );
 
         this.game.scrolling.centerMapScreen();
-
-        if (location.cutscene) {
-            this.game.scenePlayer.startCutscene(location.cutscene, {
-                player: this.game.players[0],
-            });
-        }
-
-        if (location.routine && this.game.scenePlayer.getCutsceneName()) {
-            this.game.scenePlayer.playRoutine(location.routine);
-        }
     };
 }

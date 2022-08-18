@@ -30,19 +30,9 @@ export interface MapScreenr extends EightBittrMapScreenr {
     activeArea: Area;
 
     /**
-     * What theme is currently playing.
-     */
-    theme?: string;
-
-    /**
      * Known variables, keyed by name.
      */
     variables: {
-        /**
-         * Whether the current Area allows bicycling.
-         */
-        allowCycling?: boolean;
-
         /**
          * The current size of the areAn Actors are placed in.
          */
@@ -84,11 +74,6 @@ export interface MapRaw extends MapsCreatrMapRaw {
      * A starting seed to initialize random number generation.
      */
     seed?: number | number[];
-
-    /**
-     * What theme to play by default, such as "Pallet Town".
-     */
-    theme?: string;
 }
 
 /**
@@ -117,22 +102,12 @@ export interface Map extends MapsCreatrMap {
      * A starting seed to initialize random number generation.
      */
     seed: number | number[];
-
-    /**
-     * What theme to play by default, such as "Pallet Town".
-     */
-    theme: string;
 }
 
 /**
  * A raw JSON-friendly description of a map area.
  */
 export interface AreaRaw extends MapsCreatrAreaRaw {
-    /**
-     * Whether the Area allows bicycling.
-     */
-    allowCycling?: boolean;
-
     /**
      * Any additional attributes that should add extra properties to this Area.
      */
@@ -157,11 +132,6 @@ export interface AreaRaw extends MapsCreatrAreaRaw {
     invisibleWallBorders?: boolean;
 
     /**
-     * A default theme to override the parent Map's.
-     */
-    theme?: string;
-
-    /**
      * How wide the area is.
      * @todo It's not clear if this is different from boundaries.width.
      */
@@ -172,11 +142,6 @@ export interface AreaRaw extends MapsCreatrAreaRaw {
  * An Area parsed from a raw JSON-friendly Area description.
  */
 export interface Area extends AreaRaw, MapsCreatrArea {
-    /**
-     * Whether the Area allows bicycling.
-     */
-    allowCycling: boolean;
-
     /**
      * What background to display behind all Actors.
      */
@@ -258,29 +223,9 @@ export interface AreaSpawnedBy {
  */
 export interface LocationRaw extends MapsCreatrLocationRaw {
     /**
-     * A cutscene to immediately start upon entering.
-     */
-    cutscene?: string;
-
-    /**
      * A direction to immediately face the player towards.
      */
     direction?: number;
-
-    /**
-     * Whether the player should immediately walk forward.
-     */
-    push?: boolean;
-
-    /**
-     * A cutscene routine to immediately start upon entering.
-     */
-    routine?: string;
-
-    /**
-     * A theme to immediately play upon entering.
-     */
-    theme?: string;
 
     /**
      * The x-location in the parent Area.
@@ -303,29 +248,9 @@ export interface Location extends MapsCreatrLocation {
     area: Area;
 
     /**
-     * A cutscene to immediately start upon entering.
-     */
-    cutscene?: string;
-
-    /**
      * A direction to immediately face the player towards.
      */
     direction?: number;
-
-    /**
-     * Whether the player should immediately walk forward.
-     */
-    push?: boolean;
-
-    /**
-     * A cutscene routine to immediately start upon entering.
-     */
-    routine?: string;
-
-    /**
-     * A theme to immediately play upon entering.
-     */
-    theme?: string;
 
     /**
      * The x-location in the parent Area.
@@ -395,11 +320,6 @@ export class Maps<Game extends ChooseYourFramework> extends EightBittrMaps<Game>
     };
 
     /**
-     * Property names to copy from Areas to the MapScreenr during setLocation.
-     */
-    public readonly screenAttributes = ["allowCycling"];
-
-    /**
      * Processes additional Actor attributes. For each attribute the Area's
      * class says it may have, if it has it, the attribute value proliferated
      * onto the Area.
@@ -427,7 +347,6 @@ export class Maps<Game extends ChooseYourFramework> extends EightBittrMaps<Game>
      */
     public addPreActor = (preactor: PreActorLike): void => {
         const actor: Actor = preactor.actor;
-        const position: string = preactor.position || actor.position;
 
         if (actor.spawned) {
             return;
@@ -440,32 +359,8 @@ export class Maps<Game extends ChooseYourFramework> extends EightBittrMaps<Game>
         this.game.actors.add(
             actor,
             preactor.left - this.game.mapScreener.left,
-            preactor.top - this.game.mapScreener.top,
-            true
+            preactor.top - this.game.mapScreener.top
         );
-
-        // Either the preactor or actor, in that order, may request to be in the
-        // front or back of the container
-        if (position) {
-            this.game.timeHandler.addEvent((): void => {
-                switch (position) {
-                    case "beginning":
-                        this.game.utilities.arrayToBeginning(
-                            actor,
-                            this.game.groupHolder.getGroup(actor.groupType)
-                        );
-                        break;
-                    case "end":
-                        this.game.utilities.arrayToEnd(
-                            actor,
-                            this.game.groupHolder.getGroup(actor.groupType)
-                        );
-                        break;
-                    default:
-                        throw new Error("Unknown position: " + position + ".");
-                }
-            });
-        }
     };
 
     /**
@@ -475,16 +370,14 @@ export class Maps<Game extends ChooseYourFramework> extends EightBittrMaps<Game>
      *
      * @param left   A left edge to place the Actor at (by default, 0).
      * @param bottom   A top to place the Actor upon (by default, 0).
-     * @param useSavedInfo   Whether an Area's saved info in StateHolder should be
-     *                       applied to the Actor's position (by default, false).
      * @returns A newly created Player in the game.
      */
-    public addPlayer(left = 0, top = 0, useSavedInfo?: boolean): Player {
+    public addPlayer(left = 0, top = 0): Player {
         const player: Player = this.game.objectMaker.make<Player>(this.game.actors.names.player);
         player.keys = player.getKeys();
 
         this.game.players[0] = player;
-        this.game.actors.add(player, left || 0, top || 0, useSavedInfo);
+        this.game.actors.add(player, left || 0, top || 0);
 
         return player;
     }
@@ -540,33 +433,13 @@ export class Maps<Game extends ChooseYourFramework> extends EightBittrMaps<Game>
         this.game.mapScreener.activeArea = location.area;
         this.game.pixelDrawer.setBackground((this.game.areaSpawner.getArea() as Area).background);
 
-        if (location.area.map.name !== "Blank") {
-            this.game.itemsHolder.setItem(this.game.storage.names.map, location.area.map.name);
-            this.game.itemsHolder.setItem(this.game.storage.names.area, location.area.name);
-            this.game.itemsHolder.setItem(this.game.storage.names.location, name);
-        }
-        this.setStateCollection(location.area);
-
         this.game.quadsKeeper.resetQuadrants();
-
-        const theme = location.theme || location.area.theme || location.area.map.theme;
-
-        this.game.mapScreener.theme = theme;
 
         if (!noEntrance && location.entry) {
             location.entry.call(this, location);
         }
 
         this.game.frameTicker.play();
-
-        if (location.push) {
-            this.game.actions.walking.startWalkingOnPath(this.game.players[0], [
-                {
-                    blocks: 1,
-                    direction: this.game.players[0].direction,
-                },
-            ]);
-        }
 
         return location;
     }
@@ -619,13 +492,4 @@ export class Maps<Game extends ChooseYourFramework> extends EightBittrMaps<Game>
 
         this.game.mapsCreator.analyzePreSwitch(preactor, preactors, area, map);
     };
-
-    /**
-     * Sets the current StateHoldr collection to an area.
-     *
-     * @param area   Area to store changes within.
-     */
-    public setStateCollection(area: Area): void {
-        this.game.stateHolder.setCollection(`${area.map.name}::${area.name}`);
-    }
 }

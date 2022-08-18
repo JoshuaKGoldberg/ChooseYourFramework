@@ -16,7 +16,7 @@ export interface WrappingGameWindow extends GameWindow {
     /**
      * Game instance, once this has created it.
      */
-    FSP?: ChooseYourFramework;
+    CYF?: ChooseYourFramework;
 }
 
 export interface InterfaceSettingOverrides {
@@ -104,7 +104,7 @@ export const createUserWrapprSettings = ({
 
     return {
         createContents: (size: AbsoluteSizeSchema) => {
-            gameWindow.FSP = game = createGame(size);
+            gameWindow.CYF = game = createGame(size);
 
             game.inputs.initializeGlobalPipes(gameWindow);
             game.gameplay.startOptions();

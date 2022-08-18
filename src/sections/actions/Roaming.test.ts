@@ -6,9 +6,9 @@ import { Direction } from "../Constants";
 
 import { randomRoamingMaximumFrequency, randomRoamingMinimumTicks } from "./Roaming";
 
-const getTicksForSteps = (fsp: ChooseYourFramework, minimumSteps: number) =>
+const getTicksForSteps = (cyp: ChooseYourFramework, minimumSteps: number) =>
     (randomRoamingMaximumFrequency + randomRoamingMinimumTicks) *
-    fsp.frameTicker.getInterval() *
+    cyp.frameTicker.getInterval() *
     minimumSteps;
 
 describe("Roaming", () => {
@@ -21,10 +21,10 @@ describe("Roaming", () => {
         ]) {
             it(`only allows a character to roam ${Direction[direction]} when the only allowed direction is ${Direction[direction]}`, () => {
                 // Arrange
-                const { clock, fsp, player } = stubBlankGame();
-                const npc = fsp.actors.add(
+                const { clock, cyp, player } = stubBlankGame();
+                const npc = cyp.actors.add(
                     [
-                        fsp.actors.names.lady,
+                        cyp.actors.names.lady,
                         {
                             roaming: true,
                             roamingDirections: [direction],
@@ -35,10 +35,10 @@ describe("Roaming", () => {
                 );
 
                 // Act
-                clock.tick(getTicksForSteps(fsp, 5));
+                clock.tick(getTicksForSteps(cyp, 5));
 
                 // Assert
-                expect(fsp.physics.getDirectionBetween(player, npc)).to.be.equal(direction);
+                expect(cyp.physics.getDirectionBetween(player, npc)).to.be.equal(direction);
             });
         }
 
@@ -50,10 +50,10 @@ describe("Roaming", () => {
         ]) {
             it(`doesn't allow roaming to exceed 3 steps when when the only allowed direction is ${Direction[direction]}`, () => {
                 // Arrange
-                const { clock, fsp, player } = stubBlankGame();
-                const npc = fsp.actors.add(
+                const { clock, cyp, player } = stubBlankGame();
+                const npc = cyp.actors.add(
                     [
-                        fsp.actors.names.lady,
+                        cyp.actors.names.lady,
                         {
                             roaming: true,
                             roamingDirections: [direction],
@@ -64,13 +64,13 @@ describe("Roaming", () => {
                 );
 
                 // Act
-                clock.tick(getTicksForSteps(fsp, 10));
+                clock.tick(getTicksForSteps(cyp, 10));
 
                 // Assert
                 const distance =
                     direction % 2 === 1
-                        ? Math.abs(fsp.physics.getMidX(player) - fsp.physics.getMidX(npc))
-                        : Math.abs(fsp.physics.getMidY(player) - fsp.physics.getMidY(npc));
+                        ? Math.abs(cyp.physics.getMidX(player) - cyp.physics.getMidX(npc))
+                        : Math.abs(cyp.physics.getMidY(player) - cyp.physics.getMidY(npc));
 
                 // NPCs seems to travel an extra 3-4 game pixels each in-between step
                 // See https://github.com/FullScreenShenanigans/ChooseYourFramework/issues/410

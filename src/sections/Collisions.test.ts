@@ -16,13 +16,13 @@ describe("Collisions", () => {
 
         it("returns true when characters are touching", (): void => {
             // Arrange
-            const { fsp } = stubBlankGame();
+            const { cyp } = stubBlankGame();
             const isCharacterTouchingCharacter =
-                fsp.collisions.generateIsCharacterTouchingCharacter();
-            const a = fsp.actors.add<Character>(stubCharacterType);
-            const b = fsp.actors.add<Character>(stubCharacterType);
+                cyp.collisions.generateIsCharacterTouchingCharacter();
+            const a = cyp.actors.add<Character>(stubCharacterType);
+            const b = cyp.actors.add<Character>(stubCharacterType);
 
-            fsp.physics.setTop(b, a.bottom);
+            cyp.physics.setTop(b, a.bottom);
 
             // Act
             const touching: boolean = isCharacterTouchingCharacter(a, b);
@@ -33,13 +33,13 @@ describe("Collisions", () => {
 
         it("returns false when characters aren't touching", (): void => {
             // Arrange
-            const { fsp } = stubBlankGame();
+            const { cyp } = stubBlankGame();
             const isCharacterTouchingCharacter =
-                fsp.collisions.generateIsCharacterTouchingCharacter();
-            const a = fsp.actors.add<Character>(stubCharacterType);
-            const b = fsp.actors.add<Character>(stubCharacterType);
+                cyp.collisions.generateIsCharacterTouchingCharacter();
+            const a = cyp.actors.add<Character>(stubCharacterType);
+            const b = cyp.actors.add<Character>(stubCharacterType);
 
-            fsp.physics.setTop(b, a.bottom + 28);
+            cyp.physics.setTop(b, a.bottom + 28);
 
             // Act
             const touching: boolean = isCharacterTouchingCharacter(a, b);

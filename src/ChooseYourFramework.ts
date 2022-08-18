@@ -6,20 +6,15 @@ import {
     EightBittrConstructorSettings,
     EightBittrSettings,
 } from "eightbittr";
-import { FlagSwappr, FlagSwapprSettings } from "flagswappr";
 import { GroupHoldr } from "groupholdr";
-import { ItemsHoldr } from "itemsholdr";
 import { MenuGraphr } from "menugraphr";
 import { NumberMakrSettings, NumberMakr } from "numbermakr";
 import { ScenePlayr } from "sceneplayr";
-import { StateHoldr, StateItemsHoldr } from "stateholdr";
 
 import { createClassCycler } from "./creators/createClassCycler";
-import { createFlagSwapper, Flags } from "./creators/createFlagSwapper";
 import { createMenuGrapher } from "./creators/createMenuGrapher";
 import { createNumberMaker } from "./creators/createNumberMaker";
 import { createScenePlayer } from "./creators/createScenePlayer";
-import { createStateHolder } from "./creators/createStateHolder";
 import { Actions } from "./sections/Actions";
 import { Collisions } from "./sections/Collisions";
 import { Constants } from "./sections/Constants";
@@ -29,15 +24,12 @@ import { Gameplay } from "./sections/Gameplay";
 import { Graphics } from "./sections/Graphics";
 import { ActorGroups, Groups } from "./sections/Groups";
 import { Inputs } from "./sections/Inputs";
-import { Items } from "./sections/Items";
 import { Maintenance } from "./sections/Maintenance";
 import { MapScreenr, Maps } from "./sections/Maps";
-import { Menus } from "./sections/Menus";
 import { Objects } from "./sections/Objects";
 import { Physics } from "./sections/Physics";
 import { Quadrants } from "./sections/Quadrants";
 import { Scrolling } from "./sections/Scrolling";
-import { StorageItems, Storage } from "./sections/Storage";
 import { Player, Actors } from "./sections/Actors";
 import { Timing } from "./sections/Timing";
 import { Utilities } from "./sections/Utilities";
@@ -53,9 +45,7 @@ export interface ChooseYourFrameworkComponentSettings extends ComponentSettings 
     classCycler?: Partial<ClassCyclrSettings>;
 
     /**
-     * Settings overrides for the game's FlagSwappr.
      */
-    flagSwapper?: Partial<FlagSwapprSettings<Flags>>;
 
     /**
      * Settings overrides for the game's NumberMakr.
@@ -101,18 +91,11 @@ export class ChooseYourFramework extends EightBittr {
     /**
      * Gates flags behind generational gaps.
      */
-    @factory(createFlagSwapper)
-    public readonly flagSwapper: FlagSwappr<Flags>;
 
     /**
      * Stores arrays of Actors by their group name.
      */
     public readonly groupHolder: GroupHoldr<ActorGroups>;
-
-    /**
-     * Cache-based wrapper around localStorage.
-     */
-    public readonly itemsHolder: ItemsHoldr<StorageItems> & StateItemsHoldr;
 
     /**
      * A flexible container for map attributes and viewport.
@@ -136,12 +119,6 @@ export class ChooseYourFramework extends EightBittr {
      */
     @factory(createScenePlayer)
     public readonly scenePlayer: ScenePlayr;
-
-    /**
-     * General localStorage saving for collections of state.
-     */
-    @factory(createStateHolder)
-    public readonly stateHolder: StateHoldr;
 
     /**
      * Actions characters may perform walking around.
@@ -201,12 +178,6 @@ export class ChooseYourFramework extends EightBittr {
     public readonly inputs: Inputs<this>;
 
     /**
-     * Storage keys and value settings.
-     */
-    @member(Items)
-    public readonly items: Items<this>;
-
-    /**
      * Maintains Actors during FrameTickr ticks.
      */
     @member(Maintenance)
@@ -217,12 +188,6 @@ export class ChooseYourFramework extends EightBittr {
      */
     @member(Maps)
     public readonly maps: Maps<this>;
-
-    /**
-     * Manipulates MenuGraphr menus.
-     */
-    @member(Menus)
-    public readonly menus: Menus;
 
     /**
      * Raw ObjectMakr factory settings.
@@ -247,12 +212,6 @@ export class ChooseYourFramework extends EightBittr {
      */
     @member(Scrolling)
     public readonly scrolling: Scrolling<this>;
-
-    /**
-     * Settings for storing items in ItemsHoldrs.
-     */
-    @member(Storage)
-    public readonly storage: Storage;
 
     /**
      * Adds and processes new Actors into the game.
@@ -283,15 +242,4 @@ export class ChooseYourFramework extends EightBittr {
      * Total FpsAnalyzr ticks that have elapsed since the constructor or saving.
      */
     public ticksElapsed: number;
-
-    /**
-     * Initializes a new instance of the ChooseYourFramework class.
-     *
-     * @param settings   Settings to be used for initialization.
-     */
-    public constructor(settings: ChooseYourFrameworkConstructorSettings) {
-        super(settings);
-
-        this.itemsHolder.setAutoSave(this.itemsHolder.getItem(this.storage.names.autoSave));
-    }
 }

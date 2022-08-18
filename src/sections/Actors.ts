@@ -6,9 +6,8 @@ import * as timehandlr from "timehandlr";
 
 import { ChooseYourFramework } from "../ChooseYourFramework";
 
-import { WalkingInstructions } from "./actions/Walking";
 import { Direction } from "./Constants";
-import { Dialog, MenuSchema } from "./Menus";
+import { Dialog } from "./Menus";
 import { ActorNames } from "./actors/ActorNames";
 
 /**
@@ -110,11 +109,6 @@ export interface Actor extends EightBittrActor, Omit<ClassCyclrActor, "onActorAd
     offsetY: number;
 
     /**
-     * Whether to shift this to the "beginning" or "end" of its Actors group.
-     */
-    position: string;
-
-    /**
      * Whether this has been spawned into the game.
      */
     spawned: boolean;
@@ -194,16 +188,6 @@ export interface Character extends Actor {
     directionPreferred?: number;
 
     /**
-     * How far this will travel while walking, such as hopping over a ledge.
-     */
-    distance: number;
-
-    /**
-     * A scratch variable for height, such as when behind grass.
-     */
-    heightOld?: number;
-
-    /**
      * Whether this is currently moving, generally from walking.
      */
     isMoving: boolean;
@@ -214,19 +198,9 @@ export interface Character extends Actor {
     nextDirection?: Direction;
 
     /**
-     * Whether this is allowed to be outside the QuadsKeepr quadrants area without getting pruned.
-     */
-    outerOk?: boolean;
-
-    /**
      * Whether this is a Player.
      */
     player?: boolean;
-
-    /**
-     * Path to push the Player back on after a dialog, if any.
-     */
-    pushSteps?: WalkingInstructions;
 
     /**
      * Whether this is sporadically walking in random directions.
@@ -234,29 +208,9 @@ export interface Character extends Actor {
     roaming?: boolean;
 
     /**
-     * How far this can "see" a Player to walk forward and trigger a dialog.
-     */
-    sight?: number;
-
-    /**
-     * A shadow Actor for when this is hopping a ledge.
-     */
-    shadow?: Actor;
-
-    /**
      * How fast this moves.
      */
     speed: number;
-
-    /**
-     * A scratch variable for speed.
-     */
-    speedOld?: number;
-
-    /**
-     * Whether the player is currently surfing.
-     */
-    surfing?: boolean;
 
     /**
      * Whether this should turn towards an activating Character when a dialog is triggered.
@@ -322,11 +276,6 @@ export interface Player extends Character {
      * a Detector anyway.
      */
     allowDirectionAsKeys?: boolean;
-
-    /**
-     * Whether the player is currently bicycling.
-     */
-    cycling: boolean;
 
     /**
      * @returns A new descriptor container for key statuses.
@@ -444,26 +393,6 @@ export interface AreaSpawner extends Detector {
 }
 
 /**
- * A Detector that activates a menu dialog.
- */
-export interface MenuTriggerer extends Detector {
-    /**
-     * The name of the menu, if not "GeneralText".
-     */
-    menu?: string;
-
-    /**
-     * Custom attributes to apply to the menu.
-     */
-    menuAttributes?: MenuSchema;
-
-    /**
-     * Path to push the Player back on after a dialog, if any.
-     */
-    pushSteps?: WalkingInstructions;
-}
-
-/**
  * An Character's sight Detector.
  */
 export interface SightDetector extends Detector {
@@ -471,41 +400,6 @@ export interface SightDetector extends Detector {
      * The Character using this Detector as its sight.
      */
     viewer: Character;
-}
-
-/**
- * A Pokeball containing some item or trigger.
- */
-export interface Pokeball extends Detector {
-    /**
-     * The activation action, as "item", "cutscene", "pokedex", "dialog", or "yes/no".
-     */
-    action: string;
-
-    /**
-     * How many of an item to give, if action is "item".
-     */
-    amount?: number;
-
-    /**
-     * What dialog to say, if action is "dialog".
-     */
-    dialog?: menugraphr.MenuDialogRaw;
-
-    /**
-     * What item to give, if action is "item".
-     */
-    item?: string;
-
-    /**
-     * The title of the Pokemon to display, if action is "Pokedex".
-     */
-    pokemon?: string[];
-
-    /**
-     * What routine to play, if action is "cutscene".
-     */
-    routine?: string;
 }
 
 /**
@@ -519,7 +413,7 @@ export class Actors<Game extends ChooseYourFramework> extends EightBittrActors<G
     public readonly names: ActorNames;
 
     /**
-     * Overriden Function to adds a new Actor to the game at a given position,
+     * Overridden Function to adds a new Actor to the game at a given position,
      * relative to the top left corner of the screen.
      *
      * @param actorRaw   What type of Actor to add. This may be a String of
@@ -528,24 +422,13 @@ export class Actors<Game extends ChooseYourFramework> extends EightBittrActors<G
      * @param left   The horizontal point to place the Actor's left at (by
      *               default, 0).
      * @param top   The vertical point to place the Actor's top at (by default, 0).
-     * @param useSavedInfo   Whether an Area's saved info in StateHolder should be
-     *                       applied to the Actor's position (by default, false).
      */
     public add<TActor extends Actor = Actor>(
         actorRaw: string | Actor | [string, any],
         left = 0,
-        top = 0,
-        useSavedInfo?: boolean
+        top = 0
     ): TActor {
         const actor: TActor = super.add(actorRaw, left, top) as TActor;
-
-        if (useSavedInfo) {
-            this.applySavedPosition(actor);
-        }
-
-        if (actor.id) {
-            this.game.stateHolder.applyChanges(actor.id, actor);
-        }
 
         if (typeof actor.direction !== "undefined") {
             this.game.actions.animateCharacterSetDirection(actor, actor.direction);
@@ -597,25 +480,6 @@ export class Actors<Game extends ChooseYourFramework> extends EightBittrActors<G
                 actor.title,
                 actor.name || "Anonymous",
             ].join("::");
-        }
-    }
-
-    /**
-     * Applies An Actor's stored xLocation and yLocation to its position.
-     *
-     * @param actor   An Actor being placed in the game.
-     */
-    public applySavedPosition(actor: Actor): void {
-        const savedInfo: any = this.game.stateHolder.getChanges(actor.id);
-        if (!savedInfo) {
-            return;
-        }
-
-        if (savedInfo.xLocation) {
-            this.game.physics.setLeft(actor, this.game.mapScreener.left + savedInfo.xLocation);
-        }
-        if (savedInfo.yLocation) {
-            this.game.physics.setTop(actor, this.game.mapScreener.top + savedInfo.yLocation);
         }
     }
 }

@@ -2091,11 +2091,6 @@ base64-js@^1.3.1:
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
   integrity sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
 
-battlemovr@^0.8.9:
-  version "0.8.9"
-  resolved "https://registry.yarnpkg.com/battlemovr/-/battlemovr-0.8.9.tgz#e667ef2d8cad583d5c736320245653da16d1d5df"
-  integrity sha512-4cwB4sAjfHd2wR0coaIG29YaUsOspY9aHhxbwcSBK+nnoKlAagc3+KyTNo9i3Tq15PoCMnSKRWrrK0+RaG5dUQ==
-
 before-after-hook@^2.2.0:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/before-after-hook/-/before-after-hook-2.2.2.tgz#a6e8ca41028d90ee2c24222f201c90956091613e"
@@ -3369,11 +3364,6 @@ find-up@^4.0.0, find-up@^4.1.0:
   dependencies:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
-
-flagswappr@^0.8.9:
-  version "0.8.9"
-  resolved "https://registry.yarnpkg.com/flagswappr/-/flagswappr-0.8.9.tgz#2682d06c8d7584aa12203b1a9977591cc520911e"
-  integrity sha512-2YReRxTcUHEYnl8KQZiSnLQr4Lf37EaIuL+xU1ut0wVcpnIS+gavVqt1c0KjOk1km0raB7XBNR9/OgNT44wp1w==
 
 flat-cache@^3.0.4:
   version "3.0.4"
@@ -4877,13 +4867,6 @@ mocha@^10.0.0:
     yargs-parser "20.2.4"
     yargs-unparser "2.0.0"
 
-modattachr@^0.8.9:
-  version "0.8.9"
-  resolved "https://registry.yarnpkg.com/modattachr/-/modattachr-0.8.9.tgz#e04f062847cf3fd62c9015ec30a2bfbc00d1f3df"
-  integrity sha512-0zP5GhiRr0wDv9LzLVgXuljgrMHfunXNP+c9EQkqCmM7I+YQIwqFcH6Mrd07ylwfySTaJaQMSlnWDZD8o9ZI2A==
-  dependencies:
-    itemsholdr "^0.8.8"
-
 modify-values@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
@@ -6347,13 +6330,6 @@ ssri@^9.0.0, ssri@^9.0.1:
   integrity sha512-o57Wcn66jMQvfHG1FlYbWeZWW/dHZhJXjpIcTfXldXEk5nz5lStPo3mK0OJQfGR3RbZUlbISexbljkJzuEj/8Q==
   dependencies:
     minipass "^3.1.1"
-
-stateholdr@^0.8.9:
-  version "0.8.9"
-  resolved "https://registry.yarnpkg.com/stateholdr/-/stateholdr-0.8.9.tgz#226c117f21be9dd699ea865066c5b498b9ba525a"
-  integrity sha512-V9TIhB3JrrpQGpqCdSLnafk4z0cxfeu9DLhmY7MbiW5QcUTSeCJFDRD+oKMGk+9IhG4nX9mZVv6EcOxLaQUr5A==
-  dependencies:
-    itemsholdr "^0.8.8"
 
 string-argv@^0.3.1:
   version "0.3.1"

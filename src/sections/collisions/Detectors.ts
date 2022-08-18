@@ -2,7 +2,7 @@ import { Section } from "eightbittr";
 import { MenuDialogRaw } from "menugraphr";
 
 import { ChooseYourFramework } from "../../ChooseYourFramework";
-import { Character, Detector, Player } from "../Actors";
+import { Character, Player } from "../Actors";
 
 /**
  * Handlers for collisions with Detector Actors.
@@ -46,60 +46,11 @@ export class Detectors extends Section<ChooseYourFramework> {
                 deleteOnFinish: !other.dialogOptions,
             });
             this.game.menuGrapher.setActiveMenu("GeneralText");
-            this.game.menuGrapher.addMenuDialog("GeneralText", dialog, (): void =>
-                this.game.actions.animateCharacterDialogFinish(actor, other)
-            );
+            this.game.menuGrapher.addMenuDialog("GeneralText", dialog);
         }
 
         if (other.switchDirectionOnDialog) {
             this.game.actions.animateCharacterSetDirection(other, direction);
         }
-    };
-
-    /**
-     * Collision callback for a Character and a CollisionDetector. Only Players may
-     * trigger the detector, which has to be active to do anything.
-     *
-     * @param actor   A Character triggering other.
-     * @param other   A Detector triggered by actor.
-     * @returns Whether to override normal positioning logic in hitCharacterActor.
-     */
-    public collideCollisionDetector = (actor: Player, other: Detector): boolean => {
-        if (!actor.player) {
-            return false;
-        }
-
-        if (other.active) {
-            if (!other.requireOverlap || this.game.physics.isActorWithinOther(actor, other)) {
-                if (
-                    typeof other.requireDirection !== "undefined" &&
-                    !actor.keys[other.requireDirection] &&
-                    !actor.allowDirectionAsKeys &&
-                    actor.direction !== other.requireDirection
-                ) {
-                    return false;
-                }
-
-                if (other.singleUse) {
-                    other.active = false;
-                }
-
-                if (!other.activate) {
-                    throw new Error("No activate callback for collision detector.");
-                }
-
-                other.activate.call(this.game.actions, actor, other);
-            }
-
-            return true;
-        }
-
-        // If the actor is moving towards the triggerer, it's now active
-        if (actor.direction === this.game.physics.getDirectionBordering(actor, other)) {
-            other.active = true;
-            return true;
-        }
-
-        return false;
     };
 }

@@ -4,7 +4,6 @@ import { Palette } from "pixelrendr";
 
 import { ChooseYourFramework } from "../ChooseYourFramework";
 
-import { Collections } from "./graphics/Collections";
 import { Flipping } from "./graphics/Flipping";
 import { graphicsLibrary } from "./graphics/GraphicsLibrary";
 
@@ -81,12 +80,6 @@ export class Graphics<Game extends ChooseYourFramework> extends EightBittrGraphi
      * Maximum size of a SpriteMultiple to pre-render.
      */
     public readonly spriteCacheCutoff = 2048;
-
-    /**
-     * Collects Actors to change visuals en masse.
-     */
-    @member(Collections)
-    public readonly collections: Collections;
 
     /**
      * Collects Actors to change visuals en masse.

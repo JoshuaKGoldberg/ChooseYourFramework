@@ -1,6 +1,5 @@
 import { createClock } from "@sinonjs/fake-timers";
 import { EightBittrConstructorSettings } from "eightbittr";
-import { createStorage } from "itemsholdr";
 
 import { Menu } from "./sections/Menus";
 import { Player } from "./sections/Actors";
@@ -28,8 +27,7 @@ export const stubChooseYourFramework = (settings: StubChooseYourFrameworkSetting
 
     const clock = createClock();
     const prefix = `${new Date().getTime()}`;
-    const storage = createStorage();
-    const fsp = new ChooseYourFramework({
+    const cyp = new ChooseYourFramework({
         height: settings.height || 256,
         components: {
             frameTicker: {
@@ -42,7 +40,6 @@ export const stubChooseYourFramework = (settings: StubChooseYourFrameworkSetting
                         }, 1),
                 },
             },
-            itemsHolder: { prefix, storage },
             pixelDrawer: {
                 framerateSkip: 9000001,
             },
@@ -52,14 +49,14 @@ export const stubChooseYourFramework = (settings: StubChooseYourFrameworkSetting
 
     // Makes menus auto-complete during unit tests without extra ticks or waiting
     if (settings.automaticallyAdvanceMenus) {
-        const menuPrototype = fsp.objectMaker.getPrototypeOf<Menu>(fsp.actors.names.menu);
+        const menuPrototype = cyp.objectMaker.getPrototypeOf<Menu>(cyp.actors.names.menu);
 
         menuPrototype.textSpeed = 0;
         menuPrototype.finishAutomatically = true;
         menuPrototype.finishLinesAutomatically = true;
     }
 
-    return { clock, fsp, prefix, storage };
+    return { clock, cyp, prefix };
 };
 
 /**
@@ -69,16 +66,14 @@ export const stubChooseYourFramework = (settings: StubChooseYourFrameworkSetting
  * @returns A new instance of the ChooseYourFramework class with an in-progress game.
  */
 export const stubBlankGame = (settings?: StubChooseYourFrameworkSettings) => {
-    const { fsp, ...options } = stubChooseYourFramework(settings);
+    const { cyp, ...options } = stubChooseYourFramework(settings);
 
-    fsp.itemsHolder.setItem(fsp.storage.names.name, "Test".split(""));
+    cyp.maps.setMap("Pallet Town");
+    cyp.maps.addPlayer(0, 0);
 
-    fsp.maps.setMap("Blank");
-    fsp.maps.addPlayer(0, 0);
+    const player: Player = cyp.players[0];
 
-    const player: Player = fsp.players[0];
-
-    return { fsp, player, ...options };
+    return { cyp, player, ...options };
 };
 
-export const stubGameForMapsTest = () => stubChooseYourFramework().fsp;
+export const stubGameForMapsTest = () => stubChooseYourFramework().cyp;

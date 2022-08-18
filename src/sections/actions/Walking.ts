@@ -36,55 +36,6 @@ export type WalkingInstructions = (WalkingInstruction | WalkingInstructionGenera
  */
 export class Walking extends Section<ChooseYourFramework> {
     /**
-     * Starts a Character walking on a predetermined path.
-     *
-     * @param actor   The walking Character.
-     * @param path   A path to walk along.
-     */
-    public startWalkingOnPath(actor: Character, path: WalkingInstructions): void {
-        if (!path.length) {
-            throw new Error("Walking path must have instructions.");
-        }
-
-        let instructionIndex = 0;
-        let currentInstruction: WalkingInstruction = this.parseWalkingInstruction(path[0], actor);
-        let remainingBlocks: number = currentInstruction.blocks;
-
-        if (!remainingBlocks) {
-            this.stopWalking(actor);
-            return;
-        }
-
-        actor.nextDirection = undefined;
-        this.startWalking(actor, currentInstruction.direction, (): void => {
-            remainingBlocks -= 1;
-
-            while (!remainingBlocks) {
-                instructionIndex += 1;
-
-                if (instructionIndex >= path.length) {
-                    actor.wantsToWalk = false;
-
-                    if (actor.direction !== currentInstruction.direction) {
-                        this.game.actions.animateCharacterSetDirection(
-                            actor,
-                            currentInstruction.direction
-                        );
-                    }
-
-                    return;
-                }
-
-                currentInstruction = this.parseWalkingInstruction(path[instructionIndex], actor);
-                remainingBlocks = currentInstruction.blocks;
-                actor.nextDirection = currentInstruction.direction;
-            }
-
-            actor.wantsToWalk = true;
-        });
-    }
-
-    /**
      * Starts a Character walking in a direction.
      *
      * @param actor   A Character to start walking.
@@ -227,24 +178,5 @@ export class Walking extends Section<ChooseYourFramework> {
                 Infinity
             );
         }, ticksPerStep);
-    }
-
-    /**
-     *
-     */
-    private parseWalkingInstruction(
-        instruction: WalkingInstruction | WalkingInstructionGenerator,
-        actor: Character
-    ): WalkingInstruction {
-        if (typeof instruction !== "function") {
-            return instruction;
-        }
-
-        return (
-            instruction(actor) || {
-                blocks: 0,
-                direction: actor.direction,
-            }
-        );
     }
 }
