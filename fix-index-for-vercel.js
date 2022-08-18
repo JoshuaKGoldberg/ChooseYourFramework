@@ -31,6 +31,9 @@ fs.writeFileSync(
         .replaceAll(">ChooseYourFramework<", ">Choose Your Framework<")
         // Use the minified require.js, pending shenanigans-manager adding that
         .replaceAll("requirejs/require.js", "requirejs/require.min.js")
+        // Get rid of the pesky extra spaces, too...
+        // (I'm really counting the kB here - at this point it was 251...!)
+        .replaceAll("    ", "")
 );
 
 // 3. Mess with dist/index.css...
