@@ -95,7 +95,7 @@
     "scripts": {
         "build:vercel": "yarn hydrate; yarn compile; yarn dist; yarn build:vercel:fix",
         "build:vercel:fix": "node ./fix-index-for-vercel.js; yarn build:vercel:requirejs",
-        "build:vercel:requirejs": "yarn terser dist/requirejs/require.js --compress > dist/requirejs/require.min.js",
+        "build:vercel:requirejs": "npx terser dist/requirejs/require.js --compress > dist/requirejs/require.min.js",
         "clean": "rm -rf lib *.tsbuildinfo",
         "compile": "tsc",
         "dist": "webpack",
