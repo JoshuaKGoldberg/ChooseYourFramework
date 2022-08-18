@@ -14,7 +14,7 @@ fs.writeFileSync(
         collapseWhitespace: true,
     })
         // Replace "../node_modules/"" paths with "./" in index.html
-        .replaceAll("../node_modules", "./")
+        .replaceAll("../node_modules/", "./")
         // Mess with dist/index.html: improve the messaging a bit
         .replace(
             `<section id="explanation" class="section-text"></section>`,
