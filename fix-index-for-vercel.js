@@ -26,9 +26,10 @@ fs.writeFileSync(
         .replace(
             `<section id="explanation" class="section-text"></section>`,
             `<section id="explanation" class="section-text">
-    Have you ever felt choosing a modern JavaScript UI framework was a lot like picking a starter Pokemon?
+    Have you ever felt choosing a JavaScript UI framework was a lot like picking a starter Pokemon?
     <br />
     Most of us don't deeply understand how they compare.
+    <br />
     We pick one and spend the next few years convinced it was the best choice.
 </section>
 `
