@@ -22,8 +22,6 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
         a: [90, 13], // z, enter
         b: [88, 8], // x, backspace
         select: [17, 16], // ctrl, shift
-        // Mouse aliases
-        rightclick: [3],
     };
 
     /**
@@ -46,7 +44,6 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
             a: (event) => this.keyUpA(this.game.players[0], event),
             b: (event) => this.keyUpB(this.game.players[0], event),
         },
-        oncontextmenu: {},
     };
 
     /**
@@ -68,11 +65,6 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
         gameWindow.addEventListener(
             "keyup",
             this.game.inputWriter.makePipe("onkeyup", "keyCode")
-        );
-
-        gameWindow.addEventListener(
-            "contextmenu",
-            this.game.inputWriter.makePipe("oncontextmenu", "", true)
         );
     }
 
