@@ -39,8 +39,13 @@ fs.writeFileSync(
         // Use the minified require.js, pending shenanigans-manager adding that
         .replaceAll("requirejs/require.js", "requirejs/require.min.js")
         // Get rid of the pesky extra spaces, too...
-        // (I'm really counting the kB here - at this point it was 251...!)
+        // (I'm really counting the kB here - every byte counts...!)
         .replaceAll("    ", "")
+        // Add Fathom analytics
+        .replace(
+            "</body>",
+            `<script async data-site="FLSZGVKG" src="https://cdn.usefathom.com/script.js"></script></body>`
+        )
 );
 
 // 3. Mess with dist/index.css...
