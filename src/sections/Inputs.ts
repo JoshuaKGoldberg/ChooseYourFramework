@@ -1,5 +1,5 @@
 import { GameWindow, Inputs as EightBittrInputs } from "eightbittr";
-import { Aliases, TriggerContainer } from "inputwritr";
+import { TriggerContainer } from "inputwritr";
 
 import { ChooseYourFramework } from "../ChooseYourFramework";
 
@@ -13,15 +13,13 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
     /**
      * Known, allowed aliases for input event triggers.
      */
-    public readonly aliases: Aliases = {
-        // Keyboard aliases
+    public readonly aliases = {
         left: [65, 37], // a, left
         right: [68, 39], // d, right
         up: [87, 38], // w, up
         down: [83, 40], // s, down
         a: [90, 13], // z, enter
         b: [88, 8], // x, backspace
-        select: [17, 16], // ctrl, shift
     };
 
     /**
@@ -59,12 +57,12 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
 
         gameWindow.addEventListener(
             "keydown",
-            this.game.inputWriter.makePipe("onkeydown", "keyCode")
+            this.game.inputWriter.createPipe("onkeydown", "keyCode")
         );
 
         gameWindow.addEventListener(
             "keyup",
-            this.game.inputWriter.makePipe("onkeyup", "keyCode")
+            this.game.inputWriter.createPipe("onkeyup", "keyCode")
         );
     }
 
@@ -94,7 +92,7 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
      * @param event   The original user-caused Event.
      */
     public keyDownUp(actor: Character, event?: Event) {
-        this.preventEventDefault(event);
+        event?.preventDefault();
         if (!this.canDirectionsTrigger()) {
             return;
         }
@@ -117,7 +115,7 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
      * @param event   The original user-caused Event.
      */
     public keyDownRight(actor: Character, event?: Event) {
-        this.preventEventDefault(event);
+        event?.preventDefault();
         if (!this.canDirectionsTrigger()) {
             return;
         }
@@ -140,7 +138,7 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
      * @param event   The original user-caused Event.
      */
     public keyDownDown(actor: Character, event?: Event) {
-        this.preventEventDefault(event);
+        event?.preventDefault();
         if (!this.canDirectionsTrigger()) {
             return;
         }
@@ -163,7 +161,7 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
      * @param event   The original user-caused Event.
      */
     public keyDownLeft(actor: Character, event?: Event) {
-        this.preventEventDefault(event);
+        event?.preventDefault();
         if (!this.canDirectionsTrigger()) {
             return;
         }
@@ -186,7 +184,7 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
      * @param event   The original user-caused Event.
      */
     public keyDownA(actor: Character, event?: Event) {
-        this.preventEventDefault(event);
+        event?.preventDefault();
         if (this.game.frameTicker.getPaused()) {
             return;
         }
@@ -216,7 +214,7 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
      * @param event   The original user-caused Event.
      */
     public keyDownB(actor: Character, event?: Event) {
-        this.preventEventDefault(event);
+        event?.preventDefault();
         if (this.game.frameTicker.getPaused()) {
             return;
         }
@@ -235,7 +233,7 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
      * @param event   The original user-caused Event.
      */
     public keyUpLeft(actor: Character, event?: Event) {
-        this.preventEventDefault(event);
+        event?.preventDefault();
 
         if (actor.player) {
             (actor as Player).keys[Direction.Left] = false;
@@ -256,7 +254,7 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
      * @param event   The original user-caused Event.
      */
     public keyUpRight(actor: Character, event?: Event) {
-        this.preventEventDefault(event);
+        event?.preventDefault();
 
         if (actor.player) {
             (actor as Player).keys[Direction.Right] = false;
@@ -277,7 +275,7 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
      * @param event   The original user-caused Event.
      */
     public keyUpUp(actor: Character, event?: Event) {
-        this.preventEventDefault(event);
+        event?.preventDefault();
 
         if (actor.player) {
             (actor as Player).keys[0] = false;
@@ -298,7 +296,7 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
      * @param event   The original user-caused Event.
      */
     public keyUpDown(actor: Character, event?: Event) {
-        this.preventEventDefault(event);
+        event?.preventDefault();
 
         if (actor.player) {
             (actor as Player).keys[2] = false;
@@ -319,7 +317,7 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
      * @param event   The original user-caused Event.
      */
     public keyUpA(actor: Character, event?: Event) {
-        this.preventEventDefault(event);
+        event?.preventDefault();
 
         if (actor.player) {
             (actor as Player).keys.a = false;
@@ -333,7 +331,7 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
      * @param event   The original user-caused Event.
      */
     public keyUpB(actor: Character, event?: Event) {
-        this.preventEventDefault(event);
+        event?.preventDefault();
 
         if (actor.player) {
             (actor as Player).keys.b = false;
@@ -347,7 +345,7 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
      * @param event   The original user-caused Event.
      */
     public keyUpPause(_actor: Character, event?: Event) {
-        this.preventEventDefault(event);
+        event?.preventDefault();
     }
 
     /**
@@ -373,17 +371,6 @@ export class Inputs<Game extends ChooseYourFramework> extends EightBittrInputs<G
 
         if (!actor.walking) {
             this.game.actions.animateCharacterSetDirection(actor, direction);
-        }
-    }
-
-    /**
-     * Prevents an event's default, if the event exists.
-     *
-     * @param event   Event optionally attached to a user key input.
-     */
-    private preventEventDefault(event?: Event) {
-        if (event && event.preventDefault) {
-            event.preventDefault();
         }
     }
 }

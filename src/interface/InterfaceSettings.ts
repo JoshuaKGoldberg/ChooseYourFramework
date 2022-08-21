@@ -1,4 +1,5 @@
 import { GameWindow } from "eightbittr";
+import { Aliases } from "inputwritr";
 import {
     AbsoluteSizeSchema,
     MultiSelectSchema,
@@ -114,22 +115,32 @@ export const createUserWrapprSettings = ({
         defaultSize: sizes[defaultSize],
         menus: [
             {
-                options: ((controls: string[]): MultiSelectSchema[] =>
-                    controls.map(
-                        (control: string): MultiSelectSchema => ({
-                            getInitialValue: (): string[] =>
-                                game.inputWriter.aliasConverter
-                                    .getAliasAsKeyStrings(control)
-                                    .map((text: string): string => text.toLowerCase()),
+                options: ((controls): MultiSelectSchema[] =>
+                    controls.map((control) => {
+                        let aliases: Aliases;
+                        return {
+                            getInitialValue: () => {
+                                return (aliases ??= game.inputs.aliases)[control].map(
+                                    (keyCode: number) =>
+                                        convertKeyCodeToAlias(keyCode).toLowerCase()
+                                );
+                            },
                             options: keys,
-                            saveValue: (newValue: string[], oldValue: string[]): void => {
-                                game.inputWriter.switchAliasValues(control, oldValue, newValue);
+                            saveValue: (newValues, oldValues): void => {
+                                game.inputWriter.removeEventAliasValues(
+                                    control,
+                                    oldValues.map(convertAliasToKeyCode)
+                                );
+                                game.inputWriter.addEventAliasValues(
+                                    control,
+                                    newValues.map(convertAliasToKeyCode)
+                                );
                             },
                             selections: 2,
                             title: control,
                             type: OptionType.MultiSelect,
-                        })
-                    ))(["a", "b", "left", "right", "up", "down"]),
+                        };
+                    }))(["a", "b", "left", "right", "up", "down"]),
                 title: "Controls",
             },
         ],
@@ -207,4 +218,58 @@ export const createUserWrapprSettings = ({
             },
         },
     };
+};
+
+// Plopping these down here till a version of UserWrappr is published that exports them...
+
+const aliasesToKeyCode: Record<string, number> = {
+    backspace: 8,
+    ctrl: 17,
+    down: 40,
+    enter: 13,
+    escape: 27,
+    left: 37,
+    right: 39,
+    shift: 16,
+    space: 32,
+    up: 38,
+};
+
+/**
+ * @param alias   The human-readable String representing the input name,
+ *                such as "a" or "left".
+ * @param keyCode The alias of an input, typically a character code.
+ */
+export const convertAliasToKeyCode = (alias: string) => {
+    return alias.length === 1 ? alias.charCodeAt(0) - 32 : aliasesToKeyCode[alias];
+};
+
+const keyCodesToAliases: Record<number, string> = {
+    8: "backspace",
+    13: "enter",
+    16: "shift",
+    17: "ctrl",
+    27: "escape",
+    32: "space",
+    37: "left",
+    38: "up",
+    39: "right",
+    40: "down",
+};
+
+/**
+ * @param keyCode   The alias of an input, typically a character code.
+ * @returns The human-readable String representing the input name,
+ *          such as "a" or "left".
+ */
+export const convertKeyCodeToAlias = (keyCode: number) => {
+    if (keyCode > 96 && keyCode < 105) {
+        return String.fromCharCode(keyCode - 48);
+    }
+
+    if (keyCode > 64 && keyCode < 97) {
+        return String.fromCharCode(keyCode);
+    }
+
+    return keyCodesToAliases[keyCode];
 };
