@@ -154,8 +154,6 @@ export const createUserWrapprSettings = ({
                     },
                     {
                         action: () => {
-                            // https://twitter.com/intent/tweet?
-                            // hashtags=demo&original_referer=https%3A%2F%2Fdeveloper.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&related=twitterapi%2Ctwitter&text=Hello%20world&url=https%3A%2F%2Fexample.com%2Ffoo&via=twitterdev
                             const url = new URL("/intent/tweet", "https://www.twitter.com");
                             url.searchParams.set(
                                 "hashtags",
@@ -165,7 +163,7 @@ export const createUserWrapprSettings = ({
                             );
                             url.searchParams.set(
                                 "text",
-                                `I'm choosing my JavaScript UI framework over at https://chooseyouframework.dev. What's your starter?\n`
+                                `I'm choosing my JavaScript UI framework over at https://chooseyouframework.dev. What's your starter?`
                             );
                             window.open(url.toString(), "_blank");
                         },
