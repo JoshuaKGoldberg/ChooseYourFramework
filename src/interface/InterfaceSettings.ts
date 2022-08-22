@@ -143,6 +143,36 @@ export const createUserWrapprSettings = ({
                     }))(["a", "b", "left", "right", "up", "down"]),
                 title: "Controls",
             },
+            {
+                options: [
+                    {
+                        action: () => {
+                            game.utilities.takeScreenshot(`FullScreenPokemon ${Date.now()}`);
+                        },
+                        title: "Save Screenshot",
+                        type: OptionType.Action,
+                    },
+                    {
+                        action: () => {
+                            const url = new URL("/intent/tweet", "https://www.twitter.com");
+                            url.searchParams.set(
+                                "hashtags",
+                                ["angular", "preact", "reactjs", "solidjs", "svelte", "vue"].join(
+                                    ","
+                                )
+                            );
+                            url.searchParams.set(
+                                "text",
+                                `I'm choosing my JavaScript UI framework over at https://chooseyouframework.dev. What's your starter?`
+                            );
+                            window.open(url.toString(), "_blank");
+                        },
+                        title: "Twitter",
+                        type: OptionType.Action,
+                    },
+                ],
+                title: "Share",
+            },
         ],
         styles: {
             input: {
