@@ -15,6 +15,12 @@ const indexCssPath = path.join(distDir, "index.css");
 const indexHtmlPath = path.join(distDir, "index.html");
 
 // 1. Mess with dist/index.html...
+console.log(
+    "Original contents of",
+    indexHtmlPath,
+    "are:",
+    fs.readFileSync(indexHtmlPath).toString()
+);
 fs.writeFileSync(
     indexHtmlPath,
     minifyHtml(fs.readFileSync(indexHtmlPath).toString(), {
