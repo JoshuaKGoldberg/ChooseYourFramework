@@ -16,7 +16,7 @@ export const createCypInterface = async (container: HTMLElement): Promise<void> 
 The game is available as the global CYF variable. Its properties can be used to mess around with the game.
 For example:
 
-* %cCYF.frameTicker.setInterval(1);%c sets game speed to very fast)
+* %cCYF.frameTicker.setInterval(1);%c sets game speed to very fast
 * %cCYF.frameTicker.setInterval(100);%c sets game speed to very slow
 * %cCYF.groupHolder.getActor("Lady").dialog = "All hail Lord Helix!";%c overrides that character's dialog
 
