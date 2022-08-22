@@ -8,29 +8,6 @@
         "url": "https://github.com/FullScreenShenanigans/ChooseYourFramework/issues"
     },
     "dependencies": {
-<<<<<<< Updated upstream
-        "actorhittr": "^0.8.12",
-        "areaspawnr": "^0.8.12",
-        "classcyclr": "^0.8.12",
-        "devicelayr": "^0.8.12",
-        "eightbittr": "^0.8.12",
-        "fpsanalyzr": "^0.8.12",
-        "frametickr": "^0.8.12",
-        "groupholdr": "^0.8.12",
-        "inputwritr": "^0.8.12",
-        "mapscreatr": "^0.8.12",
-        "mapscreenr": "^0.8.12",
-        "menugraphr": "^0.8.12",
-        "numbermakr": "^0.8.12",
-        "objectmakr": "^0.8.12",
-        "pixeldrawr": "^0.8.12",
-        "pixelrendr": "^0.8.12",
-        "quadskeepr": "^0.8.12",
-        "stringfilr": "^0.8.12",
-        "timehandlr": "^0.8.12",
-        "touchpassr": "^0.8.12",
-        "userwrappr": "^0.8.12"
-=======
         "actorhittr": "^0.8.13",
         "areaspawnr": "^0.8.13",
         "classcyclr": "^0.8.13",
@@ -51,7 +28,6 @@
         "stringfilr": "^0.8.13",
         "timehandlr": "^0.8.13",
         "userwrappr": "^0.8.13"
->>>>>>> Stashed changes
     },
     "description": "Choosing a modern JavaScript UI framework, Pokemon-style.",
     "devDependencies": {
