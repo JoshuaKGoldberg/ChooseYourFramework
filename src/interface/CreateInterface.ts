@@ -11,18 +11,30 @@ import { createUserWrapprSettings } from "./InterfaceSettings";
 export const createCypInterface = async (container: HTMLElement): Promise<void> => {
     const userWrapper = new UserWrappr(createUserWrapprSettings());
 
-    console.log(`👋 Hello! Thanks for looking ChooseYourFramework in your developer tools. ✨ 
+    console.log(
+        `%c👋 Hello! Thanks for looking at ChooseYourFramework in your developer tools. ✨%c 
 The game is available as the global CYF variable. Its properties can be used to mess around with the game.
 For example:
 
-* \`CYF.frameTicker.setInterval(1)\` speeds the game up
-* \`CYF.groupHolder.getActor("Lady").dialog = "All hail Lord Helix!"\` overrides that character's dialog
+* %cCYF.frameTicker.setInterval(1);%c sets game speed to very fast)
+* %cCYF.frameTicker.setInterval(100);%c sets game speed to very slow
+* %cCYF.groupHolder.getActor("Lady").dialog = "All hail Lord Helix!";%c overrides that character's dialog
 
 See https://github.com/JoshuaKGoldberg/ChooseYourFramework for the game's source.
 See https://github.com/FullScreenShenanigans/EightBittr for its underlying game engine.
 
-Enjoy! 💖
-`);
+%cEnjoy! 💖
+`,
+        "font-weight: bold",
+        "font-weight: normal",
+        "font-weight: bold",
+        "font-weight: normal",
+        "font-weight: bold",
+        "font-weight: normal",
+        "font-weight: bold",
+        "font-weight: normal",
+        "font-weight: bold"
+    );
 
     return userWrapper.createDisplay(container);
 };

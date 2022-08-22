@@ -78,6 +78,7 @@ export const PalletTown: MapRaw = {
                 { actor: "Bookshelf", x: 192, y: 192, width: 128 },
                 {
                     actor: "Lady",
+                    id: "lady",
                     x: 32,
                     y: 288,
                     dialog: [
@@ -91,7 +92,7 @@ export const PalletTown: MapRaw = {
                     actor: "Scientist",
                     x: 64,
                     y: 320,
-                    name: "Scientist One",
+                    id: "scientist-one",
                     dialog: "I study %%%%%%%POKEMON%%%%%%% as PROF.OAK's aide.",
                     roaming: true,
                     roamingDirections: [],
@@ -100,7 +101,7 @@ export const PalletTown: MapRaw = {
                     actor: "Scientist",
                     x: 256,
                     y: 320,
-                    name: "Scientist Two",
+                    id: "scientist-two",
                     dialog: "I study %%%%%%%POKEMON%%%%%%% as PROF.OAK's aide.",
                     roaming: true,
                     roamingDirections: [],
@@ -110,7 +111,6 @@ export const PalletTown: MapRaw = {
                     actor: "Doormat",
                     x: 160,
                     y: 352,
-                    id: "DoormatRight",
                     entrance: "Oak's Lab Floor 1 Door",
                 },
             ],
