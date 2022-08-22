@@ -36,6 +36,24 @@ fs.writeFileSync(
         )
         .replaceAll("ChooseYourFramework,", "Choose Your Framework,")
         .replaceAll(">ChooseYourFramework<", ">Choose Your Framework<")
+        // Add SEO/social meta tags
+        .replace(
+            `<meta name="description" content="">`,
+            `
+<meta name="description" content="Choosing a modern JavaScript UI framework, Pokemon-style." />
+<meta property="og:description" content="Choosing a modern JavaScript UI framework, Pokemon-style." />
+<meta property="og:image" content="https://www.chooseyourframework.dev/preview.png" />
+<meta property="og:image:alt" content="Screenshot of a grayscale retro Pokemon-like game in a professor's lab, with UI framework libraries on a table." />
+<meta property="og:title" content="Choose Your Framework" />
+<meta property="og:url" content="https://www.chooseyourframework.dev" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="@JoshuaKGoldberg" />
+<meta name="twitter:description" content="Choosing a modern JavaScript UI framework, Pokemon-style." />
+<meta name="twitter:title" content="Choose Your Framework" />
+<meta name="twitter:image" content="https://www.chooseyourframework.dev/preview.png" />
+<meta name="twitter:title:alt" content="Screenshot of a grayscale retro Pokemon-like game in a professor's lab, with UI framework libraries on a table." />
+        `
+        )
         // Use the minified require.js, pending shenanigans-manager adding that
         .replaceAll("requirejs/require.js", "requirejs/require.min.js")
         // Get rid of the pesky extra spaces, too...
@@ -47,6 +65,9 @@ fs.writeFileSync(
             `<script async data-site="FLSZGVKG" src="https://cdn.usefathom.com/script.js"></script></body>`
         )
 );
+
+// 2. Copy the accompanying src/preview.png over
+fs.cpSync("./src/preview.png", "./dist/preview.png");
 
 // 3. Mess with dist/index.css...
 fs.writeFileSync(
