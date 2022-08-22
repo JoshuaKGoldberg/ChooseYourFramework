@@ -24,8 +24,7 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
             Character: {
                 Lady: {},
                 Oak: {},
-                Player: {},
-                Pokeball: {
+                Library: {
                     AngularLibrary: {},
                     PreactLibrary: {},
                     ReactLibrary: {},
@@ -33,6 +32,7 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
                     SvelteLibrary: {},
                     VueLibrary: {},
                 },
+                Player: {},
                 Scientist: {},
             },
             Solid: {
@@ -245,7 +245,7 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
             offsetY: -8,
             roamingDirections: [0, 1, 2, 3],
             onActorAdded: this.game.actions.spawnCharacter,
-            activate: this.game.collisions.detectors.collideCharacterDialog,
+            activate: this.game.collisions.detectors.activateCharacterDialog,
         },
         Buzzer: {
             width: 14,
@@ -276,9 +276,8 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
                 b: false,
             }),
         },
-        Pokeball: {
-            action: "item",
-            activate: this.game.actions.activatePokeball,
+        Library: {
+            activate: this.game.actions.activateLibrary,
             borderPrimary: true,
             width: 64,
             height: 64,
@@ -286,7 +285,6 @@ export class Objects<Game extends ChooseYourFramework> extends EightBittrObjects
         Solid: {
             repeat: true,
             groupType: "Solid",
-            activate: this.game.collisions.detectors.collideCharacterDialog,
         },
         BedSingle: [32, 64],
         Bookshelf: {

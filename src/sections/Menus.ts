@@ -7,11 +7,6 @@ import { Actor } from "./Actors";
  */
 export interface Dialog {
     /**
-     * An optional cutscene to start after the dialog.
-     */
-    cutscene?: string;
-
-    /**
      * Options for a yes or no dialog menu with callbacks after the dialog.
      */
     options?: DialogOptions;

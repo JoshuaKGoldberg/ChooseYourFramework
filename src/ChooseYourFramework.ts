@@ -4,16 +4,13 @@ import { EightBittr, EightBittrSettings } from "eightbittr";
 import { GroupHoldr } from "groupholdr";
 import { MenuGraphr } from "menugraphr";
 import { NumberMakr } from "numbermakr";
-import { ScenePlayr } from "sceneplayr";
 
 import { createClassCycler } from "./creators/createClassCycler";
 import { createMenuGrapher } from "./creators/createMenuGrapher";
 import { createNumberMaker } from "./creators/createNumberMaker";
-import { createScenePlayer } from "./creators/createScenePlayer";
 import { Actions } from "./sections/Actions";
 import { Collisions } from "./sections/Collisions";
 import { Constants } from "./sections/Constants";
-import { Cutscenes } from "./sections/Cutscenes";
 import { Frames } from "./sections/Frames";
 import { Gameplay } from "./sections/Gameplay";
 import { Graphics } from "./sections/Graphics";
@@ -71,12 +68,6 @@ export class ChooseYourFramework extends EightBittr {
     public readonly numberMaker: NumberMakr;
 
     /**
-     * A stateful cutscene runner for jumping between scenes and their routines.
-     */
-    @factory(createScenePlayer)
-    public readonly scenePlayer: ScenePlayr;
-
-    /**
      * Actions characters may perform walking around.
      */
     @member(Actions)
@@ -93,12 +84,6 @@ export class ChooseYourFramework extends EightBittr {
      */
     @member(Constants)
     public readonly constants: Constants;
-
-    /**
-     * ScenePlayr cutscenes, keyed by name.
-     */
-    @member(Cutscenes)
-    public readonly cutscenes: Cutscenes;
 
     /**
      * How to advance each frame of the game.

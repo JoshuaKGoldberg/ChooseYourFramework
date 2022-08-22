@@ -6,7 +6,7 @@ import { ChooseYourFramework } from "../ChooseYourFramework";
 import { Roaming } from "./actions/Roaming";
 import { Walking } from "./actions/Walking";
 import { Direction } from "./Constants";
-import { Actor, Character, Detector, Player, RoamingCharacter } from "./Actors";
+import { Actor, Character, Library, Player, RoamingCharacter } from "./Actors";
 
 /**
  * Actions characters may perform walking around.
@@ -39,23 +39,39 @@ export class Actions extends Section<ChooseYourFramework> {
     };
 
     /**
-     * Collision callback for a Player and a Pokeball it's interacting with.
+     * Collision callback for a Player and a Library it's interacting with.
      *
-     * @param actor   A Player interacting with other.
-     * @param other   A Pokeball being interacted with by actor.
+     * @param _actor   A Player interacting with other.
+     * @param other   A Library being interacted with by actor.
      */
-    public activatePokeball = (actor: Player, other: Detector): void => {
-        if (!other.cutscene) {
-            throw new Error("Pokeball must have a cutscene for the cutscene action.");
-        }
-
-        this.game.scenePlayer.startCutscene(other.cutscene, {
-            player: actor,
-            triggerer: other,
-        });
-        if (other.routine) {
-            this.game.scenePlayer.playRoutine(other.routine);
-        }
+    public activateLibrary = (_actor: Player, other: Library): void => {
+        this.game.menuGrapher.createMenu("GeneralText");
+        this.game.menuGrapher.addMenuDialog(
+            "GeneralText",
+            [["So! You want the " + other.title.replace("Library", "") + " framework?"]],
+            (): void => {
+                this.game.menuGrapher.createMenu("Yes/No", {
+                    killOnB: ["GeneralText"],
+                });
+                this.game.menuGrapher.addMenuList("Yes/No", {
+                    options: [
+                        {
+                            text: "YES",
+                            callback: () => {
+                                window.open(other.href);
+                                this.game.menuGrapher.registerB();
+                            },
+                        },
+                        {
+                            text: "NO",
+                            callback: this.game.menuGrapher.registerB,
+                        },
+                    ],
+                });
+                this.game.menuGrapher.setActiveMenu("Yes/No");
+            }
+        );
+        this.game.menuGrapher.setActiveMenu("GeneralText");
     };
 
     /**
