@@ -69,8 +69,6 @@ export const PalletTown: MapRaw = {
                 ].map((framework, i) => ({
                     x: i * 64 + (framework.offset ?? 0),
                     y: 96,
-                    action: "cutscene",
-                    cutscene: "OakIntroPokemonChoice",
                     ...framework,
                 })),
                 { actor: "Bookshelf", x: 192, width: 128 },

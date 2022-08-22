@@ -6033,11 +6033,6 @@ safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sceneplayr@^0.8.12:
-  version "0.8.12"
-  resolved "https://registry.yarnpkg.com/sceneplayr/-/sceneplayr-0.8.12.tgz#8aff56cbaa2fa7233aeb50f5a58f0068ebfff402"
-  integrity sha512-DdT/UCzmcDr4gIlTKCd8zHclxw3jiST+qS8W3pROFTjjEB1fJrYidBc1TJFwrX0XtJbnqs6mx8x3zspUF1spSw==
-
 schema-utils@^2.6.5:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-2.7.1.tgz#1ca4f32d1b24c590c203b8e7a50bf0ea4cd394d7"

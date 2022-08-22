@@ -9,21 +9,13 @@ import { Character, Player } from "../Actors";
  */
 export class Detectors extends Section<ChooseYourFramework> {
     /**
-     * Collision callback for a Player and a dialog-containing Character. The
-     * dialog is started if it exists, as with a cutscene from other.
+     * Collision callback for a Player and a dialog-containing Character.
      *
      * @param actor   A Player triggering other.
      * @param other   A Character with dialog triggered by actor.
      */
-    public collideCharacterDialog = (actor: Player, other: Character): void => {
-        let dialog = other.dialog;
-
-        if (other.cutscene) {
-            this.game.scenePlayer.startCutscene(other.cutscene, {
-                actor,
-                triggerer: other,
-            });
-        }
+    public activateCharacterDialog = (actor: Player, other: Character): void => {
+        let { dialog } = other;
 
         if (!dialog) {
             return;
@@ -49,8 +41,6 @@ export class Detectors extends Section<ChooseYourFramework> {
             this.game.menuGrapher.addMenuDialog("GeneralText", dialog);
         }
 
-        if (other.switchDirectionOnDialog) {
-            this.game.actions.animateCharacterSetDirection(other, direction);
-        }
+        this.game.actions.animateCharacterSetDirection(other, direction);
     };
 }

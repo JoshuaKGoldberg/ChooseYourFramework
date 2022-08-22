@@ -145,21 +145,6 @@ export interface Actor extends EightBittrActor, Omit<ClassCyclrActor, "onActorAd
  */
 export interface Character extends Actor {
     /**
-     * For custom triggerable Characters, whether this may be used.
-     */
-    active?: boolean;
-
-    /**
-     * An Actor that activated this character.
-     */
-    collidedTrigger?: Detector;
-
-    /**
-     * A cutscene to activate when interacting with this Character.
-     */
-    cutscene?: string;
-
-    /**
      * A dialog to start when activating this Character. If dialogDirections is true,
      * it will be interpreted as a separate dialog for each direction of interaction.
      */
@@ -213,11 +198,6 @@ export interface Character extends Actor {
     speed: number;
 
     /**
-     * Whether this should turn towards an activating Character when a dialog is triggered.
-     */
-    switchDirectionOnDialog?: boolean;
-
-    /**
      * Whether this is currently engaging in its activated dialog.
      */
     talking?: boolean;
@@ -264,6 +244,24 @@ export interface RoamingCharacter extends Character {
         horizontal: number;
         vertical: number;
     };
+}
+
+/**
+ * A Library that can be activated by the player.
+ */
+export interface Library extends Character {
+    /**
+     * A callback for when a Player activates this.
+     *
+     * @param actor   The Player activating other, or other if a self-activation.
+     * @param other   The Library being activated by actor.
+     */
+    activate(actor: Player, other: Library): void;
+
+    /**
+     * Website URL to open in a new tab if accepted.
+     */
+    href: string;
 }
 
 /**
@@ -321,85 +319,6 @@ export interface PlayerKeys {
      * Whether the user is currently indicating to go to the left.
      */
     3: boolean;
-}
-
-/**
- * A Detector Actor. These are typically Solids.
- */
-export interface Detector extends Actor {
-    /**
-     * Whether this is currently allowed to activate.
-     */
-    active?: boolean;
-
-    /**
-     * A callback for when a Player activates this.
-     *
-     * @param actor   The Player activating other, or other if a self-activation.
-     * @param other   The Detector being activated by actor.
-     */
-    activate?(actor: Player | Detector, other?: Detector): void;
-
-    /**
-     * A cutscene to start when this is activated.
-     */
-    cutscene?: string;
-
-    /**
-     * A dialog to start when activating this Character. If an Array, it will be interpreted
-     * as a separate dialog for each cardinal direction of interaction.
-     */
-    dialog?: menugraphr.MenuDialogRaw;
-
-    /**
-     * Whether this shouldn't be killed after activation (by default, false).
-     */
-    keepAlive?: boolean;
-
-    /**
-     * Whether this requires a direction to be activated.
-     */
-    requireDirection?: Direction;
-
-    /**
-     * Whether a Player needs to be fully within this Detector to trigger it.
-     */
-    requireOverlap?: boolean;
-
-    /**
-     * A cutscene routine to start when this is activated.
-     */
-    routine?: string;
-
-    /**
-     * Whether this should deactivate itself after a first use (by default, false).
-     */
-    singleUse?: boolean;
-}
-
-/**
- * A Detector that adds an Area into the game.
- */
-export interface AreaSpawner extends Detector {
-    /**
-     * The Area to add into the game.
-     */
-    area: string;
-
-    /**
-     * The name of the Map to retrieve the Area within.
-     */
-    map: string;
-}
-
-/**
- * An Character's sight Detector.
- */
-export interface SightDetector extends Detector {
-    /**
-     * The Character using this Detector as its sight.
-     */
-    viewer: Character;
 }
 
 /**
