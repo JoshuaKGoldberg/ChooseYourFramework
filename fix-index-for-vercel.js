@@ -44,7 +44,7 @@ fs.writeFileSync(
         .replaceAll(">ChooseYourFramework<", ">Choose Your Framework<")
         // Add SEO/social meta tags
         .replace(
-            `<meta name="description" content=""/>`,
+            `<meta name="description" content="">`,
             `
 <meta name="description" content="Choosing a modern JavaScript UI framework, Pokemon-style." />
 
