@@ -8,6 +8,7 @@
         "url": "https://github.com/FullScreenShenanigans/ChooseYourFramework/issues"
     },
     "dependencies": {
+<<<<<<< Updated upstream
         "actorhittr": "^0.8.12",
         "areaspawnr": "^0.8.12",
         "classcyclr": "^0.8.12",
@@ -29,6 +30,28 @@
         "timehandlr": "^0.8.12",
         "touchpassr": "^0.8.12",
         "userwrappr": "^0.8.12"
+=======
+        "actorhittr": "^0.8.13",
+        "areaspawnr": "^0.8.13",
+        "classcyclr": "^0.8.13",
+        "devicelayr": "^0.8.13",
+        "eightbittr": "^0.8.13",
+        "fpsanalyzr": "^0.8.13",
+        "frametickr": "^0.8.13",
+        "groupholdr": "^0.8.13",
+        "inputwritr": "^0.8.13",
+        "mapscreatr": "^0.8.13",
+        "mapscreenr": "^0.8.13",
+        "menugraphr": "^0.8.13",
+        "numbermakr": "^0.8.13",
+        "objectmakr": "^0.8.13",
+        "pixeldrawr": "^0.8.13",
+        "pixelrendr": "^0.8.13",
+        "quadskeepr": "^0.8.13",
+        "stringfilr": "^0.8.13",
+        "timehandlr": "^0.8.13",
+        "userwrappr": "^0.8.13"
+>>>>>>> Stashed changes
     },
     "description": "Choosing a modern JavaScript UI framework, Pokemon-style.",
     "devDependencies": {
@@ -60,7 +83,7 @@
         "preact": "^10.10.2",
         "prettier": "^2.7.1",
         "requirejs": "^2.3.6",
-        "shenanigans-manager": "^0.8.12",
+        "shenanigans-manager": "^0.8.13",
         "sinon": "^14.0.0",
         "sinon-chai": "^3.7.0",
         "ts-loader": "^9.3.1",
@@ -143,5 +166,5 @@
         "web": true
     },
     "types": "./src/index.d.ts",
-    "version": "0.8.12"
+    "version": "0.8.13"
 }

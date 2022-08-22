@@ -1,51 +1,24 @@
-import { GameWindow } from "eightbittr";
 import { Aliases } from "inputwritr";
 import {
+    convertAliasToKeyCode,
+    convertKeyCodeToAlias,
     AbsoluteSizeSchema,
+    ButtonSchema,
     MultiSelectSchema,
-    RelativeSizeSchema,
     UserWrapprSettings,
     OptionType,
 } from "userwrappr";
 
 import { ChooseYourFramework } from "../ChooseYourFramework";
 
-/**
- * Global scope around a game, such as a DOM window.
- */
-export interface WrappingGameWindow extends GameWindow {
-    /**
-     * Game instance, once this has created it.
-     */
-    CYF?: ChooseYourFramework;
+declare global {
+    interface Window {
+        /**
+         * Game instance, once this has created it.
+         */
+        CYF: ChooseYourFramework;
+    }
 }
-
-export interface InterfaceSettingOverrides {
-    createGame?(size: AbsoluteSizeSchema): ChooseYourFramework;
-    gameWindow?: WrappingGameWindow;
-}
-
-/**
- * Sizes the game is allowed to be, keyed by friendly name.
- */
-export interface GameSizes {
-    [i: string]: RelativeSizeSchema;
-}
-
-/**
- * Friendly name of the default game size.
- */
-const defaultSize = "Large";
-
-/**
- * Sizes the game is allowed to be, keyed by friendly name.
- */
-const sizes: GameSizes = {
-    [defaultSize]: {
-        width: "100%",
-        height: 512,
-    },
-};
 
 /**
  * Keys that may be mapped to game inputs.
@@ -91,28 +64,46 @@ const keys: string[] = [
 
 /**
  * Creates settings for an IUserWrappr that will create and wrap a ChooseYourFramework instance.
- *
- * @param gameWindow   Global scope around the game interface, if not the global window.
  */
-export const createUserWrapprSettings = ({
-    createGame = (size: AbsoluteSizeSchema) => new ChooseYourFramework(size),
-    gameWindow = window,
-}: InterfaceSettingOverrides = {}): UserWrapprSettings => {
+export const createUserWrapprSettings = (): UserWrapprSettings => {
     /**
      * Game instance, once this has created it.
      */
     let game: ChooseYourFramework;
 
     return {
+        buttons: (
+            [
+                ["Bottom", ">", { bottom: "0", right: "75px", transform: "rotate(90deg)" }],
+                ["Left", ">", { bottom: "40px", right: "115px", transform: "rotate(180deg)" }],
+                ["Right", ">", { bottom: "40px", right: "35px" }],
+                ["Top", ">", { bottom: "80px", right: "75px", transform: "rotate(-90deg)" }],
+            ] as const
+        ).map(
+            ([label, title, position]): ButtonSchema => ({
+                events: {
+                    onClick: (event) => {
+                        game.inputWriter.callEvent("onkeydown", label.toLowerCase(), event);
+                    },
+                },
+                label,
+                position,
+                title,
+                variant: "square",
+            })
+        ),
         createContents: (size: AbsoluteSizeSchema) => {
-            gameWindow.CYF = game = createGame(size);
+            window.CYF = game = new ChooseYourFramework(size);
 
-            game.inputs.initializeGlobalPipes(gameWindow);
+            game.inputs.initializeGlobalPipes(window);
             game.gameplay.startOptions();
 
             return game.container;
         },
-        defaultSize: sizes[defaultSize],
+        defaultSize: {
+            width: "100%",
+            height: 512,
+        },
         menus: [
             {
                 options: ((controls): MultiSelectSchema[] =>
@@ -249,58 +240,4 @@ export const createUserWrapprSettings = ({
             },
         },
     };
-};
-
-// Plopping these down here till a version of UserWrappr is published that exports them...
-
-const aliasesToKeyCode: Record<string, number> = {
-    backspace: 8,
-    ctrl: 17,
-    down: 40,
-    enter: 13,
-    escape: 27,
-    left: 37,
-    right: 39,
-    shift: 16,
-    space: 32,
-    up: 38,
-};
-
-/**
- * @param alias   The human-readable String representing the input name,
- *                such as "a" or "left".
- * @param keyCode The alias of an input, typically a character code.
- */
-export const convertAliasToKeyCode = (alias: string) => {
-    return alias.length === 1 ? alias.charCodeAt(0) - 32 : aliasesToKeyCode[alias];
-};
-
-const keyCodesToAliases: Record<number, string> = {
-    8: "backspace",
-    13: "enter",
-    16: "shift",
-    17: "ctrl",
-    27: "escape",
-    32: "space",
-    37: "left",
-    38: "up",
-    39: "right",
-    40: "down",
-};
-
-/**
- * @param keyCode   The alias of an input, typically a character code.
- * @returns The human-readable String representing the input name,
- *          such as "a" or "left".
- */
-export const convertKeyCodeToAlias = (keyCode: number) => {
-    if (keyCode > 96 && keyCode < 105) {
-        return String.fromCharCode(keyCode - 48);
-    }
-
-    if (keyCode > 64 && keyCode < 97) {
-        return String.fromCharCode(keyCode);
-    }
-
-    return keyCodesToAliases[keyCode];
 };
