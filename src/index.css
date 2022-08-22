@@ -56,6 +56,7 @@ h1 {
 section#game {
     min-height: 515px;
     margin-bottom: 35px;
+    position: relative;
 }
 
 /* Text sections */

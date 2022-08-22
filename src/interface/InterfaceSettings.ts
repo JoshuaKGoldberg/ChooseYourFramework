@@ -72,26 +72,43 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
     let game: ChooseYourFramework;
 
     return {
-        buttons: (
-            [
-                ["Bottom", ">", { bottom: "0", right: "75px", transform: "rotate(90deg)" }],
-                ["Left", ">", { bottom: "40px", right: "115px", transform: "rotate(180deg)" }],
-                ["Right", ">", { bottom: "40px", right: "35px" }],
-                ["Top", ">", { bottom: "80px", right: "75px", transform: "rotate(-90deg)" }],
-            ] as const
-        ).map(
-            ([label, title, position]): ButtonSchema => ({
-                events: {
-                    onClick: (event) => {
-                        game.inputWriter.callEvent("onkeydown", label.toLowerCase(), event);
+        buttons: [
+            ...(
+                [
+                    ["Down", ">", { bottom: "25px", left: "75px", transform: "rotate(90deg)" }],
+                    ["Left", ">", { bottom: "65px", left: "35px", transform: "rotate(180deg)" }],
+                    ["Right", ">", { bottom: "65px", left: "115px" }],
+                    ["Up", ">", { bottom: "105px", left: "75px", transform: "rotate(-90deg)" }],
+                ] as const
+            ).map(
+                ([label, title, position]): ButtonSchema => ({
+                    events: {
+                        onMouseUp: (event) => {
+                            game.inputWriter.callEvent("onkeyup", label.toLowerCase(), event);
+                        },
+                        onTouchEnd: (event) => {
+                            game.inputWriter.callEvent("onkeyup", label.toLowerCase(), event);
+                        },
+                        onMouseDown: (event) => {
+                            game.inputWriter.callEvent("onkeydown", label.toLowerCase(), event);
+                        },
+                        onTouchStart: (event) => {
+                            game.inputWriter.callEvent("onkeydown", label.toLowerCase(), event);
+                        },
                     },
-                },
-                label,
-                position,
-                title,
-                variant: "square",
-            })
-        ),
+                    label,
+                    position,
+                    title,
+                    variant: "square",
+                })
+            ),
+            {
+                events: {},
+                position: { bottom: "60px", right: "70px" },
+                title: "A",
+                variant: "round",
+            },
+        ],
         createContents: (size: AbsoluteSizeSchema) => {
             window.CYF = game = new ChooseYourFramework(size);
 
@@ -104,7 +121,7 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
             width: "100%",
             height: 512,
         },
-        gameWindow: window,
+        gameWindow: { ontouchstart: true },
         menus: [
             {
                 options: ((controls): MultiSelectSchema[] =>
@@ -167,6 +184,31 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
             },
         ],
         styles: {
+            buttonsArea: {
+                left: "calc(50% - 384px)",
+                maxWidth: "768px",
+            },
+            button: {
+                background: "#353535",
+                border: "none",
+                color: "white",
+                cursor: "pointer",
+                fontFamily: "Press Start",
+                fontSize: "20px",
+                height: "35px",
+                opacity: "0.7",
+                width: "35px",
+            },
+            buttonSquare: {
+                padding: "4px 0 0 7px",
+            },
+            buttonRound: {
+                borderRadius: "100%",
+                fontSize: "21px",
+                height: "49px",
+                paddingRight: "3px",
+                width: "49px",
+            },
             input: {
                 fontFamily: "Press Start",
                 minWidth: "117px",
