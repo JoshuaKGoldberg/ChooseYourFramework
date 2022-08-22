@@ -104,6 +104,7 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
             width: "100%",
             height: 512,
         },
+        gameWindow: window,
         menus: [
             {
                 options: ((controls): MultiSelectSchema[] =>
