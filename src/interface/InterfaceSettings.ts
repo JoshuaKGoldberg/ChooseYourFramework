@@ -143,6 +143,38 @@ export const createUserWrapprSettings = ({
                     }))(["a", "b", "left", "right", "up", "down"]),
                 title: "Controls",
             },
+            {
+                options: [
+                    {
+                        action: () => {
+                            game.utilities.takeScreenshot(`FullScreenPokemon ${Date.now()}`);
+                        },
+                        title: "Save Screenshot",
+                        type: OptionType.Action,
+                    },
+                    {
+                        action: () => {
+                            // https://twitter.com/intent/tweet?
+                            // hashtags=demo&original_referer=https%3A%2F%2Fdeveloper.twitter.com%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&related=twitterapi%2Ctwitter&text=Hello%20world&url=https%3A%2F%2Fexample.com%2Ffoo&via=twitterdev
+                            const url = new URL("/intent/tweet", "https://www.twitter.com");
+                            url.searchParams.set(
+                                "hashtags",
+                                ["angular", "preact", "reactjs", "solidjs", "svelte", "vue"].join(
+                                    ","
+                                )
+                            );
+                            url.searchParams.set(
+                                "text",
+                                `I'm choosing my JavaScript UI framework over at https://chooseyouframework.dev. What's your starter?\n`
+                            );
+                            window.open(url.toString(), "_blank");
+                        },
+                        title: "Twitter",
+                        type: OptionType.Action,
+                    },
+                ],
+                title: "Share",
+            },
         ],
         styles: {
             input: {

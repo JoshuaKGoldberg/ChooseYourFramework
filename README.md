@@ -12,7 +12,7 @@ Choosing a modern JavaScript UI framework, Pokemon-style.
 
 ## Usage
 
-This is a hacked-together fork of [FullScreenShenanigans/FullScreenPokemon](https://github.com/FullScreenShenanigans/FullScreenPokemon), which is itself very old code on a hacked-together custom game engine and not production ready.
+This is a hacked-together fork of [FullScreenShenanigans/FullScreenPokemon](https://github.com/FullScreenShenanigans/FullScreenPokemon), which is itself very old code on the not-production-ready [EightBittr game engine](https://github.com/FullScreenShenanigans/EightBittr).
 No guarantees any of this stuff works.
 
 ## Development
