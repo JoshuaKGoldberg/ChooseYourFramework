@@ -56,6 +56,12 @@ h1 {
 section#game {
     min-height: 515px;
     margin-bottom: 35px;
+    transition: opacity 200ms;
+}
+
+section#game:empty {
+    background: url("./preview.png") center 46px no-repeat;
+    opacity: 0.5;
 }
 
 /* Text sections */
