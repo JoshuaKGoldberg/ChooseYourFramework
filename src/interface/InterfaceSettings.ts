@@ -186,7 +186,7 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
         styles: {
             buttonsArea: {
                 left: "calc(50% - 384px)",
-                maxWidth: "768px",
+                maxWidth: "min(768px, 100vh)",
             },
             button: {
                 background: "#353535",
