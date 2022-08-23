@@ -75,10 +75,10 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
         buttons: [
             ...(
                 [
+                    ["Up", ">", { bottom: "105px", left: "75px", transform: "rotate(-90deg)" }],
+                    ["Right", ">", { bottom: "65px", left: "115px" }],
                     ["Down", ">", { bottom: "25px", left: "75px", transform: "rotate(90deg)" }],
                     ["Left", ">", { bottom: "65px", left: "35px", transform: "rotate(180deg)" }],
-                    ["Right", ">", { bottom: "65px", left: "115px" }],
-                    ["Up", ">", { bottom: "105px", left: "75px", transform: "rotate(-90deg)" }],
                 ] as const
             ).map(
                 ([label, title, position]): ButtonSchema => ({
@@ -108,8 +108,18 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
                         game.inputWriter.callEvent("onkeydown", "a", event);
                     },
                 },
-                position: { bottom: "60px", right: "35px" },
+                position: { bottom: "80px", right: "35px" },
                 title: "A",
+                variant: "round",
+            },
+            {
+                events: {
+                    onClick: (event) => {
+                        game.inputWriter.callEvent("onkeydown", "b", event);
+                    },
+                },
+                position: { bottom: "40px", right: "70px" },
+                title: "B",
                 variant: "round",
             },
         ],
