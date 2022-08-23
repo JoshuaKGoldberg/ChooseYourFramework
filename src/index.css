@@ -59,6 +59,14 @@ section#game {
     position: relative;
 }
 
+/* Menu sections */
+
+@media (max-width: 350px) {
+    .buttons-area button {
+        margin-bottom: 50px;
+    }
+}
+
 /* Text sections */
 
 section.section-text {
