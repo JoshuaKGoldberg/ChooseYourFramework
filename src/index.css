@@ -56,6 +56,15 @@ h1 {
 section#game {
     min-height: 515px;
     margin-bottom: 35px;
+    position: relative;
+}
+
+/* Menu sections */
+
+@media (max-aspect-ratio: 2/1) {
+    .buttons-area button {
+        margin-bottom: 20px;
+    }
 }
 
 /* Text sections */

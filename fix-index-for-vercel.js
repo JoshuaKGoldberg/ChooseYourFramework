@@ -76,6 +76,20 @@ fs.writeFileSync(
         fs
             .readFileSync(indexCssPath)
             .toString()
+            // Fix the game being relative, for button displays
+            .replace(
+                `section#game {`,
+                `
+                @media (max-aspect-ratio: 2/1) {
+                    .buttons-area button {
+                        margin-bottom: 20px;
+                    }
+                }                
+                
+                section#game {
+    position:relative;
+`
+            )
             // Fix game height, pending shenanigans-manager settings
             .replace(`210px`, `515px`) +
             // Fix responsive header height, pending shenanigans-manager settings

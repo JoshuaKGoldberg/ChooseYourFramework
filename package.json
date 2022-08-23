@@ -8,27 +8,26 @@
         "url": "https://github.com/FullScreenShenanigans/ChooseYourFramework/issues"
     },
     "dependencies": {
-        "actorhittr": "^0.8.12",
-        "areaspawnr": "^0.8.12",
-        "classcyclr": "^0.8.12",
-        "devicelayr": "^0.8.12",
-        "eightbittr": "^0.8.12",
-        "fpsanalyzr": "^0.8.12",
-        "frametickr": "^0.8.12",
-        "groupholdr": "^0.8.12",
-        "inputwritr": "^0.8.12",
-        "mapscreatr": "^0.8.12",
-        "mapscreenr": "^0.8.12",
-        "menugraphr": "^0.8.12",
-        "numbermakr": "^0.8.12",
-        "objectmakr": "^0.8.12",
-        "pixeldrawr": "^0.8.12",
-        "pixelrendr": "^0.8.12",
-        "quadskeepr": "^0.8.12",
-        "stringfilr": "^0.8.12",
-        "timehandlr": "^0.8.12",
-        "touchpassr": "^0.8.12",
-        "userwrappr": "^0.8.12"
+        "actorhittr": "^0.8.15",
+        "areaspawnr": "^0.8.15",
+        "classcyclr": "^0.8.15",
+        "devicelayr": "^0.8.15",
+        "eightbittr": "^0.8.15",
+        "fpsanalyzr": "^0.8.15",
+        "frametickr": "^0.8.15",
+        "groupholdr": "^0.8.15",
+        "inputwritr": "^0.8.15",
+        "mapscreatr": "^0.8.15",
+        "mapscreenr": "^0.8.15",
+        "menugraphr": "^0.8.15",
+        "numbermakr": "^0.8.15",
+        "objectmakr": "^0.8.15",
+        "pixeldrawr": "^0.8.15",
+        "pixelrendr": "^0.8.15",
+        "quadskeepr": "^0.8.15",
+        "stringfilr": "^0.8.15",
+        "timehandlr": "^0.8.15",
+        "userwrappr": "^0.8.15"
     },
     "description": "Choosing a modern JavaScript UI framework, Pokemon-style.",
     "devDependencies": {
@@ -60,7 +59,7 @@
         "preact": "^10.10.2",
         "prettier": "^2.7.1",
         "requirejs": "^2.3.6",
-        "shenanigans-manager": "^0.8.12",
+        "shenanigans-manager": "^0.8.15",
         "sinon": "^14.0.0",
         "sinon-chai": "^3.7.0",
         "ts-loader": "^9.3.1",
@@ -143,5 +142,5 @@
         "web": true
     },
     "types": "./src/index.d.ts",
-    "version": "0.8.12"
+    "version": "0.8.15"
 }
