@@ -8,26 +8,26 @@
         "url": "https://github.com/FullScreenShenanigans/ChooseYourFramework/issues"
     },
     "dependencies": {
-        "actorhittr": "^0.8.13",
-        "areaspawnr": "^0.8.13",
-        "classcyclr": "^0.8.13",
-        "devicelayr": "^0.8.13",
-        "eightbittr": "^0.8.13",
-        "fpsanalyzr": "^0.8.13",
-        "frametickr": "^0.8.13",
-        "groupholdr": "^0.8.13",
-        "inputwritr": "^0.8.13",
-        "mapscreatr": "^0.8.13",
-        "mapscreenr": "^0.8.13",
-        "menugraphr": "^0.8.13",
-        "numbermakr": "^0.8.13",
-        "objectmakr": "^0.8.13",
-        "pixeldrawr": "^0.8.13",
-        "pixelrendr": "^0.8.13",
-        "quadskeepr": "^0.8.13",
-        "stringfilr": "^0.8.13",
-        "timehandlr": "^0.8.13",
-        "userwrappr": "^0.8.13"
+        "actorhittr": "^0.8.14",
+        "areaspawnr": "^0.8.14",
+        "classcyclr": "^0.8.14",
+        "devicelayr": "^0.8.14",
+        "eightbittr": "^0.8.14",
+        "fpsanalyzr": "^0.8.14",
+        "frametickr": "^0.8.14",
+        "groupholdr": "^0.8.14",
+        "inputwritr": "^0.8.14",
+        "mapscreatr": "^0.8.14",
+        "mapscreenr": "^0.8.14",
+        "menugraphr": "^0.8.14",
+        "numbermakr": "^0.8.14",
+        "objectmakr": "^0.8.14",
+        "pixeldrawr": "^0.8.14",
+        "pixelrendr": "^0.8.14",
+        "quadskeepr": "^0.8.14",
+        "stringfilr": "^0.8.14",
+        "timehandlr": "^0.8.14",
+        "userwrappr": "^0.8.14"
     },
     "description": "Choosing a modern JavaScript UI framework, Pokemon-style.",
     "devDependencies": {
@@ -59,7 +59,7 @@
         "preact": "^10.10.2",
         "prettier": "^2.7.1",
         "requirejs": "^2.3.6",
-        "shenanigans-manager": "^0.8.13",
+        "shenanigans-manager": "^0.8.14",
         "sinon": "^14.0.0",
         "sinon-chai": "^3.7.0",
         "ts-loader": "^9.3.1",
@@ -142,5 +142,5 @@
         "web": true
     },
     "types": "./src/index.d.ts",
-    "version": "0.8.13"
+    "version": "0.8.14"
 }
