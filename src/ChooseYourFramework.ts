@@ -2,6 +2,7 @@ import { factory, member } from "autofieldr";
 import { ClassCyclr } from "classcyclr";
 import { EightBittr, EightBittrSettings } from "eightbittr";
 import { GroupHoldr } from "groupholdr";
+import { ItemsHoldr } from "itemsholdr";
 import { MenuGraphr } from "menugraphr";
 import { NumberMakr } from "numbermakr";
 
@@ -49,6 +50,12 @@ export class ChooseYourFramework extends EightBittr {
      * Stores arrays of Actors by their group name.
      */
     public readonly groupHolder: GroupHoldr<ActorGroups>;
+
+    /**
+     * Cache-based wrapper around localStorage.
+     */
+    public readonly itemsHolder: ItemsHoldr<
+    Record<string, boolean>>;
 
     /**
      * A flexible container for map attributes and viewport.
