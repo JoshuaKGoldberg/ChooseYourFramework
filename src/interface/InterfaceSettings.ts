@@ -104,7 +104,7 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
             ),
             {
                 events: {},
-                position: { bottom: "60px", right: "70px" },
+                position: { bottom: "60px", right: "35px" },
                 title: "A",
                 variant: "round",
             },
