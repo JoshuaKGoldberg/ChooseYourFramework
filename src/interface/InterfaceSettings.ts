@@ -121,7 +121,7 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
             width: "100%",
             height: 512,
         },
-        gameWindow: { ontouchstart: true },
+        gameWindow: window,
         menus: [
             {
                 options: ((controls): MultiSelectSchema[] =>
@@ -186,7 +186,6 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
         styles: {
             buttonsArea: {
                 left: "calc(50% - 384px)",
-                maxWidth: "min(768px, 100vh)",
             },
             button: {
                 background: "#353535",
