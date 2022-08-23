@@ -186,6 +186,7 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
         styles: {
             buttonsArea: {
                 left: "calc(50% - 384px)",
+                position: "initial",
             },
             button: {
                 background: "#353535",
