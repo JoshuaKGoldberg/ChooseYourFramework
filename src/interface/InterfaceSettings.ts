@@ -103,7 +103,11 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
                 })
             ),
             {
-                events: {},
+                events: {
+                    onClick: (event) => {
+                        game.inputWriter.callEvent("onkeydown", "a", event);
+                    },
+                },
                 position: { bottom: "60px", right: "35px" },
                 title: "A",
                 variant: "round",

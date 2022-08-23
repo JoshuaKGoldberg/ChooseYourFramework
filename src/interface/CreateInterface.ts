@@ -25,8 +25,7 @@ For example:
 See https://github.com/JoshuaKGoldberg/ChooseYourFramework for the game's source.
 See https://github.com/FullScreenShenanigans/EightBittr for its underlying game engine.
 
-%cEnjoy! 💖
-`,
+%cEnjoy! 💖`,
         "font-weight: bold",
         "font-weight: normal",
         "font-weight: bold",
