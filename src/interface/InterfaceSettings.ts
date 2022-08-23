@@ -201,6 +201,7 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
                 fontSize: "20px",
                 height: "35px",
                 opacity: "0.7",
+                userSelect: "none",
                 width: "35px",
                 zIndex: "1",
             },
