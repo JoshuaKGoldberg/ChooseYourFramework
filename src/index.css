@@ -61,7 +61,7 @@ section#game {
 
 /* Menu sections */
 
-@media (max-width: 350px) {
+@media (max-aspect-ratio: 2/1) {
     .buttons-area button {
         margin-bottom: 20vh;
     }
