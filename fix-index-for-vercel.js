@@ -79,7 +79,14 @@ fs.writeFileSync(
             // Fix the game being relative, for button displays
             .replace(
                 `section#game {`,
-                `section#game {
+                `
+                @media (max-aspect-ratio: 2/1) {
+                    .buttons-area button {
+                        margin-bottom: 20px;
+                    }
+                }                
+                
+                section#game {
     position:relative;
 `
             )
