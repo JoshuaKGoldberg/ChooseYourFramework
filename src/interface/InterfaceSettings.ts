@@ -198,6 +198,7 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
                 height: "35px",
                 opacity: "0.7",
                 width: "35px",
+                zIndex: "1",
             },
             buttonSquare: {
                 padding: "4px 0 0 7px",
