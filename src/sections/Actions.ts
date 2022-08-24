@@ -58,8 +58,13 @@ export class Actions extends Section<ChooseYourFramework> {
                         {
                             text: "YES",
                             callback: () => {
-                                window.open(other.href);
                                 this.game.menuGrapher.registerB();
+                                this.game.itemsHolder.setItem(other.title, true);
+                                const libraries = ["AngularLibrary", "ReactLibrary", "SolidLibrary", "SvelteLibrary", "VueLibrary" ];
+                                if(libraries.every((library) => this.game.itemsHolder.getItem(library))) {
+                                    window.open("https://hi.joshuakgoldberg.com", "_blank")
+                                }
+                                window.open(other.href);
                             },
                         },
                         {
