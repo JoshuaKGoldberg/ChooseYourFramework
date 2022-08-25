@@ -100,6 +100,7 @@ fs.writeFileSync(
     position:relative;
 `
             )
+
             // Fix game height, pending shenanigans-manager settings
             .replace(`210px`, `515px`) +
             // Fix responsive header height, pending shenanigans-manager settings
@@ -113,6 +114,12 @@ fs.writeFileSync(
                 height: 1.5rem;
             }
         }
+` +
+            // Style the hr a bit
+            `
+        margin: 2rem auto;
+        max-width: 30rem;
+        border-color: #aaa;
         `
     )
 );
