@@ -117,9 +117,11 @@ fs.writeFileSync(
 ` +
             // Style the hr a bit
             `
-        margin: 2rem auto;
-        max-width: 30rem;
-        border-color: #aaa;
+        hr {
+            margin: 2rem auto;
+            max-width: 30rem;
+            border-color: #aaa;
+        }
         `
     )
 );
