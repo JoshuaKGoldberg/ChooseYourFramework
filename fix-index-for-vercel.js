@@ -66,13 +66,14 @@ fs.writeFileSync(
             "</body>",
             `<script async data-site="FLSZGVKG" src="https://cdn.usefathom.com/script.js"></script></body>`
         )
-).replace(
-    `You may <a class="link-github" href="http://www.github.com/FullScreenShenanigans/ChooseYourFramework">download the game for yourself</a> from GitHub, the location of ChooseYourFramework's open source project.`,
-    `This game is open source on GitHub at <a class="link-github" href="http://www.github.com/JoshuaKGoldberg/ChooseYourFramework">github.com/JoshuaKGoldberg/ChooseYourFramework</a>.
-    <br />
-    It's made by me, <a href="https://joshuakgoldberg.com">Josh Goldberg</a>, a full time open source maintainer in the TypeScript ecosystem.
-    If you like it or <a href="https://github.com/JoshuaKGoldberg#what-im-working-on">any of the other open source projects</a> I support, you can always <a href="https://github.com/sponsors/JoshuaKGoldberg/">sponsor me on GitHub sponsors</a>. 💖
-    `
+        .replace(
+            `You may <a class="link-github" href="http://www.github.com/FullScreenShenanigans/ChooseYourFramework">download the game for yourself</a> from GitHub, the location of ChooseYourFramework's open source project.`,
+            `This game is open source on GitHub at <a class="link-github" href="http://www.github.com/JoshuaKGoldberg/ChooseYourFramework">github.com/JoshuaKGoldberg/ChooseYourFramework</a>.
+            <br />
+            It's made by me, <a href="https://joshuakgoldberg.com">Josh Goldberg</a>, a full time open source maintainer in the TypeScript ecosystem.
+            If you like it or <a href="https://github.com/JoshuaKGoldberg#what-im-working-on">any of the other open source projects</a> I support, you can always <a href="https://github.com/sponsors/JoshuaKGoldberg/">sponsor me on GitHub sponsors</a>. 💖
+            `
+        )
 );
 
 // 2. Copy the accompanying src/preview.png over
