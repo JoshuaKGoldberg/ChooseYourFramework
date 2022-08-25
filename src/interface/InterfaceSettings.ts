@@ -180,9 +180,7 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
                             const url = new URL("/intent/tweet", "https://www.twitter.com");
                             url.searchParams.set(
                                 "hashtags",
-                                ["angular", "preact", "reactjs", "solidjs", "svelte", "vue"].join(
-                                    ","
-                                )
+                                ["angular", "reactjs", "solidjs", "svelte", "vue"].join(",")
                             );
                             url.searchParams.set(
                                 "text",
