@@ -71,7 +71,7 @@ fs.writeFileSync(
             `This game is open source on GitHub at <a class="link-github" href="http://www.github.com/JoshuaKGoldberg/ChooseYourFramework">github.com/JoshuaKGoldberg/ChooseYourFramework</a>.
             <br />
             It's made by me, <a href="https://joshuakgoldberg.com">Josh Goldberg</a>, a full time open source maintainer in the TypeScript ecosystem.
-            If you like it or <a href="https://github.com/JoshuaKGoldberg#what-im-working-on">any of the other open source projects</a> I support, you can always <a href="https://github.com/sponsors/JoshuaKGoldberg/">sponsor me on GitHub sponsors</a>. 💖
+            You can support it and <a href="https://github.com/JoshuaKGoldberg#what-im-working-on">my other open source projects</a> by <a href="https://github.com/sponsors/JoshuaKGoldberg/">sponsoring me on GitHub sponsors</a>. 💖
             `
         )
 );
