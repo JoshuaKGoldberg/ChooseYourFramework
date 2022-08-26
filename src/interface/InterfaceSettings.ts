@@ -184,7 +184,7 @@ export const createUserWrapprSettings = (): UserWrapprSettings => {
                             );
                             url.searchParams.set(
                                 "text",
-                                `I'm choosing my JavaScript UI framework over at https://chooseyouframework.dev. What's your starter?`
+                                `I'm choosing my JavaScript UI framework over at https://chooseryourjavascriptframework.dev. What's your starter?`
                             );
                             window.open(url.toString(), "_blank");
                         },
