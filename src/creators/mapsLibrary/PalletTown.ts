@@ -38,6 +38,11 @@ export const PalletTown: MapRaw = {
                 },
                 {
                     actor: "Oak",
+                    dialog: [
+                        "These frameworks are really the BACKBONE of web development!",
+                        "No matter what you choose, I'm sure your app is going to be a KNOCKOUT!",
+                        "These frameworks are sure to help you BOOTSTRAP your app!",
+                    ],
                     x: 160,
                     y: 32,
                 },
