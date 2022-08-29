@@ -122,7 +122,12 @@ fs.writeFileSync(
             max-width: 30rem;
             border-color: #aaa;
         }
-        `
+        ` +
+            // Bring in https://github.com/JoshuaKGoldberg/ChooseYourFramework/pull/31
+            `section#game {
+                -webkit-user-select: none;
+                user-select: none;
+            }`
     )
 );
 
