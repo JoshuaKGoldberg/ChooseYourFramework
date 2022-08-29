@@ -16,7 +16,7 @@ body {
 header {
     height: 49px;
     overflow: hidden;
-t    -ms-user-select: none;
+    -ms-user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
