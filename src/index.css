@@ -57,6 +57,8 @@ section#game {
     min-height: 515px;
     margin-bottom: 35px;
     position: relative;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 /* Menu sections */
