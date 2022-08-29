@@ -16,7 +16,7 @@ body {
 header {
     height: 49px;
     overflow: hidden;
-    -ms-user-select: none;
+t    -ms-user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
@@ -57,6 +57,9 @@ section#game {
     min-height: 515px;
     margin-bottom: 35px;
     position: relative;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
     user-select: none;
 }
 
