@@ -7,3 +7,6 @@ dist/
 lib/
 node_modules/
 test/
+*~
+*.swp
+*.swo
